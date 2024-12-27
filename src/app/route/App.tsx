@@ -14,7 +14,7 @@ function App() {
         <Route index element={<MeetingProgram />} />
         <Route path="admin" element={<AdminPanel />} />
         <Route path="admin/meeting" element={<AdminMeeting />} />
-        <Route path="admin/meeting/:id" element={<AdminMeeting />} />
+        <Route path="admin/meeting/:id" element={<AdminMeeting edit />} />
         <Route path="admin/ministry-meeting" element={<AdminMinistryMeetings />} />
         <Route path="admin/ministry-meeting/:id" element={<AdminMinistryMeetings edit />} />
         <Route path="meeting-service" element={<MeetingService />} />

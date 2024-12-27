@@ -52,6 +52,7 @@ export async function getMeeting({ id }: GetMeetingParams) {
 export interface CreateMeetingParams {
   date: string
   leading: string
+  speaker?: string
   speech_title?: string
   lead_wt?: string
   reader?: string
@@ -74,6 +75,7 @@ export async function createMeeting({
   service_id,
   special_program,
   speech_title,
+  speaker,
 }: CreateMeetingParams) {
   const { url, method, schema } = endpoints.createMeeting
 
@@ -91,6 +93,7 @@ export async function createMeeting({
       service_id,
       special_program,
       speech_title,
+      speaker,
     },
     schema,
   )
@@ -111,6 +114,7 @@ export interface UpdateMeetingParams {
   service_id?: number
   address_id?: number
   ministry_meeting_id?: number
+  speaker?: string
 }
 export async function updateMeeting({
   id,
@@ -125,6 +129,7 @@ export async function updateMeeting({
   special_program,
   speech_title,
   status_id,
+  speaker,
 }: UpdateMeetingParams) {
   const { url, method, schema } = endpoints.updateMeeting
 
@@ -142,6 +147,7 @@ export async function updateMeeting({
       special_program,
       speech_title,
       status_id,
+      speaker,
     },
     schema,
   )

@@ -4,6 +4,7 @@ import type { meetingSchema } from './types'
 import { objectPick } from '@antfu/utils'
 import { normalizeAddress } from '../address'
 import { normalizeMinistryMeeting } from '../ministry-meeting'
+import { normalizeService } from '../service'
 
 export function normalizeMeeting(
   meeting: z.infer<typeof meetingSchema>,
@@ -15,6 +16,8 @@ export function normalizeMeeting(
     special_program,
     speech_title,
     ministry_meeting,
+    service_id,
+    service,
   } = meeting
 
   return {
@@ -22,11 +25,13 @@ export function normalizeMeeting(
       meeting,
       ['id', 'leading', 'reader', 'speaker', 'date', 'status'],
     ),
-    ministryMeeting: normalizeMinistryMeeting(ministry_meeting),
+    ministryMeeting: ministry_meeting ? normalizeMinistryMeeting(ministry_meeting) : null,
     address: normalizeAddress(address),
     closingPrayer: closing_prayer,
     leadWt: lead_wt,
     specialProgram: special_program,
     speechTitle: speech_title,
+    serviceId: service_id,
+    service: service ? normalizeService(service) : null,
   }
 }

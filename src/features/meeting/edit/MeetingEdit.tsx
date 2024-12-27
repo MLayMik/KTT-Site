@@ -1,24 +1,30 @@
 import { AddressCreate } from '@/features/address/create'
 import { useAddresses, useDeleteAddress } from '@/shared/api/address'
-import { useCreateMeeting } from '@/shared/api/meetings'
-import { useCreateService } from '@/shared/api/service'
+import { useMeetingById, useUpdateMeeting } from '@/shared/api/meetings'
+import { useUpdateService } from '@/shared/api/service'
 import { cn } from '@/shared/lib/styles'
 import { parseDateSQL } from '@/shared/lib/utils'
 import { DataPicker } from '@/shared/ui/DataPicker'
 import { KInput } from '@/shared/ui/KInput'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { getLocalTimeZone, toCalendarDate, today } from '@internationalized/date'
+import { getLocalTimeZone, parseDate, toCalendarDate, today } from '@internationalized/date'
 import { Dialog, RadioCards, Separator } from '@radix-ui/themes'
 import { Plus, X } from 'lucide-react'
+import { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
+import { useParams } from 'react-router-dom'
 import { meetingStatuses } from '../config'
 import { meetingSchema, type MeetingSchemaValues } from './lib'
 
-export function MeetingCreate() {
+export function MeetingEdit() {
+  const params = useParams()
+
+  const { data: meeting } = useMeetingById({ id: +params.id! || 0 })
+
   const { data: addresses } = useAddresses()
   const { mutate: deleteAddress } = useDeleteAddress()
-  const { mutate: createMeeting } = useCreateMeeting()
-  const { mutate: createService } = useCreateService()
+  const { mutate: updateMeeting } = useUpdateMeeting()
+  const { mutate: updateService } = useUpdateService()
 
   const {
     control,
@@ -67,11 +73,19 @@ export function MeetingCreate() {
       voiceover_zoom,
     } = values
 
-    createService(
-      { date: parseDateSQL(time, date), administrator, microphones, scene, voiceover_zoom },
+    updateService(
+      {
+        id: meeting!.serviceId!,
+        date: parseDateSQL(time, date),
+        administrator,
+        microphones,
+        scene,
+        voiceover_zoom,
+      },
       {
         onSuccess({ data }) {
-          createMeeting({
+          updateMeeting({
+            id: meeting!.id,
             date: parseDateSQL(time, date),
             leading,
             status_id,
@@ -89,6 +103,33 @@ export function MeetingCreate() {
       },
     )
   }
+
+  useEffect(() => {
+    if (meeting) {
+      setValue(
+        'time',
+        meeting.date.toISOString().slice(11, 16),
+      )
+      setValue(
+        'date',
+        parseDate(meeting.date.toISOString().split('T')[0]),
+      )
+      setValue('address_id', meeting.address?.id)
+      setValue('administrator', meeting.service?.administrator ?? undefined)
+      setValue('closing_prayer', meeting.closingPrayer ?? undefined)
+      setValue('lead_wt', meeting.leadWt ?? undefined)
+      setValue('leading', meeting.leading ?? undefined)
+      setValue('microphones', meeting.service?.microphones ?? undefined)
+      setValue('ministry_meeting_id', meeting.ministryMeeting?.id ?? undefined)
+      setValue('reader', meeting.reader ?? undefined)
+      setValue('scene', meeting.service?.scene ?? undefined)
+      setValue('special_program', meeting.specialProgram ?? undefined)
+      setValue('speech_title', meeting.speechTitle ?? undefined)
+      setValue('status_id', meeting.status!.id ?? undefined)
+      setValue('voiceover_zoom', meeting.service?.voiceoverZoom ?? undefined)
+      setValue('speaker', meeting.speaker ?? undefined)
+    }
+  }, [meeting])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="sm:space-y-6">
