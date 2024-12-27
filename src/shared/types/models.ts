@@ -24,10 +24,10 @@ export interface FriendlyMeeting {
 export interface MinistryMeeting {
   id: number
   date: Date
-  leader: string | null
-  address: string | null
-  addressUrl: string | null
-  friendlyMeeting: FriendlyMeeting | null
+  leader?: string | null
+  address?: string | null
+  addressUrl?: string | null
+  friendlyMeeting?: FriendlyMeeting | null
 }
 
 export interface MeetingStatus {
@@ -39,15 +39,17 @@ export interface Meeting {
   id: number
   date: Date
   leading: string
-  speaker: string | null
-  speechTitle: string | null
-  leadWt: string | null
-  reader: string | null
-  closingPrayer: string
-  specialProgram: string | null
-  address: Address
-  status: MeetingStatus
-  ministryMeeting: MinistryMeeting
+  speaker?: string | null
+  speechTitle?: string | null
+  leadWt?: string | null
+  reader?: string | null
+  closingPrayer?: string | null
+  specialProgram?: string | null
+  address?: Address | null
+  status?: MeetingStatus
+  ministryMeeting?: MinistryMeeting | null
+  serviceId?: number | null
+  service?: Services | null
 }
 
 export interface DataResponse<T> {
