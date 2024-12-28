@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { getLocalTimeZone, toCalendarDate, today } from '@internationalized/date'
 import { useMemo, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import {
   ministryMeetingSchema,
   type MinistryMeetingValues,
@@ -17,6 +18,8 @@ import {
 export function MinistryMeetingCreate() {
   const { data: response, mutate: createMeeting } = useCreateMinistryMeeting()
   const { mutate: createFriendly } = useCreateFriendlyMeeting()
+
+  const navigate = useNavigate()
 
   const [withFriendlyMeeting, setWithFriendlyMeeting] = useState(false)
 
@@ -84,6 +87,7 @@ export function MinistryMeetingCreate() {
               address_url: addressUrl,
             })
           },
+
         },
       )
     }
@@ -97,6 +101,7 @@ export function MinistryMeetingCreate() {
         address_url: addressUrl,
       })
     }
+    navigate(-1)
   }
 
   return (

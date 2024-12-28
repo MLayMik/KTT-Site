@@ -9,8 +9,9 @@ import { KInput } from '@/shared/ui/KInput'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { getLocalTimeZone, toCalendarDate, today } from '@internationalized/date'
 import { Dialog, RadioCards, Separator } from '@radix-ui/themes'
-import { Plus, X } from 'lucide-react'
+import { CornerUpLeft, Plus, X } from 'lucide-react'
 import { Controller, useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { meetingStatuses } from '../config'
 import { meetingSchema, type MeetingSchemaValues } from './lib'
 
@@ -19,6 +20,8 @@ export function MeetingCreate() {
   const { mutate: deleteAddress } = useDeleteAddress()
   const { mutate: createMeeting } = useCreateMeeting()
   const { mutate: createService } = useCreateService()
+
+  const navigate = useNavigate()
 
   const {
     control,
@@ -31,7 +34,7 @@ export function MeetingCreate() {
       administrator: undefined,
       closing_prayer: undefined,
       date: today(getLocalTimeZone()),
-      time: '09:00',
+      time: '10:00',
       lead_wt: undefined,
       leading: '',
       microphones: undefined,
@@ -85,6 +88,7 @@ export function MeetingCreate() {
             special_program,
             speech_title,
           })
+          navigate(-1)
         },
       },
     )
@@ -92,6 +96,7 @@ export function MeetingCreate() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="sm:space-y-6">
+      <CornerUpLeft />
       <h1 className="mb-2 text-xl font-semibold">Редактирование Встречи</h1>
       <div className="flex justify-between gap-10">
         <Controller

@@ -12,7 +12,7 @@ import { Dialog, RadioCards, Separator } from '@radix-ui/themes'
 import { Plus, X } from 'lucide-react'
 import { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { meetingStatuses } from '../config'
 import { meetingSchema, type MeetingSchemaValues } from './lib'
 
@@ -25,6 +25,8 @@ export function MeetingEdit() {
   const { mutate: deleteAddress } = useDeleteAddress()
   const { mutate: updateMeeting } = useUpdateMeeting()
   const { mutate: updateService } = useUpdateService()
+
+  const navigate = useNavigate()
 
   const {
     control,
@@ -84,21 +86,24 @@ export function MeetingEdit() {
       },
       {
         onSuccess({ data }) {
-          updateMeeting({
-            id: meeting!.id,
-            date: parseDateSQL(time, date),
-            leading,
-            status_id,
-            address_id,
-            closing_prayer,
-            lead_wt,
-            ministry_meeting_id,
-            reader,
-            service_id: data?.id,
-            speaker,
-            special_program,
-            speech_title,
-          })
+          updateMeeting(
+            {
+              id: meeting!.id,
+              date: parseDateSQL(time, date),
+              leading,
+              status_id,
+              address_id,
+              closing_prayer,
+              lead_wt,
+              ministry_meeting_id,
+              reader,
+              service_id: data?.id,
+              speaker,
+              special_program,
+              speech_title,
+            },
+          )
+          navigate(-1)
         },
       },
     )
