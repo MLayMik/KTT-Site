@@ -6,6 +6,7 @@ import { KBackHistory } from '@/shared/ui/KBackHistory'
 import { KInput } from '@/shared/ui/KInput'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { getLocalTimeZone, toCalendarDate, today } from '@internationalized/date'
+import { CheckboxCards } from '@radix-ui/themes'
 import { useMemo, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
@@ -187,23 +188,13 @@ export function MinistryMeetingCreate() {
           />
         )}
       />
-      <div className="flex items-center gap-2">
-        <input
-          type="checkbox"
-          checked={withFriendlyMeeting}
-          onChange={e => setWithFriendlyMeeting(e.target.checked)}
-          name="friendlyMeeting"
-          id="friendlyMeeting"
-          className={`
-            h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600
-
-            dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600
-
-            focus:ring-2 focus:ring-blue-500
-          `}
-        />
-        <label htmlFor="friendlyMeeting">Создать с дружеской встречей</label>
-      </div>
+      <CheckboxCards.Root columns={{ initial: '1', sm: '3  ' }}>
+        <CheckboxCards.Item onClick={() => setWithFriendlyMeeting(!withFriendlyMeeting)} value="1">
+          <p>
+            Дружеская встреча
+          </p>
+        </CheckboxCards.Item>
+      </CheckboxCards.Root> 
       {withFriendlyMeeting && (
         <div className="space-y-6">
           <div className="flex justify-between gap-10">
