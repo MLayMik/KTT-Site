@@ -5,11 +5,12 @@ import { useCreateService } from '@/shared/api/service'
 import { cn } from '@/shared/lib/styles'
 import { parseDateSQL } from '@/shared/lib/utils'
 import { DataPicker } from '@/shared/ui/DataPicker'
+import { KBackHistory } from '@/shared/ui/KBackHistory'
 import { KInput } from '@/shared/ui/KInput'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { getLocalTimeZone, toCalendarDate, today } from '@internationalized/date'
 import { Dialog, RadioCards, Separator } from '@radix-ui/themes'
-import { CornerUpLeft, Plus, X } from 'lucide-react'
+import { Plus, X } from 'lucide-react'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { meetingStatuses } from '../config'
@@ -96,8 +97,10 @@ export function MeetingCreate() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="sm:space-y-6">
-      <CornerUpLeft />
-      <h1 className="mb-2 text-xl font-semibold">Редактирование Встречи</h1>
+      <div className="flex">
+        <KBackHistory />
+        <p className="flex-grow text-center text-xl font-semibold">Создание Встречи</p>
+      </div>
       <div className="flex justify-between gap-10">
         <Controller
           name="date"

@@ -2,6 +2,7 @@ import { useCreateFriendlyMeeting, useDeleteFriendlyMeeting, useUpdateFriendlyMe
 import { useMinistryMeeting, useUpdateMinistryMeeting } from '@/shared/api/ministry-meeting'
 import { parseDateSQL } from '@/shared/lib/utils'
 import { DataPicker } from '@/shared/ui/DataPicker'
+import { KBackHistory } from '@/shared/ui/KBackHistory'
 import { KInput } from '@/shared/ui/KInput'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { getLocalTimeZone, parseDate, toCalendarDate, today } from '@internationalized/date'
@@ -178,6 +179,10 @@ export function MinistryMeetingEdit() {
 
     return (
       <form onSubmit={handleSubmit(onSubmit)} className="sm:space-y-6">
+        <div className="flex">
+          <KBackHistory />
+          <p className="flex-grow text-center text-xl font-semibold">Редактирование Встречи Для Проповеди</p>
+        </div>
         <div className="flex justify-between gap-10">
           <Controller
             name="date"

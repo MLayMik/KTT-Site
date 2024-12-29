@@ -5,6 +5,7 @@ import { useUpdateService } from '@/shared/api/service'
 import { cn } from '@/shared/lib/styles'
 import { parseDateSQL } from '@/shared/lib/utils'
 import { DataPicker } from '@/shared/ui/DataPicker'
+import { KBackHistory } from '@/shared/ui/KBackHistory'
 import { KInput } from '@/shared/ui/KInput'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { getLocalTimeZone, parseDate, toCalendarDate, today } from '@internationalized/date'
@@ -138,7 +139,10 @@ export function MeetingEdit() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="sm:space-y-6">
-      <h1 className="mb-2 text-xl font-semibold">Редактирование Встречи</h1>
+      <div className="flex">
+        <KBackHistory />
+        <p className="flex-grow text-center text-xl font-semibold">Редактирование Встречи</p>
+      </div>
       <div className="flex justify-between gap-10">
         <Controller
           name="date"
