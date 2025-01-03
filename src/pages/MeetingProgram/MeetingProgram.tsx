@@ -214,7 +214,7 @@ export function MeetingProgram() {
               >
                 Ведущий
               </p>
-              <p>{currentProgram.ministryMeeting.leader}</p>
+              <p>{currentProgram.ministryMeeting.leader || null}</p>
             </div>
           </div>
           {currentProgram.ministryMeeting.friendlyMeeting && (
