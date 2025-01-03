@@ -78,7 +78,7 @@ export function MeetingProgram() {
               .padStart(2, '0')}`}
             {' '}
             (
-            {currentProgram.address.address}
+            {currentProgram.address?.address}
             )
           </p>
           <button
