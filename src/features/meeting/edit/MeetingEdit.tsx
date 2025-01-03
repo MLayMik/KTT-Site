@@ -1,6 +1,7 @@
 import { AddressCreate } from '@/features/address/create'
 import { useAddresses, useDeleteAddress } from '@/shared/api/address'
 import { useMeetingById, useUpdateMeeting } from '@/shared/api/meetings'
+import { useMinistryMeetings } from '@/shared/api/ministry-meeting'
 import { useUpdateService } from '@/shared/api/service'
 import { cn } from '@/shared/lib/styles'
 import { parseDateSQL } from '@/shared/lib/utils'
@@ -9,9 +10,9 @@ import { KBackHistory } from '@/shared/ui/KBackHistory'
 import { KInput } from '@/shared/ui/KInput'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { getLocalTimeZone, parseDate, toCalendarDate, today } from '@internationalized/date'
-import { Dialog, RadioCards, Separator } from '@radix-ui/themes'
+import { Checkbox, Dialog, Flex, RadioCards, Separator } from '@radix-ui/themes'
 import { Plus, X } from 'lucide-react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
 import { meetingStatuses } from '../config'
@@ -21,11 +22,13 @@ export function MeetingEdit() {
   const params = useParams()
 
   const { data: meeting } = useMeetingById({ id: +params.id! || 0 })
-
   const { data: addresses } = useAddresses()
+  const { data: ministryMeetings } = useMinistryMeetings()
   const { mutate: deleteAddress } = useDeleteAddress()
   const { mutate: updateMeeting } = useUpdateMeeting()
   const { mutate: updateService } = useUpdateService()
+
+  const [withMinistryMeeting, setWithMinistryMeeting] = useState(false)
 
   const navigate = useNavigate()
 
@@ -96,7 +99,9 @@ export function MeetingEdit() {
               address_id,
               closing_prayer,
               lead_wt,
-              ministry_meeting_id,
+              ministry_meeting_id: withMinistryMeeting
+                ? Number(ministry_meeting_id)
+                : undefined,
               reader,
               service_id: data?.id,
               speaker,
@@ -136,6 +141,14 @@ export function MeetingEdit() {
       setValue('speaker', meeting.speaker ?? undefined)
     }
   }, [meeting])
+
+  useEffect(
+    () => {
+      if (meeting?.ministryMeeting)
+        setWithMinistryMeeting(true)
+    },
+    [meeting],
+  )
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="sm:space-y-6">
@@ -451,6 +464,57 @@ export function MeetingEdit() {
           />
         )}
       />
+
+      <Separator className="h-0.5 w-full" />
+
+      <Flex align="center" gap="2">
+        <Checkbox
+          checked={withMinistryMeeting}
+          onCheckedChange={e => setWithMinistryMeeting(e as boolean)}
+        />
+        ВПС
+      </Flex>
+
+      {withMinistryMeeting && (
+        <Controller
+          name="ministry_meeting_id"
+          control={control}
+          render={({ field }) => (
+            <RadioCards.Root columns={{ initial: '2', sm: '4' }}>
+              {ministryMeetings?.map(meeting => (
+                <button
+                  type="button"
+                  onClick={() => setValue('ministry_meeting_id', meeting.id)}
+                  className={cn(
+                    `
+                      relative h-20 rounded-md border bg-white px-4 py-2 text-start text-sm
+                      transition-all duration-200 ease-in-out
+
+                      dark:border-gray-600 dark:bg-transparent
+
+                      hover:drop-shadow-mainshadow
+                    `,
+                    field.value === meeting.id
+                      ? `
+                        scale-100 border-blue-500 shadow-md
+
+                        dark:border-blue-500 dark:bg-dark-bg
+
+                        sm:scale-105
+                      `
+                      : 'hover:shadow-sm',
+                  )}
+                  key={meeting.id}
+                >
+                  <p>{meeting.leader}</p>
+                  <p>{meeting.date.toLocaleString('ru', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                </button>
+              ))}
+              {errors.status_id && <p className="text-red-600">{errors.status_id.message}</p>}
+            </RadioCards.Root>
+          )}
+        />
+      )}
 
       <button
         type="submit"
