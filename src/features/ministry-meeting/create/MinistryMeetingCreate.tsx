@@ -6,7 +6,7 @@ import { KBackHistory } from '@/shared/ui/KBackHistory'
 import { KInput } from '@/shared/ui/KInput'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { getLocalTimeZone, toCalendarDate, today } from '@internationalized/date'
-import { CheckboxCards } from '@radix-ui/themes'
+import { Checkbox, Flex } from '@radix-ui/themes'
 import { useMemo, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
@@ -188,13 +188,15 @@ export function MinistryMeetingCreate() {
           />
         )}
       />
-      <CheckboxCards.Root columns={{ initial: '1', sm: '3  ' }}>
-        <CheckboxCards.Item onClick={() => setWithFriendlyMeeting(!withFriendlyMeeting)} value="1">
-          <p>
-            Дружеская встреча
-          </p>
-        </CheckboxCards.Item>
-      </CheckboxCards.Root> 
+
+      <Flex align="center" gap="2">
+        <Checkbox
+          checked={withFriendlyMeeting}
+          onCheckedChange={e => setWithFriendlyMeeting(e as boolean)}
+        />
+        Дружеская встреча
+      </Flex>
+
       {withFriendlyMeeting && (
         <div className="space-y-6">
           <div className="flex justify-between gap-10">
