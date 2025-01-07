@@ -112,6 +112,12 @@ export function MeetingCreate() {
     )
   }
 
+  useEffect(() => {
+    if (addresses) {
+      setValue('address_id', addresses[0].id)
+    }
+  }, [addresses])
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="sm:space-y-6">
       <div className="flex">

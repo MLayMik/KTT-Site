@@ -6,10 +6,10 @@ export interface Address {
 export interface Services {
   id: number
   date: Date
-  scene: string | null
-  microphones: string | null
-  voiceoverZoom: string | null
-  administrator: string | null
+  scene?: string | null
+  microphones?: string | null
+  voiceoverZoom?: string | null
+  administrator?: string | null
 }
 
 export interface FriendlyMeeting {
