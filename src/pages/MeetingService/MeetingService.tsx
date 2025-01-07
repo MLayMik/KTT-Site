@@ -1,26 +1,31 @@
 import { useServices } from '@/shared/api/service'
+import { KLoader } from '@/shared/ui/KLoader'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
 export function MeetingService() {
-  const { data } = useServices()
+  const { data, isLoading } = useServices()
   const [index, setIndex] = useState(0)
 
   const currentService = useMemo(() => {
-    if (data)
+    if (data && data.length > 0 && index >= 0 && index < data.length)
       return data[index]
     return null
   }, [data, index])
 
+  if (isLoading) {
+    return <KLoader />
+  }
+
   if (currentService === null) {
     return (
       <div className={`
-        text-center text-gray-600
+        p-2 text-center text-gray-600
 
         dark:text-gray-300
       `}
       >
-        no service
+        Нет собрания
       </div>
     )
   }
@@ -49,11 +54,13 @@ export function MeetingService() {
             />
           </button>
           <p className="px-4">
-            {currentService.date.toLocaleString('ru', {
-              day: 'numeric',
-              month: 'numeric',
-              year: 'numeric',
-            })}
+            {currentService
+              ?.date
+              ?.toLocaleString('ru', {
+                day: 'numeric',
+                month: 'numeric',
+                year: 'numeric',
+              })}
           </p>
           <button
             disabled={index === data!.length - 1}

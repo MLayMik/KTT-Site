@@ -23,14 +23,24 @@ export function MeetingEdit() {
 
   const { data: meeting } = useMeetingById({ id: +params.id! || 0 })
   const { data: addresses } = useAddresses()
-  const { data: ministryMeetings } = useMinistryMeetings()
+  const { data: ministryMeetings, isLoading: isLoadingMinistry } = useMinistryMeetings()
   const { mutate: deleteAddress } = useDeleteAddress()
   const { mutate: updateMeeting } = useUpdateMeeting()
   const { mutate: updateService } = useUpdateService()
 
   const [withMinistryMeeting, setWithMinistryMeeting] = useState(false)
+  const [isCheckDisabled, setIsCheckDisabled] = useState(true)
 
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (isLoadingMinistry) {
+      setIsCheckDisabled(true)
+    }
+    else if (ministryMeetings && ministryMeetings.length) {
+      setIsCheckDisabled(false)
+    }
+  }, [ministryMeetings, isLoadingMinistry])
 
   const {
     control,
@@ -470,6 +480,7 @@ export function MeetingEdit() {
       <Flex align="center" gap="2">
         <Checkbox
           checked={withMinistryMeeting}
+          disabled={isCheckDisabled}
           onCheckedChange={e => setWithMinistryMeeting(e as boolean)}
         />
         ВПС

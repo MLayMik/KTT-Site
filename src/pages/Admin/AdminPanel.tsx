@@ -3,21 +3,22 @@ import { useDeleteMeeting, useMeetings } from '@/shared/api/meetings'
 import { useDeleteMinistryMeeting, useMinistryMeetings } from '@/shared/api/ministry-meeting'
 import { useDeleteService } from '@/shared/api/service'
 import { cn } from '@/shared/lib/styles'
+import { KLoader } from '@/shared/ui/KLoader'
 import { RadioCards, Separator } from '@radix-ui/themes'
 import { Plus, X } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
 export function AdminPanel() {
-  const { data: meetingData, isLoading } = useMeetings()
-  const { data: ministryData } = useMinistryMeetings()
+  const { data: meetingData, isLoading: loadingMeeting } = useMeetings()
+  const { data: ministryData, isLoading: loadingMinistry } = useMinistryMeetings()
   const { mutate: deleteMeeting } = useDeleteMeeting()
   const { mutate: deleteService } = useDeleteService()
   const { mutate: deleteMinistryMeeting } = useDeleteMinistryMeeting()
   const { mutate: deleteFriendly } = useDeleteFriendlyMeeting()
 
   const navigate = useNavigate()
-  if (isLoading)
-    return <div>Loading...</div>
+  if (loadingMeeting && loadingMinistry)
+    return <KLoader />
 
   return (
     <div className="p-6">

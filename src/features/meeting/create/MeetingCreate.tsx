@@ -12,7 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { getLocalTimeZone, toCalendarDate, today } from '@internationalized/date'
 import { Checkbox, Dialog, Flex, RadioCards, Separator } from '@radix-ui/themes'
 import { Plus, X } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { meetingStatuses } from '../config'
@@ -20,14 +20,24 @@ import { meetingSchema, type MeetingSchemaValues } from './lib'
 
 export function MeetingCreate() {
   const { data: addresses } = useAddresses()
-  const { data: ministryMeetings } = useMinistryMeetings()
+  const { data: ministryMeetings, isLoading: isLoadingMinistry } = useMinistryMeetings()
   const { mutate: deleteAddress } = useDeleteAddress()
   const { mutate: createMeeting } = useCreateMeeting()
   const { mutate: createService } = useCreateService()
 
   const [withMinistryMeeting, setWithMinistryMeeting] = useState(false)
+  const [isCheckDisabled, setIsCheckDisabled] = useState(true)
 
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (isLoadingMinistry) {
+      setIsCheckDisabled(true)
+    }
+    else if (ministryMeetings && ministryMeetings.length) {
+      setIsCheckDisabled(false)
+    }
+  }, [ministryMeetings, isLoadingMinistry])
 
   const {
     control,
@@ -421,8 +431,10 @@ export function MeetingCreate() {
       <Separator className="h-0.5 w-full" />
 
       <Flex align="center" gap="2">
+
         <Checkbox
           checked={withMinistryMeeting}
+          disabled={isCheckDisabled}
           onCheckedChange={e => setWithMinistryMeeting(e as boolean)}
         />
         ВПС

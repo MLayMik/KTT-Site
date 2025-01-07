@@ -1,10 +1,11 @@
 import { useMeetings } from '@/shared/api/meetings/query'
+import { KLoader } from '@/shared/ui/KLoader'
 import { Separator } from '@radix-ui/themes'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
 export function MeetingProgram() {
-  const { data } = useMeetings()
+  const { data, isLoading } = useMeetings()
 
   const [index, setIndex] = useState(0)
 
@@ -14,10 +15,14 @@ export function MeetingProgram() {
     return null
   }, [data, index])
 
+  if (isLoading) {
+    return <KLoader />
+  }
+
   if (currentProgram === null) {
     return (
       <div className={`
-        text-gray-800
+        p-2 text-center text-gray-800
 
         dark:text-gray-300
       `}
@@ -138,7 +143,7 @@ export function MeetingProgram() {
             md:bg-white
           `}
         >
-          <p>Публичная речь:</p>
+          <p>Публичная речь</p>
           <p className={`
             mt-2 font-bold text-slate-900
 
@@ -214,7 +219,7 @@ export function MeetingProgram() {
               >
                 Ведущий
               </p>
-              <p>{currentProgram.ministryMeeting.leader || null}</p>
+              <p>{currentProgram.ministryMeeting.leader ?? null}</p>
             </div>
           </div>
           {currentProgram.ministryMeeting.friendlyMeeting && (
