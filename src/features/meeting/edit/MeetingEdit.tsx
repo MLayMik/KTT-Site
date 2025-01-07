@@ -118,8 +118,10 @@ export function MeetingEdit() {
               special_program,
               speech_title,
             },
+            { onSuccess() {
+              navigate('/admin')
+            } },
           )
-          navigate(-1)
         },
       },
     )

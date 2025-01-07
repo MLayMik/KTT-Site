@@ -138,10 +138,10 @@ export function MinistryMeetingEdit() {
           leader,
           address,
           address_url: addressUrl,
-        })
+        }, { onSuccess() {
+          navigate('/admin')
+        } })
       }
-
-      navigate(-1)
     }
 
     useEffect(() => {

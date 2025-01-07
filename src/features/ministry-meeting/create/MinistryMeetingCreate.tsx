@@ -101,9 +101,10 @@ export function MinistryMeetingCreate() {
         leader,
         address,
         address_url: addressUrl,
-      })
+      }, { onSuccess() {
+        navigate('/admin')
+      } })
     }
-    navigate(-1)
   }
 
   return (

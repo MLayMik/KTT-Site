@@ -105,8 +105,9 @@ export function MeetingCreate() {
             speaker,
             special_program,
             speech_title,
-          })
-          navigate(-1)
+          }, { onSuccess() {
+            navigate('/admin')
+          } })
         },
       },
     )
