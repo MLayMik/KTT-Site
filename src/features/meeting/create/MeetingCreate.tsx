@@ -12,7 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { getLocalTimeZone, toCalendarDate, today } from '@internationalized/date'
 import { Checkbox, Dialog, Flex, RadioCards, Separator } from '@radix-ui/themes'
 import { Plus, X } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { meetingStatuses } from '../config'
@@ -101,6 +101,12 @@ export function MeetingCreate() {
       },
     )
   }
+
+  useEffect(() => {
+    if (addresses) {
+      setValue('address_id', addresses[0].id)
+    }
+  }, [addresses])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="sm:space-y-6">
