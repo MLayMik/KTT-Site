@@ -1,10 +1,10 @@
 import type { Address } from '@/shared/types'
 import type { z } from 'zod'
-import type { AddressSchema } from './types'
+import type { addressSchema } from './types'
 import { objectPick } from '@antfu/utils'
 
 export function normalizeAddress(
-  address: z.infer<typeof AddressSchema>,
+  address: z.infer<typeof addressSchema>,
 ): Address {
   return {
     ...objectPick(address, ['id', 'address']),

@@ -2,10 +2,10 @@ import type { FriendlyMeeting } from '@/shared/types'
 
 interface MinistryMeetingProps {
   date: Date
-  leader: string | null
-  address: string | null
-  addressUrl: string | null
-  friendlyMeeting: FriendlyMeeting | null
+  leader?: string | null
+  address?: string | null
+  addressUrl?: string | null
+  friendlyMeeting?: FriendlyMeeting | null
 }
 
 export function KMinistryItem({

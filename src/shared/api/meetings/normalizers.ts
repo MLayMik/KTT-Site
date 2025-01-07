@@ -26,7 +26,7 @@ export function normalizeMeeting(
       ['id', 'leading', 'reader', 'speaker', 'date', 'status'],
     ),
     ministryMeeting: ministry_meeting ? normalizeMinistryMeeting(ministry_meeting) : null,
-    address: normalizeAddress(address),
+    address: address ? normalizeAddress(address) : null,
     closingPrayer: closing_prayer,
     leadWt: lead_wt,
     specialProgram: special_program,
