@@ -46,6 +46,7 @@ export function MeetingEdit() {
     control,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm<MeetingSchemaValues>({
     defaultValues: {
@@ -129,9 +130,14 @@ export function MeetingEdit() {
 
   useEffect(() => {
     if (meeting) {
+      const localTime = new Date(meeting.date).toLocaleTimeString('ru', {
+        hour: 'numeric',
+        minute: 'numeric',
+      })
+
       setValue(
         'time',
-        meeting.date.toISOString().slice(11, 16),
+        localTime,
       )
       setValue(
         'date',
@@ -162,6 +168,7 @@ export function MeetingEdit() {
     [meeting],
   )
 
+  const statusId = watch('status_id')
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="sm:space-y-6">
       <div className="flex">
@@ -206,6 +213,7 @@ export function MeetingEdit() {
                   focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200
                 `}
               />
+              {field.value}
               {errors.time && <p className="text-red-600">{errors.time.message}</p>}
             </div>
           )}
@@ -350,6 +358,7 @@ export function MeetingEdit() {
         <Controller
           name="speaker"
           control={control}
+          disabled={statusId !== 1 && statusId !== 2}
           render={({ field }) => (
             <KInput
               {...field}
@@ -361,6 +370,7 @@ export function MeetingEdit() {
         <Controller
           name="speech_title"
           control={control}
+          disabled={statusId !== 1 && statusId !== 2}
           render={({ field }) => (
             <KInput
               {...field}
@@ -384,6 +394,7 @@ export function MeetingEdit() {
             <KInput
               {...field}
               label="Ведущий С.Б:"
+              disabled={statusId === 4}
               error={errors.lead_wt?.message}
             />
           )}
@@ -395,7 +406,8 @@ export function MeetingEdit() {
           render={({ field }) => (
             <KInput
               {...field}
-              label="Ведущий:"
+              disabled={statusId === 3 || statusId === 4}
+              label="Чтец:"
               error={errors.reader?.message}
             />
           )}
@@ -408,6 +420,7 @@ export function MeetingEdit() {
         render={({ field }) => (
           <KInput
             {...field}
+            disabled={statusId === 4}
             label="Заключительная молитва:"
             error={errors.closing_prayer?.message}
           />
@@ -419,8 +432,9 @@ export function MeetingEdit() {
         control={control}
         render={({ field }) => (
           <KInput
+            disabled={statusId === 1 || statusId === 2}
             {...field}
-            label="Спец программа:"
+            label="Название Спец. Программы или Конгресса:"
             error={errors.special_program?.message}
           />
         )}
@@ -537,7 +551,7 @@ export function MeetingEdit() {
           hover:bg-blue-600
         `}
       >
-        Сохранить изменения
+        Изменить
       </button>
     </form>
   )

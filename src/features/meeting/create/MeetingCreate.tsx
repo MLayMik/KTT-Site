@@ -496,7 +496,7 @@ export function MeetingCreate() {
           hover:bg-blue-600
         `}
       >
-        Сохранить изменения
+        Создать
       </button>
     </form>
   )

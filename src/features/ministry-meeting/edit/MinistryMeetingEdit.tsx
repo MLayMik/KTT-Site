@@ -79,6 +79,31 @@ export function MinistryMeetingEdit() {
         } = values
 
         if (!meeting?.friendlyMeeting) {
+          createFriendly(
+            {
+              address: friendlyAddress,
+              address_url: friendlyAddressUrl,
+              date: parseDateSQL(friendlyTime, friendlyDate),
+              description,
+              inviting,
+            },
+            {
+              onSuccess(r) {
+                updateMeeting({
+                  id: +params.id!,
+                  friendly_meeting_id: r.data?.id,
+                  date: parseDateSQL(time, date),
+                  leader,
+                  address,
+                  address_url: addressUrl,
+                }, { onSuccess() {
+                  navigate('/admin')
+                } })
+              },
+            },
+          )
+        }
+        else {
           updateFriendly(
             {
               id: meeting!.friendlyMeeting!.id,
@@ -97,30 +122,9 @@ export function MinistryMeetingEdit() {
                   leader,
                   address,
                   address_url: addressUrl,
-                })
-              },
-            },
-          )
-        }
-        else {
-          createFriendly(
-            {
-              address: friendlyAddress,
-              address_url: friendlyAddressUrl,
-              date: parseDateSQL(friendlyTime, friendlyDate),
-              description,
-              inviting,
-            },
-            {
-              onSuccess(r) {
-                updateMeeting({
-                  id: +params.id!,
-                  friendly_meeting_id: r.data?.id,
-                  date: parseDateSQL(time, date),
-                  leader,
-                  address,
-                  address_url: addressUrl,
-                })
+                }, { onSuccess() {
+                  navigate('/admin')
+                } })
               },
             },
           )
