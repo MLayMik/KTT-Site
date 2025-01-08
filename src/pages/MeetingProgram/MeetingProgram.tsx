@@ -48,7 +48,7 @@ export function MeetingProgram() {
   return (
     <div
       className={`
-        mx-3 my-1 flex flex-col gap-y-6 pb-8 font-medium text-gray-800
+        mx-3 my-1 flex flex-col gap-y-6 py-2 font-medium text-gray-800
 
         dark:text-gray-200
 
@@ -227,9 +227,11 @@ export function MeetingProgram() {
 
               <Separator className="my-5 w-full" />
               <div className={`
-                mt-2 flex flex-col gap-2 rounded-xl bg-blue-200 px-3 py-2 drop-shadow-mainshadow
+                flex flex-col gap-2 rounded-xl bg-blue-200 px-3 py-1 drop-shadow-mainshadow
 
                 dark:bg-dark-primary
+
+                sm:mb-1
               `}
               >
 

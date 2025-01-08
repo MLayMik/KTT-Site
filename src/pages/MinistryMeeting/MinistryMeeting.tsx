@@ -11,7 +11,7 @@ export function MinistryMeeting() {
   return (
     <>
       <div className={`
-        mx-3 mt-1 pb-4 text-sm font-medium
+        mx-3 mt-1 py-4 text-sm font-medium
 
         dark:text-gray-200
 

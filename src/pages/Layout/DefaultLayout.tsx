@@ -28,8 +28,8 @@ export function DefaultLayout() {
         >
           <Navbar />
           <div className={`
-            min-h-screen w-full max-w-[800px] overflow-hidden rounded-2xl bg-blue-200
-            drop-shadow-mainshadow transition-all duration-200 ease-in-out
+            w-full max-w-[800px] overflow-hidden rounded-2xl bg-blue-200 drop-shadow-mainshadow
+            transition-all duration-200 ease-in-out
 
             dark:bg-dark-primary
 

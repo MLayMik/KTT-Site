@@ -32,7 +32,7 @@ export function MeetingService() {
 
   return (
     <div className={`
-      mx-auto w-full max-w-[700px] pt-5 font-medium text-gray-800
+      mx-auto w-full max-w-[700px] py-5 font-medium text-gray-800
 
       dark:text-gray-200
     `}
