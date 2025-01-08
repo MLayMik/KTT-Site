@@ -4,6 +4,7 @@ import { useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { KInput } from '../KInput'
 import { ADMIN_PASSWORD } from '../Navbar'
+import { ThemeSwitcher } from '../ThemeSwitcher'
 
 export function KDropdown() {
   const navigate = useNavigate()
@@ -91,6 +92,7 @@ export function KDropdown() {
                       Войти
                     </div>
                   </DropdownMenu.Item>
+                  <DropdownMenu.Separator />
                   <Dialog.Content maxWidth="450px" aria-describedby="">
                     <Dialog.Title className="font-medium">Вход в панель для редактирования</Dialog.Title>
                     <Flex direction="column" gap="3">
@@ -124,6 +126,15 @@ export function KDropdown() {
                   </Dialog.Content>
                 </Dialog.Root>
               )}
+        </div>
+        <div className={`
+          flex justify-end px-2
+
+          sm:hidden
+        `}
+        >
+          <ThemeSwitcher />
+
         </div>
       </DropdownMenu.Content>
     </DropdownMenu.Root>
