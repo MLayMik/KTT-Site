@@ -125,7 +125,7 @@ export function MeetingCreate() {
         <KBackHistory />
         <p className="flex-grow text-center text-xl font-semibold">Создание Встречи</p>
       </div>
-      <div className="flex justify-between gap-10">
+      <div className="my-2 flex justify-between gap-10">
         <Controller
           name="date"
           control={control}
@@ -218,7 +218,7 @@ export function MeetingCreate() {
           name="address_id"
           control={control}
           render={({ field }) => (
-            <div>
+            <div className="my-2">
               <div className="mb-2">
                 Адресс:
               </div>
@@ -321,7 +321,7 @@ export function MeetingCreate() {
           render={({ field }) => (
             <KInput
               {...field}
-              label="Публичная речь:"
+              label="Тема речи:"
               error={errors.speech_title?.message}
             />
           )}
@@ -352,7 +352,7 @@ export function MeetingCreate() {
           render={({ field }) => (
             <KInput
               {...field}
-              label="Ведущий:"
+              label="Чтец:"
               error={errors.reader?.message}
             />
           )}
@@ -383,7 +383,7 @@ export function MeetingCreate() {
         )}
       />
 
-      <Separator className="h-0.5 w-full" />
+      <Separator className="my-2 h-0.5 w-full" />
 
       <h1 className="mb-2 text-xl font-semibold">Редактирование Обслуживающих</h1>
 
@@ -435,9 +435,9 @@ export function MeetingCreate() {
         )}
       />
 
-      <Separator className="h-0.5 w-full" />
+      <Separator className="my-2 h-0.5 w-full" />
 
-      <Flex align="center" gap="2">
+      <Flex align="center" gap="2" className="my-2">
 
         <Checkbox
           checked={withMinistryMeeting}
@@ -452,7 +452,7 @@ export function MeetingCreate() {
           name="ministry_meeting_id"
           control={control}
           render={({ field }) => (
-            <RadioCards.Root columns={{ initial: '2', sm: '4' }}>
+            <RadioCards.Root className="my-2" columns={{ initial: '2', sm: '4' }}>
               {ministryMeetings?.map(meeting => (
                 <button
                   type="button"

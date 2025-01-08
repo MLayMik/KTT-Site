@@ -113,7 +113,7 @@ export function MinistryMeetingCreate() {
         <KBackHistory />
         <p className="flex-grow text-center text-xl font-semibold">Создание Встречи Для Проповеди</p>
       </div>
-      <div className="flex justify-between gap-10">
+      <div className="my-2 flex justify-between gap-10">
         <Controller
           name="date"
           control={control}
@@ -190,7 +190,7 @@ export function MinistryMeetingCreate() {
         )}
       />
 
-      <Flex align="center" gap="2">
+      <Flex align="center" gap="2" className="my-2">
         <Checkbox
           checked={withFriendlyMeeting}
           onCheckedChange={e => setWithFriendlyMeeting(e as boolean)}
@@ -199,7 +199,12 @@ export function MinistryMeetingCreate() {
       </Flex>
 
       {withFriendlyMeeting && (
-        <div className="space-y-6">
+        <div className={`
+          space-y-2
+
+          sm:space-y-6
+        `}
+        >
           <div className="flex justify-between gap-10">
             <Controller
               name="friendlyDate"
@@ -303,7 +308,7 @@ export function MinistryMeetingCreate() {
       <button
         type="submit"
         className={`
-          w-full rounded-2xl bg-blue-800 p-2 text-white transition-all duration-300 ease-in-out
+          mt-2 w-full rounded-2xl bg-blue-800 p-2 text-white transition-all duration-300 ease-in-out
 
           hover:bg-blue-600
         `}

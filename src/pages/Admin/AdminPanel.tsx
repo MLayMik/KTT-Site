@@ -21,7 +21,12 @@ export function AdminPanel() {
     return <KLoader />
 
   return (
-    <div className="p-6">
+    <div className={`
+      p-3
+
+      sm:p-6
+    `}
+    >
       <div className="my-3 text-center font-bold">
         Панель редактирования
       </div>

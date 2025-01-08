@@ -92,7 +92,6 @@ export function KDropdown() {
                       Войти
                     </div>
                   </DropdownMenu.Item>
-                  <DropdownMenu.Separator />
                   <Dialog.Content maxWidth="450px" aria-describedby="">
                     <Dialog.Title className="font-medium">Вход в панель для редактирования</Dialog.Title>
                     <Flex direction="column" gap="3">
@@ -128,13 +127,12 @@ export function KDropdown() {
               )}
         </div>
         <div className={`
-          flex justify-end px-2
+          flex px-2
 
-          sm:hidden
+          sm:hidden sm:justify-end
         `}
         >
           <ThemeSwitcher />
-
         </div>
       </DropdownMenu.Content>
     </DropdownMenu.Root>
