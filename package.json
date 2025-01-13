@@ -45,7 +45,7 @@
     "zustand": "^5.0.2"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^3.8.0",
+    "@antfu/eslint-config": "^3.14.0",
     "@chromatic-com/storybook": "3.2.2",
     "@eslint/js": "^9.13.0",
     "@storybook/addon-essentials": "8.4.7",

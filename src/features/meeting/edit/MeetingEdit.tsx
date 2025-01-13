@@ -119,9 +119,11 @@ export function MeetingEdit() {
               special_program,
               speech_title,
             },
-            { onSuccess() {
-              navigate('/admin')
-            } },
+            {
+              onSuccess() {
+                navigate('/admin')
+              },
+            },
           )
         },
       },
@@ -213,7 +215,6 @@ export function MeetingEdit() {
                   focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200
                 `}
               />
-              {field.value}
               {errors.time && <p className="text-red-600">{errors.time.message}</p>}
             </div>
           )}
@@ -263,8 +264,7 @@ export function MeetingEdit() {
         )}
       />
 
-      {addresses
-      && (
+      {addresses && (
         <Controller
           name="address_id"
           control={control}
@@ -358,7 +358,7 @@ export function MeetingEdit() {
         <Controller
           name="speaker"
           control={control}
-          disabled={statusId !== 1 && statusId !== 2}
+          disabled={statusId === 3 || statusId === 4}
           render={({ field }) => (
             <KInput
               {...field}
@@ -370,7 +370,7 @@ export function MeetingEdit() {
         <Controller
           name="speech_title"
           control={control}
-          disabled={statusId !== 1 && statusId !== 2}
+          disabled={statusId === 3 || statusId === 4}
           render={({ field }) => (
             <KInput
               {...field}
@@ -394,7 +394,7 @@ export function MeetingEdit() {
             <KInput
               {...field}
               label="Ведущий С.Б:"
-              disabled={statusId === 4}
+              disabled={statusId === 2 || statusId === 4}
               error={errors.lead_wt?.message}
             />
           )}
@@ -406,7 +406,7 @@ export function MeetingEdit() {
           render={({ field }) => (
             <KInput
               {...field}
-              disabled={statusId === 3 || statusId === 4}
+              disabled={statusId === 2 || statusId === 3 || statusId === 4}
               label="Чтец:"
               error={errors.reader?.message}
             />
