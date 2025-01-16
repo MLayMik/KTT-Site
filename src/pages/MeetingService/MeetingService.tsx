@@ -1,4 +1,5 @@
 import { useServices } from '@/shared/api/service'
+import { KEditLink } from '@/shared/ui/KEditLink'
 import { KLoader } from '@/shared/ui/KLoader'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useMemo, useState } from 'react'
@@ -37,8 +38,8 @@ export function MeetingService() {
       dark:text-gray-200
     `}
     >
-      <div className="flex flex-col items-center font-bold">
-        <div className="flex items-center">
+      <div className="flex flex-col justify-center text-center">
+        <div className="relative flex items-center justify-center gap-2">
           <button
             disabled={index === 0}
             onClick={() => setIndex(prev => prev - 1)}
@@ -76,8 +77,10 @@ export function MeetingService() {
             `}
             />
           </button>
+          <KEditLink idProgram={currentService.id} />
         </div>
       </div>
+
       {currentService.microphones
 
         ? (

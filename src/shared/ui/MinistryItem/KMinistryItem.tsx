@@ -1,6 +1,8 @@
 import type { FriendlyMeeting } from '@/shared/types'
+import { KEditLink } from '../KEditLink'
 
 interface MinistryMeetingProps {
+  id: number
   date: Date
   leader?: string | null
   address?: string | null
@@ -9,6 +11,7 @@ interface MinistryMeetingProps {
 }
 
 export function KMinistryItem({
+  id,
   leader,
   date,
   address,
@@ -94,7 +97,12 @@ export function KMinistryItem({
           }
         </div>
 
-        <div className="sm:col-span-2">
+        <div className={`
+          items-center
+
+          sm:col-span-2 sm:flex sm:flex-row
+        `}
+        >
           <p className={`
             text-sm font-semibold text-gray-500
 
@@ -103,8 +111,12 @@ export function KMinistryItem({
           >
             Ведущий
           </p>
-          <p>{leader}</p>
+          <p className="mr-2">{leader}</p>
+          <div className="ml-auto">
+            <KEditLink typeLink="ministry-meeting" idProgram={id} />
+          </div>
         </div>
+
       </div>
       {friendlyMeeting && (
         <div className={`

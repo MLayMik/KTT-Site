@@ -1,4 +1,5 @@
 import { useMeetings } from '@/shared/api/meetings/query'
+import { KEditLink } from '@/shared/ui/KEditLink'
 import { KLoader } from '@/shared/ui/KLoader'
 import { Separator } from '@radix-ui/themes'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
@@ -58,7 +59,7 @@ export function MeetingProgram() {
     >
       <div className="flex flex-col justify-center text-center">
         <div>{currentProgram.status?.title}</div>
-        <div className="flex justify-center">
+        <div className="relative flex items-center justify-center gap-2">
           <button
             className={`
               ${index === 0 ? 'hidden' : 'block'}
@@ -73,7 +74,8 @@ export function MeetingProgram() {
             `}
             />
           </button>
-          <p>
+
+          <p className="text-center">
             {currentProgram.date.toLocaleString('ru', { day: 'numeric', month: 'long' })}
             {' '}
             в
@@ -83,16 +85,19 @@ export function MeetingProgram() {
               .toString()
               .padStart(2, '0')}`}
             {' '}
-
             {(currentProgram.status?.id === 1 || currentProgram.status?.id === 3) && (
-              <a target="_blank" className="underline" href={currentProgram.address?.addressUrl}>
+              <a
+                target="_blank"
+                className="underline"
+                href={currentProgram.address?.addressUrl}
+              >
                 (
                 {currentProgram.address?.address}
                 )
               </a>
-            ) }
-
+            )}
           </p>
+
           <button
             className={`
               ${index === data!.length - 1 ? 'hidden' : 'block'}
@@ -107,8 +112,10 @@ export function MeetingProgram() {
             `}
             />
           </button>
+          <KEditLink idProgram={currentProgram.id} />
         </div>
       </div>
+
       {currentProgram.status?.id === 1 && <RegularMeeting currentProgram={currentProgram} />}
 
       {currentProgram.status?.id === 2 && <Memorial currentProgram={currentProgram} />}
