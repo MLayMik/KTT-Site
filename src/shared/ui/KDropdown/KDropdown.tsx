@@ -18,11 +18,12 @@ export function KDropdown() {
 
   const handleLogIn = () => {
     if (password === ADMIN_PASSWORD) {
-      localStorage.setItem('isAuth', 'true') // Сохранение состояния
-      setError('') // Сброс ошибки
+      localStorage.setItem('isAuth', 'true')
+      setError('')
       setPassword('')
       ref.current?.click()
-      setIsMenuOpen(false) // Закрываем меню
+      setIsMenuOpen(false)
+      location.reload()
     }
     else {
       setError('Неверный пароль. Попробуйте снова.')
@@ -33,7 +34,8 @@ export function KDropdown() {
   const handleLogOff = () => {
     if (isAuth === true) {
       localStorage.setItem('isAuth', 'false')
-      setIsMenuOpen(false) // Закрываем меню
+      setIsMenuOpen(false)
+      location.reload()
     }
   }
 

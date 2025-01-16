@@ -2,7 +2,7 @@ import type { z } from 'zod'
 import { QueryClient } from '@tanstack/react-query'
 import { RestClient } from './RestClient'
 
-export const queryClient = new QueryClient()
+export const queryClient = new QueryClient({ defaultOptions: { queries: { refetchOnWindowFocus: false } } })
 
 export const client = new RestClient()
 
