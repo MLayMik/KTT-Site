@@ -78,50 +78,55 @@ export function MeetingService() {
           </button>
         </div>
       </div>
-      <div
-        className={`
-          mx-3 mb-3 mt-3 flex flex-col gap-3
+      {currentService.microphones
 
-          sm:m-7
-        `}
-      >
-        <div className={`
-          flex justify-between rounded-xl bg-white drop-shadow-mainshadow
+        ? (
+            <div
+              className={`
+                mx-3 mb-3 mt-3 flex flex-col gap-3
 
-          dark:bg-gray-800 dark:drop-shadow-md
-        `}
-        >
-          <p className="px-3 py-1">Сцена</p>
-          <p className="px-3 py-1 text-right">{currentService.scene}</p>
-        </div>
-        <div className={`
-          flex justify-between rounded-xl bg-white drop-shadow-mainshadow
+                sm:m-7
+              `}
+            >
+              <div className={`
+                flex justify-between rounded-xl bg-white drop-shadow-mainshadow
 
-          dark:bg-gray-800 dark:drop-shadow-md
-        `}
-        >
-          <p className="px-3 py-1">Микрофоны</p>
-          <p className="px-3 py-1 text-right">{currentService.microphones}</p>
-        </div>
-        <div className={`
-          flex justify-between rounded-xl bg-white drop-shadow-mainshadow
+                dark:bg-gray-800 dark:drop-shadow-md
+              `}
+              >
+                <p className="px-3 py-1">Сцена</p>
+                <p className="px-3 py-1 text-right">{currentService.scene}</p>
+              </div>
+              <div className={`
+                flex justify-between rounded-xl bg-white drop-shadow-mainshadow
 
-          dark:bg-gray-800 dark:drop-shadow-md
-        `}
-        >
-          <p className="px-3 py-1">Озвучивание + зум</p>
-          <p className="px-3 py-1 text-right">{currentService.voiceoverZoom}</p>
-        </div>
-        <div className={`
-          flex justify-between rounded-xl bg-white drop-shadow-mainshadow
+                dark:bg-gray-800 dark:drop-shadow-md
+              `}
+              >
+                <p className="px-3 py-1">Микрофоны</p>
+                <p className="px-3 py-1 text-right">{currentService.microphones}</p>
+              </div>
+              <div className={`
+                flex justify-between rounded-xl bg-white drop-shadow-mainshadow
 
-          dark:bg-gray-800 dark:drop-shadow-md
-        `}
-        >
-          <p className="px-3 py-1">Распорядители</p>
-          <p className="px-3 py-1 text-right">{currentService.administrator}</p>
-        </div>
-      </div>
+                dark:bg-gray-800 dark:drop-shadow-md
+              `}
+              >
+                <p className="px-3 py-1">Озвучивание + зум</p>
+                <p className="px-3 py-1 text-right">{currentService.voiceoverZoom}</p>
+              </div>
+              <div className={`
+                flex justify-between rounded-xl bg-white drop-shadow-mainshadow
+
+                dark:bg-gray-800 dark:drop-shadow-md
+              `}
+              >
+                <p className="px-3 py-1">Распорядители</p>
+                <p className="px-3 py-1 text-right">{currentService.administrator}</p>
+              </div>
+            </div>
+          )
+        : null}
     </div>
   )
 }
