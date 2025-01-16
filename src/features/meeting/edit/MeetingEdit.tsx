@@ -162,15 +162,18 @@ export function MeetingEdit() {
     }
   }, [meeting])
 
+  const statusId = watch('status_id')
+
   useEffect(
     () => {
       if (meeting?.ministryMeeting)
         setWithMinistryMeeting(true)
+      else if (statusId !== 1)
+        setIsCheckDisabled(true)
     },
     [meeting],
   )
 
-  const statusId = watch('status_id')
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="sm:space-y-6">
       <div className="flex">
@@ -343,7 +346,7 @@ export function MeetingEdit() {
         render={({ field }) => (
           <KInput
             {...field}
-            label="Председатель встречи:"
+            label={statusId === 4 ? ' В виде строки с представителем филиала или нет?' : 'Председатель встречи:'}
             error={errors.leading?.message}
           />
         )}
