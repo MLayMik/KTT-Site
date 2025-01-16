@@ -3,7 +3,7 @@ import { KLoader } from '@/shared/ui/KLoader'
 import { Separator } from '@radix-ui/themes'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useMemo, useState } from 'react'
-import { Congress, RegularMeeting } from './StatusMeetings'
+import { Congress, Memorial, RegularMeeting, SpecialProgram } from './StatusMeetings'
 
 export function MeetingProgram() {
   const { data, isLoading } = useMeetings()
@@ -83,11 +83,15 @@ export function MeetingProgram() {
               .toString()
               .padStart(2, '0')}`}
             {' '}
-            (
-            <a target="_blank" className="underline" href={currentProgram.address?.addressUrl}>
-              {currentProgram.address?.address}
-            </a>
-            )
+
+            {(currentProgram.status?.id === 1 || currentProgram.status?.id === 3) && (
+              <a target="_blank" className="underline" href={currentProgram.address?.addressUrl}>
+                (
+                {currentProgram.address?.address}
+                )
+              </a>
+            ) }
+
           </p>
           <button
             className={`
@@ -106,6 +110,10 @@ export function MeetingProgram() {
         </div>
       </div>
       {currentProgram.status?.id === 1 && <RegularMeeting currentProgram={currentProgram} />}
+
+      {currentProgram.status?.id === 2 && <Memorial currentProgram={currentProgram} />}
+
+      {currentProgram.status?.id === 3 && <SpecialProgram currentProgram={currentProgram} />}
 
       {currentProgram.status?.id === 4 && <Congress currentProgram={currentProgram} />}
 
