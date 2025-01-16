@@ -43,6 +43,7 @@ export function MeetingCreate() {
     control,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm<MeetingSchemaValues>({
     defaultValues: {
@@ -118,6 +119,17 @@ export function MeetingCreate() {
       setValue('address_id', addresses[0].id)
     }
   }, [addresses])
+
+  const statusId = watch('status_id')
+
+  useEffect(
+    () => {
+      if (statusId !== 1) {
+        setIsCheckDisabled(true)
+      }
+    },
+    [statusId],
+  )
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="sm:space-y-6">
@@ -307,6 +319,7 @@ export function MeetingCreate() {
         <Controller
           name="speaker"
           control={control}
+          disabled={statusId === 3 || statusId === 4}
           render={({ field }) => (
             <KInput
               {...field}
@@ -318,6 +331,7 @@ export function MeetingCreate() {
         <Controller
           name="speech_title"
           control={control}
+          disabled={statusId !== 1}
           render={({ field }) => (
             <KInput
               {...field}
@@ -341,6 +355,7 @@ export function MeetingCreate() {
             <KInput
               {...field}
               label="Ведущий С.Б:"
+              disabled={statusId === 2 || statusId === 4}
               error={errors.lead_wt?.message}
             />
           )}
@@ -353,6 +368,7 @@ export function MeetingCreate() {
             <KInput
               {...field}
               label="Чтец:"
+              disabled={statusId === 2 || statusId === 3 || statusId === 4}
               error={errors.reader?.message}
             />
           )}
@@ -366,6 +382,7 @@ export function MeetingCreate() {
           <KInput
             {...field}
             label="Заключительная молитва:"
+            disabled={statusId === 2 || statusId === 4}
             error={errors.closing_prayer?.message}
           />
         )}
@@ -378,6 +395,7 @@ export function MeetingCreate() {
           <KInput
             {...field}
             label="Спец программа:"
+            disabled={statusId === 1 || statusId === 2}
             error={errors.special_program?.message}
           />
         )}

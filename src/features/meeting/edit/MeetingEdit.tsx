@@ -373,7 +373,7 @@ export function MeetingEdit() {
         <Controller
           name="speech_title"
           control={control}
-          disabled={statusId === 3 || statusId === 4}
+          disabled={statusId !== 1}
           render={({ field }) => (
             <KInput
               {...field}
@@ -409,8 +409,8 @@ export function MeetingEdit() {
           render={({ field }) => (
             <KInput
               {...field}
-              disabled={statusId === 2 || statusId === 3 || statusId === 4}
               label="Чтец:"
+              disabled={statusId === 2 || statusId === 3 || statusId === 4}
               error={errors.reader?.message}
             />
           )}
@@ -423,8 +423,8 @@ export function MeetingEdit() {
         render={({ field }) => (
           <KInput
             {...field}
-            disabled={statusId === 4}
             label="Заключительная молитва:"
+            disabled={statusId === 2 || statusId === 4}
             error={errors.closing_prayer?.message}
           />
         )}
@@ -435,9 +435,9 @@ export function MeetingEdit() {
         control={control}
         render={({ field }) => (
           <KInput
-            disabled={statusId === 1 || statusId === 2}
             {...field}
             label="Название Спец. Программы или Конгресса:"
+            disabled={statusId === 1 || statusId === 2}
             error={errors.special_program?.message}
           />
         )}
