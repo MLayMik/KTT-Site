@@ -35,11 +35,9 @@ function App() {
           )}
         />
         <Route path="meeting-service" element={<MeetingService />} />
-        <Route path="areas" element={<Areas />} />
-        <Route path="announcements" element={<Announcements />} />
         <Route path="ministry-meeting" element={<MinistryMeeting />} />
-
-        <Route path="admin" />
+        <Route path="announcements" element={<Announcements />} />
+        <Route path="areas" element={<Areas />} />
       </Route>
     </Routes>
   )

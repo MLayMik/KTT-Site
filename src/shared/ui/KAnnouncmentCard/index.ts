@@ -1,0 +1,1 @@
+export { KAnnouncmentCard } from './KAnnouncmentCard'
