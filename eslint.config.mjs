@@ -8,6 +8,7 @@ export default antfu({
   rules: {
     ...eslintPluginReadableTailwind.configs.warning.rules,
     ...eslintPluginReadableTailwind.configs.error.rules,
-    'readable-tailwind/multiline': ['warn', { printWidth: 100 }],
+    'readable-tailwind/multiline': ['warn', { printWidth: 80 }],
+    // 'max-len': ['warn', { code: 80 }],
   },
 })

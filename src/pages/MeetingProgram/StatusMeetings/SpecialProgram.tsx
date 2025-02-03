@@ -12,7 +12,8 @@ export function SpecialProgram({ currentProgram }: SpecialProgramProps) {
   return (
     <>
       <div className={`
-        flex justify-between rounded-xl bg-white px-4 py-2 drop-shadow-mainshadow
+        flex justify-between rounded-xl bg-white px-4 py-2
+        drop-shadow-mainshadow
 
         dark:bg-gray-800
       `}
@@ -23,7 +24,8 @@ export function SpecialProgram({ currentProgram }: SpecialProgramProps) {
 
       <div
         className={`
-          flex justify-between rounded-xl bg-white px-4 py-3 text-center drop-shadow-mainshadow
+          flex justify-between rounded-xl bg-white px-4 py-3 text-center
+          drop-shadow-mainshadow
 
           dark:bg-gray-800
         `}
@@ -33,8 +35,8 @@ export function SpecialProgram({ currentProgram }: SpecialProgramProps) {
       </div>
 
       <div className={`
-        flex flex-col items-center justify-between rounded-xl bg-white px-4 py-3 text-center
-        drop-shadow-mainshadow
+        flex flex-col items-center justify-between rounded-xl bg-white px-4 py-3
+        text-center drop-shadow-mainshadow
 
         dark:bg-gray-800
       `}
@@ -44,7 +46,8 @@ export function SpecialProgram({ currentProgram }: SpecialProgramProps) {
       </div>
 
       <div className={`
-        flex justify-between rounded-xl bg-white px-4 py-2 drop-shadow-mainshadow
+        flex justify-between rounded-xl bg-white px-4 py-2
+        drop-shadow-mainshadow
 
         dark:bg-gray-800
       `}

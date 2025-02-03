@@ -4,8 +4,8 @@ import { Navbar } from '../../shared/ui/Navbar'
 export function DefaultLayout() {
   return (
     <div className={`
-      flex min-h-screen justify-center bg-sky-100 font-montserrat transition-all duration-200
-      ease-in-out
+      flex min-h-screen justify-center bg-sky-100 font-montserrat transition-all
+      duration-200 ease-in-out
 
       dark:bg-dark-bg
     `}
@@ -28,8 +28,8 @@ export function DefaultLayout() {
         >
           <Navbar />
           <div className={`
-            w-full max-w-[800px] overflow-hidden rounded-2xl bg-blue-200 drop-shadow-mainshadow
-            transition-all duration-200 ease-in-out
+            w-full max-w-[800px] overflow-hidden rounded-2xl bg-blue-200
+            drop-shadow-mainshadow transition-all duration-200 ease-in-out
 
             dark:bg-dark-primary
 

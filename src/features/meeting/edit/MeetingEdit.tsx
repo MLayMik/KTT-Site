@@ -210,12 +210,14 @@ export function MeetingEdit() {
                 id="timeInput"
                 type="time"
                 className={`
-                  mt-1 rounded-lg border border-gray-300 p-2 text-sm font-medium shadow-sm
-                  transition-all duration-200 ease-in-out
+                  mt-1 rounded-lg border border-gray-300 p-2 text-sm font-medium
+                  shadow-sm transition-all duration-200 ease-in-out
 
-                  dark:border-gray-600 dark:bg-dark-bg dark:text-gray-200 dark:focus:ring-blue-500
+                  dark:border-gray-600 dark:bg-dark-bg dark:text-gray-200
+                  dark:focus:ring-blue-500
 
-                  focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200
+                  focus:border-blue-500 focus:outline-none focus:ring-2
+                  focus:ring-blue-200
                 `}
               />
               {errors.time && <p className="text-red-600">{errors.time.message}</p>}
@@ -239,8 +241,8 @@ export function MeetingEdit() {
                   onClick={() => setValue('status_id', type.id)}
                   className={cn(
                     `
-                      relative h-16 rounded-md border px-4 py-2 text-start transition-all
-                      duration-200 ease-in-out
+                      relative h-16 rounded-md border px-4 py-2 text-start
+                      transition-all duration-200 ease-in-out
 
                       dark:border-gray-600
 
@@ -283,8 +285,8 @@ export function MeetingEdit() {
                     onClick={() => setValue('address_id', address.id)}
                     className={cn(
                       `
-                        relative h-20 rounded-md border px-4 py-2 text-start transition-all
-                        duration-200 ease-in-out
+                        relative h-20 rounded-md border px-4 py-2 text-start
+                        transition-all duration-200 ease-in-out
 
                         dark:border-gray-600
                       `,
@@ -324,7 +326,8 @@ export function MeetingEdit() {
                 <Dialog.Root>
                   <Dialog.Trigger>
                     <button className={`
-                      flex size-full items-center justify-center rounded-md border py-4
+                      flex size-full items-center justify-center rounded-md
+                      border py-4
 
                       dark:border-gray-600
                     `}
@@ -517,8 +520,8 @@ export function MeetingEdit() {
                   onClick={() => setValue('ministry_meeting_id', meeting.id)}
                   className={cn(
                     `
-                      relative h-20 rounded-md border bg-white px-4 py-2 text-start text-sm
-                      transition-all duration-200 ease-in-out
+                      relative h-20 rounded-md border bg-white px-4 py-2
+                      text-start text-sm transition-all duration-200 ease-in-out
 
                       dark:border-gray-600 dark:bg-transparent
 
@@ -549,7 +552,8 @@ export function MeetingEdit() {
       <button
         type="submit"
         className={`
-          w-full rounded-2xl bg-blue-800 p-2 text-white transition-all duration-300 ease-in-out
+          w-full rounded-2xl bg-blue-800 p-2 text-white transition-all
+          duration-300 ease-in-out
 
           hover:bg-blue-600
         `}

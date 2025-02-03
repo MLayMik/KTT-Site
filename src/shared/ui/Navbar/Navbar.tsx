@@ -8,8 +8,8 @@ export function Navbar() {
   // const isAuth = localStorage.getItem('isAuth') === 'true'
   return (
     <div className={`
-      mx-2 flex w-full max-w-[800px] items-center justify-between overflow-hidden
-      drop-shadow-mainshadow
+      mx-2 flex w-full max-w-[800px] items-center justify-between
+      overflow-hidden drop-shadow-mainshadow
 
       dark:text-gray-200 dark:drop-shadow-none
 
@@ -22,14 +22,14 @@ export function Navbar() {
             key={link.name}
             className={({ isActive }) => isActive
               ? `
-                w-full rounded-lg border-2 bg-blue-200 p-2 text-center transition-all duration-200
-                ease-in-out
+                w-full rounded-lg border-2 bg-blue-200 p-2 text-center
+                transition-all duration-200 ease-in-out
 
                 dark:border-gray-700 dark:bg-gray-800
               `
               : `
-                w-full rounded-md border-2 bg-white p-2 text-center transition-all duration-200
-                ease-in-out
+                w-full rounded-md border-2 bg-white p-2 text-center
+                transition-all duration-200 ease-in-out
 
                 dark:border-gray-700 dark:bg-dark-primary
               `}

@@ -218,12 +218,15 @@ export function MinistryMeetingEdit() {
                   id="timeInput"
                   type="time"
                   className={`
-                    mt-1 rounded-lg border border-gray-300 p-2 text-sm font-medium shadow-sm
-                    transition-all duration-200 ease-in-out
+                    mt-1 rounded-lg border border-gray-300 p-2 text-sm
+                    font-medium shadow-sm transition-all duration-200
+                    ease-in-out
 
-                    dark:border-gray-600 dark:bg-dark-bg dark:text-gray-200 dark:focus:ring-blue-500
+                    dark:border-gray-600 dark:bg-dark-bg dark:text-gray-200
+                    dark:focus:ring-blue-500
 
-                    focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200
+                    focus:border-blue-500 focus:outline-none focus:ring-2
+                    focus:ring-blue-200
                   `}
                 />
                 {errors.time && <p className="text-red-600">{errors.time.message}</p>}
@@ -311,13 +314,15 @@ export function MinistryMeetingEdit() {
                       id="timeInput"
                       type="time"
                       className={`
-                        mt-1 rounded-lg border border-gray-300 p-2 text-sm font-medium shadow-sm
-                        transition-all duration-200 ease-in-out
+                        mt-1 rounded-lg border border-gray-300 p-2 text-sm
+                        font-medium shadow-sm transition-all duration-200
+                        ease-in-out
 
                         dark:border-gray-600 dark:bg-dark-bg dark:text-gray-200
                         dark:focus:ring-blue-500
 
-                        focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200
+                        focus:border-blue-500 focus:outline-none focus:ring-2
+                        focus:ring-blue-200
                       `}
                     />
                     {errors.friendlyTime && (
@@ -378,8 +383,8 @@ export function MinistryMeetingEdit() {
         <button
           type="submit"
           className={`
-            mt-2 w-full rounded-2xl bg-blue-800 p-2 text-white transition-all duration-300
-            ease-in-out
+            mt-2 w-full rounded-2xl bg-blue-800 p-2 text-white transition-all
+            duration-300 ease-in-out
 
             hover:bg-blue-600
           `}

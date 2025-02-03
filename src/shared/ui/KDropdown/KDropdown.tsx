@@ -64,7 +64,10 @@ export function KDropdown() {
                       Редактировать встречи
                     </Link>
                   </DropdownMenu.Item>
-                  <DropdownMenu.Separator className="my-1 border-t border-slate-300" />
+                  <DropdownMenu.Separator className={`
+                    my-1 border-t border-slate-300
+                  `}
+                  />
                   <DropdownMenu.Item>
                     <button
                       onClick={(e) => {
@@ -108,7 +111,8 @@ export function KDropdown() {
 
                       {error && (
                         <p className={`
-                          rounded-xl bg-red-100 p-2 text-sm font-medium text-red-500 drop-shadow-sm
+                          rounded-xl bg-red-100 p-2 text-sm font-medium
+                          text-red-500 drop-shadow-sm
                         `}
                         >
                           {error}

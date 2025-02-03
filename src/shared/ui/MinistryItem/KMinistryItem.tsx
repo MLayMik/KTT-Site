@@ -21,7 +21,8 @@ export function KMinistryItem({
   return (
     <div
       className={`
-        rounded-lg bg-white px-2 py-2 drop-shadow-md transition-all duration-200 ease-in-out
+        rounded-lg bg-white px-2 py-2 drop-shadow-md transition-all duration-200
+        ease-in-out
 
         dark:bg-dark-bg
 
@@ -120,7 +121,8 @@ export function KMinistryItem({
       </div>
       {friendlyMeeting && (
         <div className={`
-          mt-4 flex flex-col gap-2 rounded-xl bg-blue-200 px-3 py-2 drop-shadow-mainshadow
+          mt-4 flex flex-col gap-2 rounded-xl bg-blue-200 px-3 py-2
+          drop-shadow-mainshadow
 
           dark:bg-dark-primary
         `}

@@ -5,6 +5,10 @@ export default {
     './index.html',
     './src/**/*.{js,ts,jsx,tsx}',
   ],
+  safelist: [
+    'data-[state=open]:animate-slideDown',
+    'data-[state=closed]:animate-slideUp',
+  ],
   theme: {
     extend: {
       colors: {
@@ -20,7 +24,22 @@ export default {
       },
       boxShadow: {
         innershadow: 'inset 0px 0px 30px rgba(0, 0, 0, 0.05)',
-        inOutShadow: '0px 0px 30px rgba(0, 0, 0, 0.07), inset 0px 0px 30px rgba(0, 0, 0, 0.07)',
+        inOutShadow: `0px 0px 30px rgba(0, 0, 0, 0.07), 
+        inset 0px 0px 30px rgba(0, 0, 0, 0.07)`,
+      },
+      keyframes: {
+        slideDown: {
+          from: { height: '0px' },
+          to: { height: 'var(--radix-accordion-content-height)' },
+        },
+        slideUp: {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0px' },
+        },
+      },
+      animation: {
+        slideDown: 'slideDown 300ms cubic-bezier(0.87, 0, 0.13, 1)',
+        slideUp: 'slideUp 300ms cubic-bezier(0.87, 0, 0.13, 1)',
       },
     },
   },

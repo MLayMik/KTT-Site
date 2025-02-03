@@ -127,7 +127,8 @@ export function MeetingProgram() {
       {currentProgram.ministryMeeting && (
         <div
           className={`
-            rounded-lg bg-white px-2 py-2 drop-shadow-md transition-all duration-200 ease-in-out
+            rounded-lg bg-white px-2 py-2 drop-shadow-md transition-all
+            duration-200 ease-in-out
 
             dark:bg-dark-bg
 
@@ -170,7 +171,8 @@ export function MeetingProgram() {
 
               <Separator className="my-5 w-full" />
               <div className={`
-                flex flex-col gap-2 rounded-xl bg-blue-200 px-3 py-1 drop-shadow-mainshadow
+                flex flex-col gap-2 rounded-xl bg-blue-200 px-3 py-1
+                drop-shadow-mainshadow
 
                 dark:bg-dark-primary
 

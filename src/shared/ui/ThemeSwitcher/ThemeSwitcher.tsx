@@ -25,8 +25,9 @@ export function ThemeSwitcher() {
       onChange={handleThemeChange}
       className={cn(
         `
-          relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2
-          border-transparent bg-blue-300 transition-colors duration-200 ease-in-out
+          relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer
+          rounded-full border-2 border-transparent bg-blue-300 transition-colors
+          duration-200 ease-in-out
 
           dark:bg-dark-primary
         `,
@@ -36,8 +37,9 @@ export function ThemeSwitcher() {
         className={cn(
           enabled ? 'translate-x-0' : 'translate-x-5',
           `
-            pointer-events-none relative inline-block h-5 w-5 transform rounded-full bg-white shadow
-            ring-0 transition duration-200 ease-in-out
+            pointer-events-none relative inline-block h-5 w-5 transform
+            rounded-full bg-white shadow ring-0 transition duration-200
+            ease-in-out
 
             dark:bg-slate-700
           `,
@@ -48,7 +50,10 @@ export function ThemeSwitcher() {
             enabled
               ? 'duration-200 ease-in'
               : 'duration-100 ease-out',
-            'absolute inset-0 flex h-full w-full items-center justify-center transition-opacity',
+            `
+              absolute inset-0 flex h-full w-full items-center justify-center
+              transition-opacity
+            `,
           )}
           aria-hidden="true"
         >

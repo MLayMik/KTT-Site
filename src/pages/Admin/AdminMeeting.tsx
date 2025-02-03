@@ -8,8 +8,8 @@ export interface Props {
 export function AdminMeeting({ edit }: Props) {
   return (
     <div className={`
-      my-3 flex flex-col gap-y-4 rounded-lg bg-white p-3 text-sm font-medium shadow-md
-      transition-all duration-200 ease-in-out
+      my-3 flex flex-col gap-y-4 rounded-lg bg-white p-3 text-sm font-medium
+      shadow-md transition-all duration-200 ease-in-out
 
       dark:bg-dark-primary dark:text-gray-200 dark:shadow-none
 

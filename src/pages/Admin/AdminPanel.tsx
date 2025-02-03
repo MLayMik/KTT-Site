@@ -40,8 +40,8 @@ export function AdminPanel() {
             onClick={() => navigate(`meeting/${meeting.id}`)}
             className={cn(
               `
-                relative h-20 rounded-md border bg-white px-4 py-2 text-start text-sm transition-all
-                duration-200 ease-in-out
+                relative h-20 rounded-md border bg-white px-4 py-2 text-start
+                text-sm transition-all duration-200 ease-in-out
 
                 dark:border-gray-600 dark:bg-transparent
 
@@ -72,8 +72,8 @@ export function AdminPanel() {
         <button
           onClick={() => navigate(`/admin/meeting`)}
           className={`
-            flex size-full items-center justify-center rounded-md border py-4 transition-all
-            duration-200 easy-in-out bg-white
+            flex size-full items-center justify-center rounded-md border py-4
+            transition-all duration-200 easy-in-out bg-white
 
             dark:border-gray-600 dark:bg-transparent
 
@@ -94,8 +94,8 @@ export function AdminPanel() {
             onClick={() => navigate(`ministry-meeting/${meeting.id}`)}
             className={cn(
               `
-                relative h-20 rounded-md border bg-white px-4 py-2 text-start text-sm transition-all
-                duration-200 ease-in-out
+                relative h-20 rounded-md border bg-white px-4 py-2 text-start
+                text-sm transition-all duration-200 ease-in-out
 
                 dark:border-gray-600 dark:bg-transparent
 
@@ -129,8 +129,8 @@ export function AdminPanel() {
         <button
           onClick={() => navigate(`/admin/ministry-meeting`)}
           className={`
-            flex size-full items-center justify-center rounded-md border py-4 transition-all
-            duration-200 easy-in-out bg-white
+            flex size-full items-center justify-center rounded-md border py-4
+            transition-all duration-200 easy-in-out bg-white
 
             dark:border-gray-600 dark:bg-transparent
 

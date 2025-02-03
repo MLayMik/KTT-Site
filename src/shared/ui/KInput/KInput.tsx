@@ -27,8 +27,8 @@ export const KInput = forwardRef<HTMLInputElement, Props>((
         disabled={disabled}
         ref={ref}
         className={`
-          my-1 w-full rounded-lg border border-blue-200 bg-white p-1 shadow-sm transition
-          duration-200 ease-in-out
+          my-1 w-full rounded-lg border border-blue-200 bg-white p-1 shadow-sm
+          transition duration-200 ease-in-out
 
           dark:border-gray-700 dark:bg-dark-bg dark:text-gray-300
 
