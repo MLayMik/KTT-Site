@@ -56,3 +56,9 @@ export interface DataResponse<T> {
   message: string
   data?: T
 }
+
+export interface Announcements {
+  id: number
+  title: string
+  announcementUrl: string
+}
