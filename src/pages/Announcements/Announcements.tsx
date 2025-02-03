@@ -1,7 +1,8 @@
+import { useAnnouncements } from '@/shared/api/announcements'
 import { KAnnouncmentCard } from '@/shared/ui/KAnnouncmentCard'
-import { announcements } from '@/shared/ui/KAnnouncmentCard/temp/tempImg'
 
 export function Announcements() {
+  const { data } = useAnnouncements()
   return (
     <div className={`
       mx-3 mt-1 py-4 text-sm font-medium
@@ -19,21 +20,8 @@ export function Announcements() {
         sm:grid-cols-3
       `}
       >
-        {announcements.map((announcement, index) => <KAnnouncmentCard key={index} imageUrl={announcement.image} title={announcement.title} />)}
+        {data?.map((announcement, index) => <KAnnouncmentCard key={index} url={announcement.announcementUrl} title={announcement.title} />)}
       </div>
-
-      {/* <Accordion.Root type="single" collapsible className="mx-auto w-full max-w-3xl">
-        {announcements.map((announcement, index) => <KAnnouncmentCardAccordion key={index} imageUrl={announcement.image} id={`'${index}'`} title={announcement.title} />)}
-      </Accordion.Root> */}
-      {/* <iframe
-        // https:// drive.google.com/file/d/1HA7gYgqVvpl0pPbDxxZ0MdjUItYBYj6o/view?usp=sharing
-        src="https://drive.google.com/file/d/1oWN8v_qWDZooViWdib58wm4IDYflkLBQ/preview"
-        width="640"
-        className="h-[900px] w-full"
-        allow="autoplay"
-      >
-      </iframe> */}
-      {/* <a href="https://www.swiftuploads.com/LK0G144az917/file">[DODI Repack] (1).torrent</a> */}
     </div>
   )
 }
