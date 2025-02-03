@@ -8,7 +8,7 @@ import App from './app/route/App.tsx'
 import './index.css'
 
 async function startWorker() {
-  if (import.meta.env.VITE_API_ENVIRONMENT === 'development') {
+  if (import.meta.env.VITE_ENVIRONMENT === 'development') {
     await worker.start({ onUnhandledRequest: 'bypass' })
   }
 }
