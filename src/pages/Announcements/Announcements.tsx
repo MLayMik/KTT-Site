@@ -1,5 +1,5 @@
 import { useAnnouncements } from '@/shared/api/announcements'
-import { KAnnouncmentCard } from '@/shared/ui/KAnnouncmentCard'
+import { KAnnouncementCard, KCreateAnnouncementCard } from '@/shared/ui/KAnnouncementCard'
 
 export function Announcements() {
   const { data } = useAnnouncements()
@@ -20,7 +20,8 @@ export function Announcements() {
         sm:grid-cols-3
       `}
       >
-        {data?.map((announcement, index) => <KAnnouncmentCard key={index} url={announcement.announcementUrl} title={announcement.title} />)}
+        {data?.map((announcement, index) => <KAnnouncementCard key={index} url={announcement.announcementUrl} title={announcement.title} />)}
+        <KCreateAnnouncementCard />
       </div>
     </div>
   )

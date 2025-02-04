@@ -14,6 +14,11 @@ const endpoints = {
     method: 'get',
     schema: announcementSchema,
   },
+  create: {
+    url: '/api/announcements',
+    method: 'post',
+    schema: announcementSchema,
+  },
 } satisfies ApiEndpointsAndSchemas
 
 export interface AnnouncementByIdParams { id: number }
@@ -29,5 +34,16 @@ export async function getAnnouncementsById({ id }: AnnouncementByIdParams) {
   const { url, method, schema } = endpoints.byId
   const data = await client[method](url({ id }), schema)
 
+  return normalizeAnnouncement(data)
+}
+
+export interface CreateAnnouncementParams {
+  title: string
+  announcement_url: string
+}
+
+export async function createAnnouncement({ title, announcement_url }: CreateAnnouncementParams) {
+  const { url, method, schema } = endpoints.create
+  const data = await client[method](url, { title, announcement_url }, schema)
   return normalizeAnnouncement(data)
 }

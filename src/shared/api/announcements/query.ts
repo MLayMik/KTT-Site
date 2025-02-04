@@ -1,6 +1,6 @@
 import type { AnnouncementByIdParams } from './api'
-import { queryOptions, useQuery } from '@tanstack/react-query'
-import { getAnnouncements, getAnnouncementsById } from './api'
+import { queryOptions, useMutation, useQuery } from '@tanstack/react-query'
+import { createAnnouncement, getAnnouncements, getAnnouncementsById } from './api'
 
 const entity = 'announcements'
 const Scopes = { All: 'all', ById: 'by-id' } as const
@@ -32,4 +32,10 @@ export function useAnnouncementsByIdQuery(params: AnnouncementByIdParams) {
 
 export function useAnnouncementsById(params: AnnouncementByIdParams) {
   return useQuery(useAnnouncementsByIdQuery(params))
+}
+
+export function useCreateAnnouncement() {
+  return useMutation({
+    mutationFn: createAnnouncement,
+  })
 }

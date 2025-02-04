@@ -3,12 +3,12 @@ import { Theme } from '@radix-ui/themes'
 import { X } from 'lucide-react'
 import '@radix-ui/themes/styles.css'
 
-interface KAnnouncmentCardProps {
+interface KAnnouncementCardProps {
   url: string
   title: string
 }
 
-export function KAnnouncmentCard({ url, title }: KAnnouncmentCardProps) {
+export function KAnnouncementCard({ url, title }: KAnnouncementCardProps) {
   return (
     <Theme accentColor="blue" grayColor="gray">
       <Dialog.Root>
@@ -67,13 +67,6 @@ export function KAnnouncmentCard({ url, title }: KAnnouncmentCardProps) {
             className="fixed inset-0 flex items-center justify-center"
             onClick={e => e.stopPropagation()}
           >
-            <Dialog.Title>
-              <span className="sr-only">Открытие документа</span>
-              {' '}
-            </Dialog.Title>
-            <Dialog.Description className="sr-only">
-              {title}
-            </Dialog.Description>
             <iframe
               src={url}
               className="h-full w-full rounded-lg object-cover"

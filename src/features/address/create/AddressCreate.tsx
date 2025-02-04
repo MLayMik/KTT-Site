@@ -50,7 +50,7 @@ export function AddressCreate() {
       <Flex gap="3" mt="4" justify="end">
         <Dialog.Close>
           <Button variant="soft" color="gray">
-            Cancel
+            Отменить
           </Button>
         </Dialog.Close>
         <Dialog.Close>
