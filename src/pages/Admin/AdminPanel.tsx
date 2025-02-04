@@ -1,23 +1,27 @@
+import { AnnouncementCreate } from '@/features/announcements/create'
+import { useAnnouncements, useDeleteAnnouncement } from '@/shared/api/announcements'
 import { useDeleteFriendlyMeeting } from '@/shared/api/friendly-meeting'
 import { useDeleteMeeting, useMeetings } from '@/shared/api/meetings'
 import { useDeleteMinistryMeeting, useMinistryMeetings } from '@/shared/api/ministry-meeting'
 import { useDeleteService } from '@/shared/api/service'
 import { cn } from '@/shared/lib/styles'
 import { KLoader } from '@/shared/ui/KLoader'
-import { RadioCards, Separator } from '@radix-ui/themes'
+import { Dialog, RadioCards, Separator } from '@radix-ui/themes'
 import { Plus, X } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
 export function AdminPanel() {
   const { data: meetingData, isLoading: loadingMeeting } = useMeetings()
   const { data: ministryData, isLoading: loadingMinistry } = useMinistryMeetings()
+  const { data: announcementData, isLoading: loadingAnnouncement } = useAnnouncements()
   const { mutate: deleteMeeting } = useDeleteMeeting()
   const { mutate: deleteService } = useDeleteService()
   const { mutate: deleteMinistryMeeting } = useDeleteMinistryMeeting()
   const { mutate: deleteFriendly } = useDeleteFriendlyMeeting()
+  const { mutate: deleteAnnouncement } = useDeleteAnnouncement()
 
   const navigate = useNavigate()
-  if (loadingMeeting && loadingMinistry)
+  if (loadingMeeting && loadingMinistry && loadingAnnouncement)
     return <KLoader />
 
   return (
@@ -139,6 +143,63 @@ export function AdminPanel() {
         >
           <Plus />
         </button>
+      </RadioCards.Root>
+      <Separator className="my-4 w-full" />
+      <p className="mb-4 font-bold">
+        Объявления:
+      </p>
+      <RadioCards.Root>
+        {announcementData?.map(announcement => (
+          <div
+            className={cn(
+              `
+                relative h-20 rounded-md border bg-white px-4 py-2 text-start
+                text-xs transition-all duration-200 ease-in-out
+
+                dark:border-gray-600 dark:bg-transparent
+
+                hover:drop-shadow-mainshadow
+
+                sm:py-2 sm:text-sm
+              `,
+            )}
+            key={announcement.id}
+          >
+            <div
+              onClick={(e) => {
+                e.stopPropagation()
+                deleteAnnouncement({ id: announcement.id })
+              }}
+              className="absolute right-1 top-1 cursor-pointer"
+              role="button"
+              tabIndex={0}
+            >
+              <X className="size-3" />
+            </div>
+            <p>
+              {announcement.title}
+            </p>
+          </div>
+        ))}
+        <Dialog.Root>
+          <Dialog.Trigger>
+            <button
+              className={`
+                flex size-full items-center justify-center rounded-md border
+                py-4 transition-all duration-200 easy-in-out bg-white
+
+                dark:border-gray-600 dark:bg-transparent
+
+                hover:drop-shadow-mainshadow
+              `}
+            >
+              <Plus />
+            </button>
+          </Dialog.Trigger>
+          <Dialog.Content>
+            <AnnouncementCreate />
+          </Dialog.Content>
+        </Dialog.Root>
       </RadioCards.Root>
     </div>
   )
