@@ -29,6 +29,7 @@ export const announcementshandlers = [
   http.get(`${API_URL}/api/announcements`, () => {
     return HttpResponse.json(announcements)
   }),
+
   http.post(`${API_URL}/api/announcements`, async ({ request }) => {
     const { title, announcement_url } = (await request.json()) as CreateAnnouncement
 
@@ -40,5 +41,15 @@ export const announcementshandlers = [
     announcements.push(newAnnouncement)
 
     return HttpResponse.json(newAnnouncement, { status: 201 })
+  }),
+
+  http.delete(`${API_URL}/api/announcements/:id`, ({ params }) => {
+    const { id } = params
+
+    const index = announcements.findIndex(ann => ann.id === Number(id))
+    if (index !== -1) {
+      announcements.splice(index, 1)
+    }
+    return HttpResponse.json(announcements, { status: 201 })
   }),
 ]

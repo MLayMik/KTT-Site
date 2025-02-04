@@ -19,6 +19,10 @@ const endpoints = {
     method: 'post',
     schema: announcementSchema,
   },
+  delete: {
+    url: ({ id }: DeleteAnnouncementParams) => `/api/announcements/${id}`,
+    method: 'delete',
+  },
 } satisfies ApiEndpointsAndSchemas
 
 export interface AnnouncementByIdParams { id: number }
@@ -46,4 +50,11 @@ export async function createAnnouncement({ title, announcement_url }: CreateAnno
   const { url, method, schema } = endpoints.create
   const data = await client[method](url, { title, announcement_url }, schema)
   return normalizeAnnouncement(data)
+}
+
+export interface DeleteAnnouncementParams { id: number }
+export async function deleteAnnouncement({ id }: DeleteAnnouncementParams) {
+  const { url, method } = endpoints.delete
+  await client[method](url({ id }))
+  return 'deleted'
 }
