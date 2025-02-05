@@ -12,7 +12,6 @@ export function KDropdown() {
   const navigate = useNavigate()
 
   const ref = useRef<HTMLButtonElement>(null)
-  const inputRef = useRef<HTMLInputElement>(null)
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -46,13 +45,11 @@ export function KDropdown() {
   return (
     <Dialog.Root>
       <DropdownMenu.Root open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-        <DropdownMenu.Trigger ref={dropdownTriggerRef}>
-          <div className={`
-            ml-2 flex size-6 items-center justify-center
-
-            focus:outline-none
-          `}
-          >
+        <DropdownMenu.Trigger
+          ref={dropdownTriggerRef}
+          className="focus:outline-none"
+        >
+          <div className="ml-2 flex size-6 items-center justify-center">
             {isAuth ? <Menu /> : <User />}
           </div>
         </DropdownMenu.Trigger>
@@ -60,7 +57,10 @@ export function KDropdown() {
         <DropdownMenu.Content
           side="right"
           className={`
-            transform drop-shadow-mainshadow
+            absolute -top-6 mt-2 rounded-lg bg-white p-2 text-sm font-medium
+            drop-shadow-mainshadow
+
+            dark:bg-slate-900
 
             md:mx-4
           `}
@@ -68,34 +68,63 @@ export function KDropdown() {
 
           {isAuth
             ? (
-                <div>
-                  <DropdownMenu.Item>
+                <Dialog.Trigger>
+                  <DropdownMenu.Item className={`
+                    w-full whitespace-nowrap rounded-md px-3 py-1
+                    transition-colors duration-300 ease-in-out
+
+                    dark:hover:bg-slate-700
+
+                    focus:outline-none
+
+                    hover:bg-slate-300
+                  `}
+                  >
                     <Link to="admin" onClick={() => setIsMenuOpen(false)}>
                       Редактировать встречи
                     </Link>
                   </DropdownMenu.Item>
                   <DropdownMenu.Separator className={`
-                    my-1 border-t border-slate-300
+                    my-1 border-t border-slate-200
                   `}
                   />
-                  <DropdownMenu.Item>
+                  <DropdownMenu.Item className="focus:outline-none">
                     <button
                       onClick={(e) => {
                         e.preventDefault()
                         handleLogOff()
                         navigate('/')
                       }}
-                      className="w-full"
+                      className={`
+                        w-full rounded-md px-3 py-1 transition-colors
+                        duration-300 ease-in-out
+
+                        dark:hover:bg-slate-700
+
+                        focus:outline-none
+
+                        hover:bg-slate-200
+                      `}
                     >
                       Выйти
                     </button>
                   </DropdownMenu.Item>
-                </div>
+                </Dialog.Trigger>
               )
             : (
                 <Dialog.Trigger>
-                  <DropdownMenu.Item>
-                    LogIn
+                  <DropdownMenu.Item className={`
+                    rounded-md bg- px-3 py-1 transition-colors duration-300
+                    ease-in-out
+
+                    dark:hover:bg-slate-700
+
+                    focus:outline-none
+
+                    hover:bg-slate-200
+                  `}
+                  >
+                    Войти
                   </DropdownMenu.Item>
                 </Dialog.Trigger>
               )}
@@ -111,40 +140,70 @@ export function KDropdown() {
             }}
             className={`
               fixed left-1/2 top-1/2 w-full max-w-sm -translate-x-1/2
-              -translate-y-1/2 rounded bg-white p-6 shadow-lg
+              -translate-y-1/2 rounded-lg bg-white p-6 text-slate-900 shadow-lg
+
+              dark:bg-slate-800 dark:text-slate-200
             `}
           >
-            <Dialog.Title className="font-medium">Вход в панель для редактирования</Dialog.Title>
-            <Flex direction="column" gap="3">
-              <label>
-                <p className="mb-1 font-bold">Пароль</p>
-                <KInput
-                  type="text"
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                />
-              </label>
+            <Dialog.Title className="mb-4 text-lg font-semibold">
+              Вход в панель для редактирования
+            </Dialog.Title>
+            <Flex direction="column" gap="4">
+              <KInput
+                type="text"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                placeholder="Пароль"
+              />
 
               {error && (
-                <p className={`
-                  rounded-xl bg-red-100 p-2 text-sm font-medium text-red-500
-                  drop-shadow-sm
-                `}
+                <p
+                  className={`
+                    rounded-md bg-red-100 p-2 text-sm font-medium text-red-600
+                    drop-shadow-sm
+
+                    dark:bg-red-800 dark:text-red-300
+                  `}
                 >
                   {error}
                 </p>
               )}
             </Flex>
 
-            <Flex gap="3" mt="4" justify="end">
+            <Flex className="mt-3 justify-end gap-3">
               <Dialog.Close>
-                <Button variant="soft" color="gray">
+                <Button
+                  variant="soft"
+                  color="gray"
+                  className={`
+                    rounded-md bg-slate-200 px-4 py-2 text-slate-900
+                    transition-colors duration-200 ease-in-out
+
+                    dark:bg-slate-700 dark:text-slate-200
+                    dark:hover:bg-slate-800
+
+                    hover:bg-slate-300
+                  `}
+                >
                   Отменить
                 </Button>
               </Dialog.Close>
-              <Button onClick={handleLogIn}>Войти</Button>
+              <Button
+                onClick={handleLogIn}
+                className={`
+                  rounded-md bg-blue-600 px-4 py-2 text-white transition-colors
+                  duration-200 ease-in-out
+
+                  dark:bg-blue-700 dark:hover:bg-blue-800
+
+                  hover:bg-blue-700
+                `}
+              >
+                Войти
+              </Button>
             </Flex>
           </Dialog.Content>
+
         </Dialog.Portal>
 
         {/* <Dialog.Root>

@@ -1,6 +1,5 @@
 import { useAnnouncements } from '@/shared/api/announcements'
 import { KAnnouncementCard, KCreateAnnouncementCard } from '@/shared/ui/KAnnouncementCard'
-import { KDropdown, KDropDownLogIn } from '@/shared/ui/KDropdown'
 
 export function Announcements() {
   const { data } = useAnnouncements()
@@ -27,9 +26,6 @@ export function Announcements() {
         {data?.map((announcement, index) => <KAnnouncementCard key={index} url={announcement.announcementUrl} title={announcement.title} />)}
         {isAuth && <KCreateAnnouncementCard />}
       </div>
-
-      <KDropDownLogIn />
-      <KDropdown />
     </div>
   )
 }

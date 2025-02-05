@@ -7,6 +7,7 @@ interface Props {
   label?: string
   error?: string
   disabled?: boolean
+  placeholder?: string
 }
 
 export const KInput = forwardRef<HTMLInputElement, Props>((
@@ -17,6 +18,7 @@ export const KInput = forwardRef<HTMLInputElement, Props>((
     label,
     error,
     disabled,
+    placeholder,
   }: Props,
   ref,
 ) => {
@@ -38,6 +40,7 @@ export const KInput = forwardRef<HTMLInputElement, Props>((
 
           hover:border-blue-400 hover:bg-blue-50 hover:shadow-sm
         `}
+        placeholder={placeholder}
         type={type}
         value={value}
         onChange={onChange}
