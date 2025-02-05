@@ -1,8 +1,12 @@
 import { useAnnouncements } from '@/shared/api/announcements'
 import { KAnnouncementCard, KCreateAnnouncementCard } from '@/shared/ui/KAnnouncementCard'
+import { KDropdown, KDropDownLogIn } from '@/shared/ui/KDropdown'
 
 export function Announcements() {
   const { data } = useAnnouncements()
+
+  const isAuth = localStorage.getItem('isAuth') === 'true'
+
   return (
     <div className={`
       mx-3 mt-1 py-4 text-sm font-medium
@@ -21,8 +25,11 @@ export function Announcements() {
       `}
       >
         {data?.map((announcement, index) => <KAnnouncementCard key={index} url={announcement.announcementUrl} title={announcement.title} />)}
-        <KCreateAnnouncementCard />
+        {isAuth && <KCreateAnnouncementCard />}
       </div>
+
+      <KDropDownLogIn />
+      <KDropdown />
     </div>
   )
 }

@@ -49,4 +49,4 @@ export function KEditLink({ typeLink = 'meeting', idProgram }: TypeLinkProps) {
       />
     </Link>
   )
-};
+}

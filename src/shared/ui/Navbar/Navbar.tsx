@@ -9,7 +9,7 @@ export function Navbar() {
   return (
     <div className={`
       mx-2 flex w-full max-w-[800px] items-center justify-between
-      overflow-hidden drop-shadow-mainshadow
+      drop-shadow-mainshadow
 
       dark:text-gray-200 dark:drop-shadow-none
 
