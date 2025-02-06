@@ -58,7 +58,14 @@ export function MeetingProgram() {
       `}
     >
       <div className="flex flex-col justify-center text-center">
-        <div>{currentProgram.status?.title}</div>
+        <div className={`
+          text-xl
+
+          sm:text-base
+        `}
+        >
+          {currentProgram.status?.title}
+        </div>
         <div className="relative flex items-center justify-center gap-2">
           <button
             className={`

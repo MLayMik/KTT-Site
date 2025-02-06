@@ -39,6 +39,14 @@ export function MeetingService() {
     `}
     >
       <div className="flex flex-col justify-center text-center">
+        <p className={`
+          text-center text-xl
+
+          sm:hidden
+        `}
+        >
+          Обслуживающие
+        </p>
         <div className="relative flex items-center justify-center gap-2">
           <button
             disabled={index === 0}

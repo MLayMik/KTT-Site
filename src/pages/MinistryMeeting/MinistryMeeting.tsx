@@ -18,7 +18,14 @@ export function MinistryMeeting() {
         sm:mx-8 sm:my-5 sm:text-base
       `}
       >
+        <p className={`
+          mb-4 text-center text-xl
 
+          sm:hidden
+        `}
+        >
+          Встречи Для Проповеди
+        </p>
         <div>
           <div
             className={`
