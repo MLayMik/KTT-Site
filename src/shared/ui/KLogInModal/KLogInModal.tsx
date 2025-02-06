@@ -34,10 +34,12 @@ export function KLogInModal() {
           event.preventDefault()
         }}
         className={`
-          fixed left-1/2 top-1/2 w-full max-w-sm -translate-x-1/2
+          fixed left-1/2 top-1/2 mx-2 w-full max-w-sm -translate-x-1/2
           -translate-y-1/2 rounded-lg bg-white p-6 text-slate-900 shadow-lg
 
           dark:bg-slate-800 dark:text-slate-200
+
+          sm:mx-0
         `}
       >
         <Dialog.Title className="mb-4 text-lg font-semibold">

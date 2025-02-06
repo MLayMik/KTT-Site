@@ -15,7 +15,14 @@ export function Announcements() {
       sm:mx-8 sm:my-5 sm:text-base
     `}
     >
-      <p className="mb-4 text-center text-2xl">Объявления</p>
+      <p className={`
+        mb-4 text-center text-2xl
+
+        sm:hidden
+      `}
+      >
+        Объявления
+      </p>
 
       <div className={`
         grid grid-cols-2 gap-4

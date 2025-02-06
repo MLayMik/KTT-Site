@@ -11,7 +11,7 @@ export function DefaultLayout() {
     `}
     >
       <div className={`
-        relative mt-4 w-full max-w-[1080px] gap-y-8
+        relative w-full max-w-[1080px] gap-y-8
 
         lg:mx-20
 
@@ -21,19 +21,19 @@ export function DefaultLayout() {
       `}
       >
         <div className={`
-          flex w-full flex-col items-center justify-center gap-y-5 px-1
+          flex w-full flex-col items-center justify-center gap-y-5
 
           md:px-0
         `}
         >
           <KNavbar />
           <div className={`
-            w-full max-w-[800px] overflow-hidden rounded-2xl bg-blue-200
+            h-full w-full max-w-[800px] overflow-hidden bg-blue-200
             drop-shadow-mainshadow transition-all duration-200 ease-in-out
 
             dark:bg-dark-primary
 
-            sm:h-auto sm:min-h-full
+            sm:h-auto sm:min-h-full sm:rounded-2xl
           `}
           >
             <Outlet />

@@ -20,13 +20,12 @@ export function RegularMeeting({ currentProgram }: RegularMeetingProps) {
       `}
       >
         <p>Председатель встречи</p>
-        <p className="font-semibold">{currentProgram.leading}</p>
+        <p className="text-right font-semibold">{currentProgram.leading}</p>
       </div>
 
       <div
         className={`
-          flex justify-between rounded-xl bg-white py-1 text-center
-          drop-shadow-mainshadow
+          flex justify-between rounded-xl bg-white py-1 drop-shadow-mainshadow
 
           dark:bg-dark-bg
 
@@ -47,7 +46,7 @@ export function RegularMeeting({ currentProgram }: RegularMeetingProps) {
         </div>
         <div
           className={`
-            rounded-xl px-4 py-2 drop-shadow-mainshadow
+            rounded-xl px-4 py-2 text-right drop-shadow-mainshadow
 
             dark:bg-gray-800 dark:drop-shadow-none dark:md:bg-dark-bg
 
@@ -68,7 +67,7 @@ export function RegularMeeting({ currentProgram }: RegularMeetingProps) {
 
       <div
         className={`
-          flex justify-between rounded-xl bg-white px-4 py-3 text-center
+          flex justify-between rounded-xl bg-white px-4 py-3
           drop-shadow-mainshadow
 
           dark:bg-gray-800
@@ -78,7 +77,7 @@ export function RegularMeeting({ currentProgram }: RegularMeetingProps) {
           <p>Ведущий С.Б.</p>
           <p className="font-semibold">{currentProgram.leadWt}</p>
         </div>
-        <div>
+        <div className="text-right">
           <p>Чтец</p>
           <p className="font-semibold">{currentProgram.reader}</p>
         </div>
@@ -92,7 +91,7 @@ export function RegularMeeting({ currentProgram }: RegularMeetingProps) {
       `}
       >
         <p>Заключительная молитва</p>
-        <p className="font-semibold">{currentProgram.closingPrayer}</p>
+        <p className="text-right font-semibold">{currentProgram.closingPrayer}</p>
       </div>
     </>
   )

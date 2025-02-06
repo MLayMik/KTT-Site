@@ -153,14 +153,14 @@ export function AdminPanel() {
           <div
             className={cn(
               `
-                relative h-20 rounded-md border bg-white px-4 py-2 text-start
-                text-xs transition-all duration-200 ease-in-out
+                relative h-20 rounded-md border bg-white px-4 py-4 text-xs
+                transition-all duration-200 ease-in-out
 
                 dark:border-gray-600 dark:bg-transparent
 
                 hover:drop-shadow-mainshadow
 
-                sm:py-2 sm:text-sm
+                sm:py-2 sm:text-start sm:text-sm
               `,
             )}
             key={announcement.id}
