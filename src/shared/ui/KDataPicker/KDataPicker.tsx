@@ -10,7 +10,7 @@ export interface Props {
   onChange: (value: DateValue | null) => void
 }
 
-export const DataPicker = forwardRef<HTMLDivElement, Props>((
+export const KDataPicker = forwardRef<HTMLDivElement, Props>((
   { onChange, value }: Props,
   ref,
 ) => {

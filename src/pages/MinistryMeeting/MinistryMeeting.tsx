@@ -1,6 +1,6 @@
 import { useMinistryMeetings } from '@/shared/api/ministry-meeting'
 import { KLoader } from '@/shared/ui/KLoader'
-import { KMinistryItem } from '@/shared/ui/MinistryItem'
+import { KMinistryItem } from '@/shared/ui/KMinistryItem'
 
 export function MinistryMeeting() {
   const { data, isLoading } = useMinistryMeetings()

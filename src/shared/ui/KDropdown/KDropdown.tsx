@@ -4,7 +4,7 @@ import { Menu, User } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { KLogInModal } from '../KLogInModal'
-import { ThemeSwitcher } from '../ThemeSwitcher'
+import { KThemeSwitcher } from '../KThemeSwitcher'
 
 export function KDropdown() {
   const navigate = useNavigate()
@@ -118,7 +118,7 @@ export function KDropdown() {
           sm:hidden sm:justify-end
         `}
         >
-          <ThemeSwitcher />
+          <KThemeSwitcher />
         </div>
       </DropdownMenu.Root>
     </Dialog.Root>

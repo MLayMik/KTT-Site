@@ -1,8 +1,8 @@
 import { useCreateFriendlyMeeting } from '@/shared/api/friendly-meeting'
 import { useCreateMinistryMeeting } from '@/shared/api/ministry-meeting'
 import { parseDateSQL } from '@/shared/lib/utils'
-import { DataPicker } from '@/shared/ui/DataPicker'
 import { KBackHistory } from '@/shared/ui/KBackHistory'
+import { KDataPicker } from '@/shared/ui/KDataPicker'
 import { KInput } from '@/shared/ui/KInput'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { getLocalTimeZone, toCalendarDate, today } from '@internationalized/date'
@@ -120,7 +120,7 @@ export function MinistryMeetingCreate() {
           render={({ field }) => (
             <div>
               <p className="mb-1">Дата:</p>
-              <DataPicker
+              <KDataPicker
                 {...field}
                 onChange={(value) => {
                   const calendarDate = value ? toCalendarDate(value) : undefined
@@ -214,7 +214,7 @@ export function MinistryMeetingCreate() {
               render={({ field }) => (
                 <div>
                   <p className="mb-1">Дата:</p>
-                  <DataPicker
+                  <KDataPicker
                     {...field}
                     onChange={(value) => {
                       const calendarDate = value ? toCalendarDate(value) : undefined

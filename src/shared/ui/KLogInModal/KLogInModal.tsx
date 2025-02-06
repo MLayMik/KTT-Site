@@ -2,7 +2,7 @@ import * as Dialog from '@radix-ui/react-dialog'
 import { Button, Flex } from '@radix-ui/themes'
 import { useRef, useState } from 'react'
 import { KInput } from '../KInput'
-import { ADMIN_PASSWORD } from '../Navbar'
+import { ADMIN_PASSWORD } from '../KNavbar'
 
 export function KLogInModal() {
   const ref = useRef<HTMLButtonElement>(null)

@@ -1,10 +1,10 @@
-import { ThemeSwitcher } from '@/shared/ui/ThemeSwitcher'
+import { KThemeSwitcher } from '@/shared/ui/KThemeSwitcher'
 import { NavLink } from 'react-router-dom'
 import { KDropdown } from '../KDropdown'
 import { links } from './config'
 import '@radix-ui/themes/styles.css'
 
-export function Navbar() {
+export function KNavbar() {
   // const isAuth = localStorage.getItem('isAuth') === 'true'
   return (
     <div className={`
@@ -44,7 +44,7 @@ export function Navbar() {
           sm:block
         `}
         >
-          <ThemeSwitcher />
+          <KThemeSwitcher />
         </div>
         <KDropdown />
       </div>

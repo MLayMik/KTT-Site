@@ -4,7 +4,7 @@ import { MoonIcon, SunIcon } from '@heroicons/react/24/solid'
 import { useEffect, useState } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
 
-export function ThemeSwitcher() {
+export function KThemeSwitcher() {
   const [theme, setTheme] = useLocalStorage('theme', 'light')
 
   useEffect(() => {

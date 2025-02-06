@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom'
-import { Navbar } from '../../shared/ui/Navbar'
+import { KNavbar } from '../../shared/ui/KNavbar'
 
 export function DefaultLayout() {
   return (
@@ -26,7 +26,7 @@ export function DefaultLayout() {
           md:px-0
         `}
         >
-          <Navbar />
+          <KNavbar />
           <div className={`
             w-full max-w-[800px] overflow-hidden rounded-2xl bg-blue-200
             drop-shadow-mainshadow transition-all duration-200 ease-in-out
