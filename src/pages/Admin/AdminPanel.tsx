@@ -86,8 +86,8 @@ export function AdminPanel() {
         >
           <Plus />
         </button>
-
       </RadioCards.Root>
+
       <Separator className="my-4 w-full" />
       <p className="mb-4 font-bold">
         Встречи для проповеди:

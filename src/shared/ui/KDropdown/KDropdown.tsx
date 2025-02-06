@@ -44,7 +44,6 @@ export function KDropdown() {
             md:mx-4
           `}
         >
-
           {isAuth
             ? (
                 <Dialog.Trigger>
@@ -108,9 +107,7 @@ export function KDropdown() {
                 </Dialog.Trigger>
               )}
         </DropdownMenu.Content>
-
         <KLogInModal />
-
       </DropdownMenu.Root>
     </Dialog.Root>
 
