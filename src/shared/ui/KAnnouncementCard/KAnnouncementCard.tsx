@@ -43,7 +43,7 @@ export function KAnnouncementCard({ url, title }: KAnnouncementCardProps) {
               `}
               >
                 <span className={`
-                  text-gray-800
+                  select-none text-gray-800
 
                   dark:text-gray-200
                 `}
