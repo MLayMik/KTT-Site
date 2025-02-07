@@ -1,4 +1,5 @@
 import { queryOptions, useMutation, useQuery } from '@tanstack/react-query'
+import { queryClient } from '../lib'
 import { type AddressByIdParams, createAddress, deleteAddress, getAddressById, getAddresses } from './api'
 
 const entity = 'address'
@@ -37,11 +38,17 @@ export function useAddressById(params: AddressByIdParams) {
 export function useCreateAddress() {
   return useMutation({
     mutationFn: createAddress,
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: keys.getAddresses() })
+    },
   })
 }
 
 export function useDeleteAddress() {
   return useMutation({
     mutationFn: deleteAddress,
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: keys.getAddresses() })
+    },
   })
 }

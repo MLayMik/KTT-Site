@@ -44,12 +44,18 @@ export function useMinistryMeeting(params: GetMinistryMeetingParams) {
 export function useCreateMinistryMeeting() {
   return useMutation({
     mutationFn: createMinistryMeeting,
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: keys.getMinistryMeetings() })
+    },
   })
 }
 
 export function useUpdateMinistryMeeting() {
   return useMutation({
     mutationFn: updateMinistryMeeting,
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: keys.getMinistryMeetings() })
+    },
   })
 }
 

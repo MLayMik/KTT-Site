@@ -1,5 +1,6 @@
 import type { AnnouncementByIdParams } from './api'
 import { queryOptions, useMutation, useQuery } from '@tanstack/react-query'
+import { queryClient } from '../lib'
 import { createAnnouncement, deleteAnnouncement, getAnnouncements, getAnnouncementsById } from './api'
 
 const entity = 'announcements'
@@ -37,11 +38,17 @@ export function useAnnouncementsById(params: AnnouncementByIdParams) {
 export function useCreateAnnouncement() {
   return useMutation({
     mutationFn: createAnnouncement,
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: keys.getAnnouncements() })
+    },
   })
 }
 
 export function useDeleteAnnouncement() {
   return useMutation({
     mutationFn: deleteAnnouncement,
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: keys.getAnnouncements() })
+    },
   })
 }

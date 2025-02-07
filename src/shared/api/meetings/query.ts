@@ -38,12 +38,18 @@ export function useMeetingById(params: GetMeetingParams) {
 export function useCreateMeeting() {
   return useMutation({
     mutationFn: createMeeting,
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: keys.getMeetings() })
+    },
   })
 }
 
 export function useUpdateMeeting() {
   return useMutation({
     mutationFn: updateMeeting,
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: keys.getMeetings() })
+    },
   })
 }
 

@@ -44,12 +44,18 @@ export function useFriendlyMeeting(params: GetFriendlyMeetingParams) {
 export function useCreateFriendlyMeeting() {
   return useMutation({
     mutationFn: createFriendlyMeeting,
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: keys.getFriendlyMeetings() })
+    },
   })
 }
 
 export function useUpdateFriendlyMeeting() {
   return useMutation({
     mutationFn: updateFriendlyMeeting,
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: keys.getFriendlyMeetings() })
+    },
   })
 }
 
