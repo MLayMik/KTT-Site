@@ -33,6 +33,7 @@ export function KAnnouncementCard({ url, title }: KAnnouncementCardProps) {
             `}
             >
               <embed
+                title="announcement"
                 src={`${url}#toolbar=0&navpanes=0&view=FitH`}
                 type="application/pdf"
                 className="h-full w-full rounded-lg object-cover"
