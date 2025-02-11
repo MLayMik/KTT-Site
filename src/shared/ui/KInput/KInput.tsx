@@ -26,6 +26,7 @@ export const KInput = forwardRef<HTMLInputElement, Props>((
     <div>
       <label className="block font-medium">{label}</label>
       <input
+        data-testid="input-value"
         disabled={disabled}
         ref={ref}
         className={`
