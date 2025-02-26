@@ -5,7 +5,11 @@ import { KBackHistory } from '@/shared/ui/KBackHistory'
 import { KDataPicker } from '@/shared/ui/KDataPicker'
 import { KInput } from '@/shared/ui/KInput'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { getLocalTimeZone, toCalendarDate, today } from '@internationalized/date'
+import {
+  getLocalTimeZone,
+  toCalendarDate,
+  today,
+} from '@internationalized/date'
 import { Checkbox, Flex } from '@radix-ui/themes'
 import { useMemo, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -26,7 +30,9 @@ export function MinistryMeetingCreate() {
   const [withFriendlyMeeting, setWithFriendlyMeeting] = useState(false)
 
   const schema = useMemo(
-    () => withFriendlyMeeting ? ministryMeetingWithFriendlyMeetingSchema : ministryMeetingSchema,
+    () => withFriendlyMeeting
+      ? ministryMeetingWithFriendlyMeetingSchema
+      : ministryMeetingSchema,
     [withFriendlyMeeting],
   )
 
@@ -111,7 +117,9 @@ export function MinistryMeetingCreate() {
     <form onSubmit={handleSubmit(onSubmit)} className="sm:space-y-6">
       <div className="flex">
         <KBackHistory />
-        <p className="flex-grow text-center text-xl font-semibold">Создание Встречи Для Проповеди</p>
+        <p className="flex-grow text-center text-xl font-semibold">
+          Создание Встречи Для Проповеди
+        </p>
       </div>
       <div className="my-2 flex justify-between gap-10">
         <Controller
@@ -128,7 +136,8 @@ export function MinistryMeetingCreate() {
                 }}
                 value={field.value}
               />
-              {errors.date && <p className="text-red-600">{errors.date.message}</p>}
+              {errors.date
+              && <p className="text-red-600">{errors.date.message}</p>}
             </div>
           )}
         />
@@ -153,7 +162,8 @@ export function MinistryMeetingCreate() {
                   focus:ring-blue-200
                 `}
               />
-              {errors.time && <p className="text-red-600">{errors.time.message}</p>}
+              {errors.time
+              && <p className="text-red-600">{errors.time.message}</p>}
             </div>
           )}
         />
@@ -217,7 +227,9 @@ export function MinistryMeetingCreate() {
                   <KDataPicker
                     {...field}
                     onChange={(value) => {
-                      const calendarDate = value ? toCalendarDate(value) : undefined
+                      const calendarDate = value
+                        ? toCalendarDate(value)
+                        : undefined
                       field.onChange(calendarDate)
                     }}
                     value={field.value}

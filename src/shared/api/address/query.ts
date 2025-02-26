@@ -1,6 +1,12 @@
 import { queryOptions, useMutation, useQuery } from '@tanstack/react-query'
 import { queryClient } from '../lib'
-import { type AddressByIdParams, createAddress, deleteAddress, getAddressById, getAddresses } from './api'
+import {
+  type AddressByIdParams,
+  createAddress,
+  deleteAddress,
+  getAddressById,
+  getAddresses,
+} from './api'
 
 const entity = 'address'
 const Scopes = { All: 'all', ById: 'by-id' } as const

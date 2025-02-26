@@ -23,7 +23,10 @@ export function MeetingEdit() {
 
   const { data: meeting } = useMeetingById({ id: +params.id! || 0 })
   const { data: addresses } = useAddresses()
-  const { data: ministryMeetings, isLoading: isLoadingMinistry } = useMinistryMeetings()
+  const {
+    data: ministryMeetings,
+    isLoading: isLoadingMinistry,
+  } = useMinistryMeetings()
   const { mutate: deleteAddress } = useDeleteAddress()
   const { mutate: updateMeetingService } = useUpdateMeetingService()
 
@@ -61,9 +64,10 @@ export function MeetingEdit() {
         date: parseDateSQL(time, date),
         meeting: {
           ...values,
-          ministry_meeting_id: (withMinistryMeeting && ministry_meeting_id !== 0)
-            ? Number(ministry_meeting_id)
-            : undefined,
+          ministry_meeting_id:
+           (withMinistryMeeting && ministry_meeting_id !== 0)
+             ? Number(ministry_meeting_id)
+             : undefined,
         },
         service: {
           ...values,
@@ -122,7 +126,9 @@ export function MeetingEdit() {
     <form onSubmit={handleSubmit(onSubmit)} className="sm:space-y-6">
       <div className="flex">
         <KBackHistory />
-        <p className="flex-grow text-center text-xl font-semibold">Редактирование Встречи</p>
+        <p className="flex-grow text-center text-xl font-semibold">
+          Редактирование Встречи
+        </p>
       </div>
       <div className="my-2 flex justify-between gap-10">
         <Controller
@@ -139,7 +145,8 @@ export function MeetingEdit() {
                 }}
                 value={field.value}
               />
-              {errors.date && <p className="text-red-600">{errors.date.message}</p>}
+              {errors.date
+              && <p className="text-red-600">{errors.date.message}</p>}
             </div>
           )}
         />
@@ -164,7 +171,8 @@ export function MeetingEdit() {
                   focus:ring-blue-200
                 `}
               />
-              {errors.time && <p className="text-red-600">{errors.time.message}</p>}
+              {errors.time
+              && <p className="text-red-600">{errors.time.message}</p>}
             </div>
           )}
         />
@@ -207,7 +215,8 @@ export function MeetingEdit() {
                   <p className="font-bold">{type.title}</p>
                 </button>
               ))}
-              {errors.status_id && <p className="text-red-600">{errors.status_id.message}</p>}
+              {errors.status_id
+              && <p className="text-red-600">{errors.status_id.message}</p>}
             </RadioCards.Root>
           </div>
         )}
@@ -266,7 +275,8 @@ export function MeetingEdit() {
                     </a>
                   </button>
                 ))}
-                {errors.address_id && <p className="text-red-600">{errors.address_id.message}</p>}
+                {errors.address_id
+                && <p className="text-red-600">{errors.address_id.message}</p>}
                 <Dialog.Root>
                   <Dialog.Trigger>
                     <button className={`
@@ -293,7 +303,9 @@ export function MeetingEdit() {
         render={({ field }) => (
           <KInput
             {...field}
-            label={statusId === 4 ? ' В виде строки с представителем филиала или нет?' : 'Председатель встречи:'}
+            label={statusId === 4
+              ? ' В виде строки с представителем филиала или нет?'
+              : 'Председатель встречи:'}
             error={errors.leading?.message}
           />
         )}
@@ -391,7 +403,9 @@ export function MeetingEdit() {
       />
 
       <Separator className="my-2 h-0.5 w-full" />
-      <h1 className="my-2 text-xl font-semibold">Редактирование Обслуживающих</h1>
+      <h1 className="my-2 text-xl font-semibold">
+        Редактирование Обслуживающих
+      </h1>
 
       <Controller
         name="scene"
@@ -457,7 +471,10 @@ export function MeetingEdit() {
           name="ministry_meeting_id"
           control={control}
           render={({ field }) => (
-            <RadioCards.Root className="my-2" columns={{ initial: '2', sm: '4' }}>
+            <RadioCards.Root
+              className="my-2"
+              columns={{ initial: '2', sm: '4' }}
+            >
               {ministryMeetings?.map(meeting => (
                 <button
                   type="button"
@@ -484,10 +501,20 @@ export function MeetingEdit() {
                   key={meeting.id}
                 >
                   <p>{meeting.leader}</p>
-                  <p>{meeting.date.toLocaleString('ru', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                  <p>
+                    {
+                      meeting
+                        .date
+                        .toLocaleString(
+                          'ru',
+                          { day: 'numeric', month: 'long', year: 'numeric' },
+                        )
+                    }
+                  </p>
                 </button>
               ))}
-              {errors.status_id && <p className="text-red-600">{errors.status_id.message}</p>}
+              {errors.status_id
+              && <p className="text-red-600">{errors.status_id.message}</p>}
             </RadioCards.Root>
           )}
         />

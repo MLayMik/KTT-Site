@@ -55,6 +55,9 @@ export const addresshandlers = [
     }
 
     addresses.splice(index, 1)
-    return HttpResponse.json({ message: 'Delete successfully' }, { status: 200 })
+    return HttpResponse.json(
+      { message: 'Delete successfully' },
+      { status: 200 },
+    )
   }),
 ]

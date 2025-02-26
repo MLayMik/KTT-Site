@@ -7,7 +7,13 @@ export function normalizeService(
   services: z.infer<typeof servicesSchema>,
 ): Service {
   return {
-    ...objectPick(services, ['id', 'administrator', 'microphones', 'scene', 'date']),
+    ...objectPick(services, [
+      'id',
+      'administrator',
+      'microphones',
+      'scene',
+      'date',
+    ]),
     voiceoverZoom: services.voiceover_zoom,
   }
 }

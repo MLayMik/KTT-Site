@@ -16,11 +16,13 @@ const announcements: Announcement[] = [
   {
     id: 1,
     title: 'Вечеря 2025',
+    // eslint-disable-next-line max-len
     announcement_url: 'https://drive.google.com/file/d/15lCsrkXuOSaZLdLwKSjnzto-uW5eqqeF/preview',
   },
   {
     id: 2,
     title: 'Чешский региональный конгресс',
+    // eslint-disable-next-line max-len
     announcement_url: 'https://drive.google.com/file/d/15SHO9O0NyoWKreZI26U01J-wzjl-q-En/preview',
   },
 ]
@@ -31,7 +33,10 @@ export const announcementshandlers = [
   }),
 
   http.post(`${API_URL}/api/announcements`, async ({ request }) => {
-    const { title, announcement_url } = (await request.json()) as CreateAnnouncement
+    const {
+      title,
+      announcement_url,
+    } = (await request.json()) as CreateAnnouncement
 
     const newAnnouncement: Announcement = {
       id: announcements.length + 1,

@@ -1,7 +1,10 @@
 # Ministry Meeting Management
 
 ## Description
-This project is a web application for managing meetings. It allows users to view, edit, and navigate through meeting details such as the status, date, and location of the meeting. The project also includes features for managing the leader of the meeting and other related functionalities.
+This project is a web application for managing meetings. It allows users to
+ view, edit, and navigate through meeting details such as the status, date,
+  and location of the meeting. The project also includes features for
+  managing the leader of the meeting and other related functionalities.
 
 ## Features
 - View and navigate through meetings

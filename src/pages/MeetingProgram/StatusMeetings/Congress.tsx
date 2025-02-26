@@ -42,7 +42,11 @@ export function Congress({ currentProgram }: CongressProps) {
             {' '}
             {currentProgram.address?.address}
           </p>
-          <a target="_blank" className="underline" href={currentProgram.address?.addressUrl}>
+          <a
+            target="_blank"
+            className="underline"
+            href={currentProgram.address?.addressUrl}
+          >
             Ссылка
           </a>
         </div>
@@ -51,7 +55,9 @@ export function Congress({ currentProgram }: CongressProps) {
             Начало:
             {' '}
             {currentProgram.date
-              ? `${new Date(currentProgram.date).getHours()}:${new Date(currentProgram.date)
+              ? `${
+                new Date(currentProgram.date).getHours()
+              }:${new Date(currentProgram.date)
                 .getMinutes()
                 .toString()
                 .padStart(2, '0')}`

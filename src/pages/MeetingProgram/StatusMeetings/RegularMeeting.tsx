@@ -91,7 +91,9 @@ export function RegularMeeting({ currentProgram }: RegularMeetingProps) {
       `}
       >
         <p>Заключительная молитва</p>
-        <p className="text-right font-semibold">{currentProgram.closingPrayer}</p>
+        <p className="text-right font-semibold">
+          {currentProgram.closingPrayer}
+        </p>
       </div>
     </>
   )

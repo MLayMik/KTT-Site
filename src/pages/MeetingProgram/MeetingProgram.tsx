@@ -4,7 +4,12 @@ import { KLoader } from '@/shared/ui/KLoader'
 import { Separator } from '@radix-ui/themes'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useMemo, useState } from 'react'
-import { Congress, Memorial, RegularMeeting, SpecialProgram } from './StatusMeetings'
+import {
+  Congress,
+  Memorial,
+  RegularMeeting,
+  SpecialProgram,
+} from './StatusMeetings'
 
 export function MeetingProgram() {
   const { data, isLoading } = useMeetings()
@@ -83,7 +88,9 @@ export function MeetingProgram() {
           </button>
 
           <p className="text-center">
-            {currentProgram.date.toLocaleString('ru', { day: 'numeric', month: 'long' })}
+            {currentProgram
+              .date
+              .toLocaleString('ru', { day: 'numeric', month: 'long' })}
             {' '}
             в
             {' '}
@@ -92,7 +99,8 @@ export function MeetingProgram() {
               .toString()
               .padStart(2, '0')}`}
             {' '}
-            {(currentProgram.status?.id === 1 || currentProgram.status?.id === 3) && (
+            {(currentProgram.status?.id === 1
+              || currentProgram.status?.id === 3) && (
               <a
                 target="_blank"
                 className="underline"
@@ -123,13 +131,17 @@ export function MeetingProgram() {
         </div>
       </div>
 
-      {currentProgram.status?.id === 1 && <RegularMeeting currentProgram={currentProgram} />}
+      {currentProgram.status?.id === 1
+      && <RegularMeeting currentProgram={currentProgram} />}
 
-      {currentProgram.status?.id === 2 && <Memorial currentProgram={currentProgram} />}
+      {currentProgram.status?.id === 2
+      && <Memorial currentProgram={currentProgram} />}
 
-      {currentProgram.status?.id === 3 && <SpecialProgram currentProgram={currentProgram} />}
+      {currentProgram.status?.id === 3
+      && <SpecialProgram currentProgram={currentProgram} />}
 
-      {currentProgram.status?.id === 4 && <Congress currentProgram={currentProgram} />}
+      {currentProgram.status?.id === 4
+      && <Congress currentProgram={currentProgram} />}
 
       {currentProgram.ministryMeeting && (
         <div
@@ -157,7 +169,17 @@ export function MeetingProgram() {
                 Время
               </p>
               <p>
-                {`${currentProgram.ministryMeeting.date.getHours()}:${currentProgram.ministryMeeting.date.getMinutes().toString().padStart(2, '0')}`}
+                {
+                  `${
+                    currentProgram.ministryMeeting.date.getHours()
+                  }:${
+                    currentProgram.ministryMeeting
+                      .date
+                      .getMinutes()
+                      .toString()
+                      .padStart(2, '0')
+                  }`
+                }
               </p>
             </div>
 
@@ -208,7 +230,10 @@ export function MeetingProgram() {
                     </p>
                     <a
                       target="_blank"
-                      href={currentProgram.ministryMeeting.friendlyMeeting.addressUrl}
+                      href={currentProgram
+                        .ministryMeeting
+                        .friendlyMeeting
+                        .addressUrl}
                       className="text-blue-600 underline"
                     >
                       {currentProgram.ministryMeeting.friendlyMeeting.address}
@@ -224,7 +249,23 @@ export function MeetingProgram() {
                       Время
                     </p>
                     <p>
-                      {`${currentProgram.ministryMeeting.friendlyMeeting.date.getHours()}:${currentProgram.ministryMeeting.friendlyMeeting.date.getMinutes().toString().padStart(2, '0')}`}
+                      {
+                        `${
+                          currentProgram
+                            .ministryMeeting
+                            .friendlyMeeting
+                            .date
+                            .getHours()
+                        }:${
+                          currentProgram
+                            .ministryMeeting
+                            .friendlyMeeting
+                            .date
+                            .getMinutes()
+                            .toString()
+                            .padStart(2, '0')
+                        }`
+                      }
                     </p>
                   </div>
                 </div>

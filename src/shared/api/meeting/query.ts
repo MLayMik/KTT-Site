@@ -1,6 +1,13 @@
 import { queryOptions, useMutation, useQuery } from '@tanstack/react-query'
 import { queryClient } from '../lib'
-import { createMeeting, deleteMeeting, getMeeting, type GetMeetingParams, getMeetings, updateMeeting } from './api'
+import {
+  createMeeting,
+  deleteMeeting,
+  getMeeting,
+  type GetMeetingParams,
+  getMeetings,
+  updateMeeting,
+} from './api'
 
 const entity = 'meeting'
 const Scopes = { All: 'all', ById: 'by-id' } as const

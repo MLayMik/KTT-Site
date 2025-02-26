@@ -1,5 +1,8 @@
 import { useAnnouncements } from '@/shared/api/announcement'
-import { KAnnouncementCard, KCreateAnnouncementCard } from '@/shared/ui/KAnnouncementCard'
+import {
+  KAnnouncementCard,
+  KCreateAnnouncementCard,
+} from '@/shared/ui/KAnnouncementCard'
 
 export function Announcements() {
   const { data } = useAnnouncements()
@@ -30,7 +33,14 @@ export function Announcements() {
         sm:grid-cols-3
       `}
       >
-        {data?.map((announcement, index) => <KAnnouncementCard key={index} url={announcement.announcementUrl} title={announcement.title} />)}
+        {data?.map((announcement, index) => (
+          <KAnnouncementCard
+            key={index}
+            url={announcement.announcementUrl}
+            title={announcement.title}
+          />
+        ),
+        )}
         {isAuth && <KCreateAnnouncementCard />}
       </div>
     </div>

@@ -34,4 +34,6 @@ export const ministryMeetingWithFriendlyMeetingSchema = z.object({
   friendlyAddressUrl: z.string().url('Некорректный URL'),
 })
 
-export type MinistryMeetingWithFriendlyMeetingValues = z.infer<typeof ministryMeetingWithFriendlyMeetingSchema>
+export type MinistryMeetingWithFriendlyMeetingValues = z.infer<
+typeof ministryMeetingWithFriendlyMeetingSchema
+>

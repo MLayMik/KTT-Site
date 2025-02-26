@@ -19,7 +19,10 @@ import { defaultValues, meetingSchema, type MeetingSchemaValues } from './lib'
 
 export function MeetingCreate() {
   const { data: addresses } = useAddresses()
-  const { data: ministryMeetings, isLoading: isLoadingMinistry } = useMinistryMeetings()
+  const {
+    data: ministryMeetings,
+    isLoading: isLoadingMinistry,
+  } = useMinistryMeetings()
   const { mutate: deleteAddress } = useDeleteAddress()
   const { mutate: createMeetingService } = useCreateMeetingService()
 
@@ -88,7 +91,9 @@ export function MeetingCreate() {
     <form onSubmit={handleSubmit(onSubmit)} className="sm:space-y-6">
       <div className="flex">
         <KBackHistory />
-        <p className="flex-grow text-center text-xl font-semibold">Создание Встречи</p>
+        <p className="flex-grow text-center text-xl font-semibold">
+          Создание Встречи
+        </p>
       </div>
       <div className="my-2 flex justify-between gap-10">
         <Controller
@@ -105,7 +110,8 @@ export function MeetingCreate() {
                 }}
                 value={field.value}
               />
-              {errors.date && <p className="text-red-600">{errors.date.message}</p>}
+              {errors.date
+              && <p className="text-red-600">{errors.date.message}</p>}
             </div>
           )}
         />
@@ -130,7 +136,8 @@ export function MeetingCreate() {
                   focus:ring-blue-200
                 `}
               />
-              {errors.time && <p className="text-red-600">{errors.time.message}</p>}
+              {errors.time
+              && <p className="text-red-600">{errors.time.message}</p>}
             </div>
           )}
         />
@@ -173,7 +180,8 @@ export function MeetingCreate() {
                   <p className="font-bold">{type.title}</p>
                 </button>
               ))}
-              {errors.status_id && <p className="text-red-600">{errors.status_id.message}</p>}
+              {errors.status_id
+              && <p className="text-red-600">{errors.status_id.message}</p>}
             </RadioCards.Root>
           </div>
         )}
@@ -233,7 +241,8 @@ export function MeetingCreate() {
                     </a>
                   </button>
                 ))}
-                {errors.address_id && <p className="text-red-600">{errors.address_id.message}</p>}
+                {errors.address_id
+                && <p className="text-red-600">{errors.address_id.message}</p>}
                 <Dialog.Root>
                   <Dialog.Trigger>
                     <button className={`
@@ -359,7 +368,9 @@ export function MeetingCreate() {
 
       <Separator className="my-2 h-0.5 w-full" />
 
-      <h1 className="mb-2 text-xl font-semibold">Редактирование Обслуживающих</h1>
+      <h1 className="mb-2 text-xl font-semibold">
+        Редактирование Обслуживающих
+      </h1>
 
       <Controller
         name="scene"
@@ -426,7 +437,10 @@ export function MeetingCreate() {
           name="ministry_meeting_id"
           control={control}
           render={({ field }) => (
-            <RadioCards.Root className="my-2" columns={{ initial: '2', sm: '4' }}>
+            <RadioCards.Root
+              className="my-2"
+              columns={{ initial: '2', sm: '4' }}
+            >
               {ministryMeetings?.map(meeting => (
                 <button
                   type="button"
@@ -453,10 +467,18 @@ export function MeetingCreate() {
                   key={meeting.id}
                 >
                   <p>{meeting.leader}</p>
-                  <p>{meeting.date.toLocaleString('ru', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                  <p>
+                    {meeting
+                      .date
+                      .toLocaleString(
+                        'ru',
+                        { day: 'numeric', month: 'long', year: 'numeric' },
+                      )}
+                  </p>
                 </button>
               ))}
-              {errors.status_id && <p className="text-red-600">{errors.status_id.message}</p>}
+              {errors.status_id
+              && <p className="text-red-600">{errors.status_id.message}</p>}
             </RadioCards.Root>
           )}
         />

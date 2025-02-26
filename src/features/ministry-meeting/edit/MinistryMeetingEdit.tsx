@@ -1,11 +1,23 @@
-import { useCreateFriendlyMeeting, useDeleteFriendlyMeeting, useUpdateFriendlyMeeting } from '@/shared/api/friendly-meeting'
-import { useMinistryMeeting, useUpdateMinistryMeeting } from '@/shared/api/ministry-meeting'
+import {
+  useCreateFriendlyMeeting,
+  useDeleteFriendlyMeeting,
+  useUpdateFriendlyMeeting,
+} from '@/shared/api/friendly-meeting'
+import {
+  useMinistryMeeting,
+  useUpdateMinistryMeeting,
+} from '@/shared/api/ministry-meeting'
 import { parseDateSQL } from '@/shared/lib/utils'
 import { KBackHistory } from '@/shared/ui/KBackHistory'
 import { KDataPicker } from '@/shared/ui/KDataPicker'
 import { KInput } from '@/shared/ui/KInput'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { getLocalTimeZone, parseDate, toCalendarDate, today } from '@internationalized/date'
+import {
+  getLocalTimeZone,
+  parseDate,
+  toCalendarDate,
+  today,
+} from '@internationalized/date'
 import { Checkbox, Flex } from '@radix-ui/themes'
 import { useEffect, useMemo, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -32,7 +44,9 @@ export function MinistryMeetingEdit() {
   const [withFriendlyMeeting, setWithFriendlyMeeting] = useState(false)
 
   const schema = useMemo(
-    () => withFriendlyMeeting ? ministryMeetingWithFriendlyMeetingSchema : ministryMeetingSchema,
+    () => withFriendlyMeeting
+      ? ministryMeetingWithFriendlyMeetingSchema
+      : ministryMeetingSchema,
     [withFriendlyMeeting],
   )
 
@@ -163,7 +177,10 @@ export function MinistryMeetingEdit() {
 
         )
         if (meeting.friendlyMeeting) {
-          setValue('friendlyDate', parseDate(meeting.date.toISOString().split('T')[0]))
+          setValue(
+            'friendlyDate',
+            parseDate(meeting.date.toISOString().split('T')[0]),
+          )
           setValue(
             'friendlyTime',
             meeting.friendlyMeeting.date.toISOString().slice(11, 16),
@@ -186,7 +203,9 @@ export function MinistryMeetingEdit() {
       <form onSubmit={handleSubmit(onSubmit)} className="sm:space-y-6">
         <div className="flex">
           <KBackHistory />
-          <p className="flex-grow text-center text-xl font-semibold">Редактирование Встречи Для Проповеди</p>
+          <p className="flex-grow text-center text-xl font-semibold">
+            Редактирование Встречи Для Проповеди
+          </p>
         </div>
         <div className="my-2 flex justify-between gap-10">
           <Controller
@@ -198,12 +217,15 @@ export function MinistryMeetingEdit() {
                 <KDataPicker
                   {...field}
                   onChange={(value) => {
-                    const calendarDate = value ? toCalendarDate(value) : undefined
+                    const calendarDate = value
+                      ? toCalendarDate(value)
+                      : undefined
                     field.onChange(calendarDate)
                   }}
                   value={field.value}
                 />
-                {errors.date && <p className="text-red-600">{errors.date.message}</p>}
+                {errors.date
+                && <p className="text-red-600">{errors.date.message}</p>}
               </div>
             )}
           />
@@ -229,7 +251,8 @@ export function MinistryMeetingEdit() {
                     focus:ring-blue-200
                   `}
                 />
-                {errors.time && <p className="text-red-600">{errors.time.message}</p>}
+                {errors.time
+                && <p className="text-red-600">{errors.time.message}</p>}
               </div>
             )}
           />
@@ -288,7 +311,9 @@ export function MinistryMeetingEdit() {
                     <KDataPicker
                       {...field}
                       onChange={(value) => {
-                        const calendarDate = value ? toCalendarDate(value) : undefined
+                        const calendarDate = value
+                          ? toCalendarDate(value)
+                          : undefined
                         field.onChange(calendarDate)
                       }}
                       value={field.value}

@@ -10,7 +10,9 @@ export const endpoints = {
     schema: responseValidation(meetingServiceSchema),
   },
   update: {
-    url: ({ id }: Pick<UpdateMeetingServiceParams, 'id'>) => `/api/meeting-service/${id}`,
+    url: (
+      { id }: Pick<UpdateMeetingServiceParams, 'id'>,
+    ) => `/api/meeting-service/${id}`,
     method: 'patch',
     schema: responseValidation(meetingServiceSchema),
   },
@@ -39,7 +41,9 @@ export interface CreateMeetingServiceParams {
     ministry_meeting_id?: number
   }
 }
-export async function createMeetingService({ ...payload }: CreateMeetingServiceParams) {
+export async function createMeetingService(
+  { ...payload }: CreateMeetingServiceParams,
+) {
   const { url, method, schema } = endpoints.create
 
   const data = await client[method](url, { ...payload }, schema)
@@ -71,7 +75,9 @@ export interface UpdateMeetingServiceParams {
     ministry_meeting_id?: number
   }
 }
-export async function updateMeetingService({ id, ...payload }: UpdateMeetingServiceParams) {
+export async function updateMeetingService(
+  { id, ...payload }: UpdateMeetingServiceParams,
+) {
   const { url, method, schema } = endpoints.update
 
   const data = await client[method](url({ id }), { ...payload }, schema)

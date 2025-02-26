@@ -21,12 +21,16 @@ const endpoints = {
     schema: responseValidation(ministryMeetingSchema),
   },
   updateMinistryMeeting: {
-    url: ({ id }: UpdateMinistryMeetingParams) => `/api/ministry-meetings/${id}`,
+    url: (
+      { id }: UpdateMinistryMeetingParams,
+    ) => `/api/ministry-meetings/${id}`,
     method: 'patch',
     schema: responseValidation(ministryMeetingSchema),
   },
   deleteMinistryMeeting: {
-    url: ({ id }: DeleteMinistryMeetingParams) => `/api/ministry-meetings/${id}`,
+    url: (
+      { id }: DeleteMinistryMeetingParams,
+    ) => `/api/ministry-meetings/${id}`,
     method: 'delete',
     schema: responseValidation(ministryMeetingSchema),
   },
@@ -104,7 +108,9 @@ export async function updateMinistryMeeting({
 }
 
 export interface DeleteMinistryMeetingParams { id: number }
-export async function deleteMinistryMeeting({ id }: DeleteMinistryMeetingParams) {
+export async function deleteMinistryMeeting(
+  { id }: DeleteMinistryMeetingParams,
+) {
   const { url, method, schema } = endpoints.deleteMinistryMeeting
 
   const data = await client[method](url({ id }), {}, schema)

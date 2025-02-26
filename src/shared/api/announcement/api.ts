@@ -46,7 +46,9 @@ export interface CreateAnnouncementParams {
   announcement_url: string
 }
 
-export async function createAnnouncement({ title, announcement_url }: CreateAnnouncementParams) {
+export async function createAnnouncement(
+  { title, announcement_url }: CreateAnnouncementParams,
+) {
   const { url, method, schema } = endpoints.create
   const data = await client[method](url, { title, announcement_url }, schema)
   return normalizeAnnouncement(data)

@@ -1,7 +1,12 @@
 import type { AnnouncementByIdParams } from './api'
 import { queryOptions, useMutation, useQuery } from '@tanstack/react-query'
 import { queryClient } from '../lib'
-import { createAnnouncement, deleteAnnouncement, getAnnouncements, getAnnouncementsById } from './api'
+import {
+  createAnnouncement,
+  deleteAnnouncement,
+  getAnnouncements,
+  getAnnouncementsById,
+} from './api'
 
 const entity = 'announcements'
 const Scopes = { All: 'all', ById: 'by-id' } as const

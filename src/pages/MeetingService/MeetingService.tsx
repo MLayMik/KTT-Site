@@ -115,7 +115,9 @@ export function MeetingService() {
               `}
               >
                 <p className="px-3 py-1">Микрофоны</p>
-                <p className="px-3 py-1 text-right">{currentService.microphones}</p>
+                <p className="px-3 py-1 text-right">
+                  {currentService.microphones}
+                </p>
               </div>
               <div className={`
                 flex justify-between rounded-xl bg-white drop-shadow-mainshadow
@@ -124,7 +126,9 @@ export function MeetingService() {
               `}
               >
                 <p className="px-3 py-1">Озвучивание + зум</p>
-                <p className="px-3 py-1 text-right">{currentService.voiceoverZoom}</p>
+                <p className="px-3 py-1 text-right">
+                  {currentService.voiceoverZoom}
+                </p>
               </div>
               <div className={`
                 flex justify-between rounded-xl bg-white drop-shadow-mainshadow
@@ -133,7 +137,9 @@ export function MeetingService() {
               `}
               >
                 <p className="px-3 py-1">Распорядители</p>
-                <p className="px-3 py-1 text-right">{currentService.administrator}</p>
+                <p className="px-3 py-1 text-right">
+                  {currentService.administrator}
+                </p>
               </div>
             </div>
           )
