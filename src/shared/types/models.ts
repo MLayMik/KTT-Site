@@ -3,7 +3,7 @@ export interface Address {
   address: string
   addressUrl: string
 }
-export interface Services {
+export interface Service {
   id: number
   date: Date
   scene?: string | null
@@ -49,7 +49,7 @@ export interface Meeting {
   status?: MeetingStatus
   ministryMeeting?: MinistryMeeting | null
   serviceId?: number | null
-  service?: Services | null
+  service?: Service | null
 }
 
 export interface DataResponse<T> {
@@ -65,5 +65,5 @@ export interface Announcements {
 
 export interface MeetingService {
   meeting: Meeting
-  service: Services
+  service: Service
 }
