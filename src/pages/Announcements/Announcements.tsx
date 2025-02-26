@@ -1,4 +1,4 @@
-import { useAnnouncements } from '@/shared/api/announcements'
+import { useAnnouncements } from '@/shared/api/announcement'
 import { KAnnouncementCard, KCreateAnnouncementCard } from '@/shared/ui/KAnnouncementCard'
 
 export function Announcements() {

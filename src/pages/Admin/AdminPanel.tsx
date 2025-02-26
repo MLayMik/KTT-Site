@@ -1,5 +1,5 @@
 import { AnnouncementCreate } from '@/features/announcements/create'
-import { useAnnouncements, useDeleteAnnouncement } from '@/shared/api/announcements'
+import { useAnnouncements, useDeleteAnnouncement } from '@/shared/api/announcement'
 import { useDeleteFriendlyMeeting } from '@/shared/api/friendly-meeting'
 import { useDeleteMeeting, useMeetings } from '@/shared/api/meetings'
 import { useDeleteMinistryMeeting, useMinistryMeetings } from '@/shared/api/ministry-meeting'
