@@ -1,7 +1,7 @@
 import { AddressCreate } from '@/features/address/create'
 import { useAddresses, useDeleteAddress } from '@/shared/api/address'
+import { useMeetingById } from '@/shared/api/meeting'
 import { useUpdateMeetingService } from '@/shared/api/meeting-service'
-import { useMeetingById } from '@/shared/api/meetings'
 import { useMinistryMeetings } from '@/shared/api/ministry-meeting'
 import { cn } from '@/shared/lib/styles'
 import { parseDateSQL } from '@/shared/lib/utils'

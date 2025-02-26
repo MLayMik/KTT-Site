@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { meetingSchema } from '../meetings'
+import { meetingSchema } from '../meeting'
 import { servicesSchema } from '../service'
 
 export const meetingServiceSchema = z.object({

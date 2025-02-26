@@ -1,4 +1,4 @@
-import { useMeetings } from '@/shared/api/meetings/query'
+import { useMeetings } from '@/shared/api/meeting'
 import { KEditLink } from '@/shared/ui/KEditLink'
 import { KLoader } from '@/shared/ui/KLoader'
 import { Separator } from '@radix-ui/themes'

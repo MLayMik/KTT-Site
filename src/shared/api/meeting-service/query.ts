@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { queryClient } from '../lib'
-import { meetingKeys } from '../meetings'
+import { meetingKeys } from '../meeting'
 import { serviceKeys } from '../service'
 import { createMeetingService, updateMeetingService } from './api'
 

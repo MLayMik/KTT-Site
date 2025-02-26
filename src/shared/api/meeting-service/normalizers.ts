@@ -1,7 +1,7 @@
 import type { MeetingService } from '@/shared/types'
 import type { z } from 'zod'
 import type { meetingServiceSchema } from './types'
-import { normalizeMeeting } from '../meetings'
+import { normalizeMeeting } from '../meeting'
 import { normalizeService } from '../service'
 
 export function normalizeMeetingService(

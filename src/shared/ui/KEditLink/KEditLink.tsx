@@ -1,4 +1,4 @@
-import { useMeetings } from '@/shared/api/meetings'
+import { useMeetings } from '@/shared/api/meeting'
 import { cn } from '@/shared/lib/styles'
 import { FilePenLine } from 'lucide-react'
 import { Link } from 'react-router-dom'
