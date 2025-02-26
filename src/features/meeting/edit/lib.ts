@@ -1,4 +1,8 @@
-import type { CalendarDate } from '@internationalized/date'
+import {
+  type CalendarDate,
+  getLocalTimeZone,
+  today,
+} from '@internationalized/date'
 import { z } from 'zod'
 
 export const meetingSchema = z.object({
@@ -24,3 +28,22 @@ export const meetingSchema = z.object({
 })
 
 export type MeetingSchemaValues = z.infer<typeof meetingSchema>
+
+export const defaultValues: MeetingSchemaValues = {
+  address_id: 1,
+  administrator: undefined,
+  closing_prayer: undefined,
+  date: today(getLocalTimeZone()),
+  time: '09:00',
+  lead_wt: undefined,
+  leading: '',
+  microphones: undefined,
+  ministry_meeting_id: undefined,
+  reader: undefined,
+  scene: undefined,
+  special_program: undefined,
+  speech_title: undefined,
+  status_id: 1,
+  voiceover_zoom: undefined,
+  speaker: undefined,
+}
