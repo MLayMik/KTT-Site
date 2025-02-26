@@ -62,3 +62,8 @@ export interface Announcements {
   title: string
   announcementUrl: string
 }
+
+export interface MeetingService {
+  meeting: Meeting
+  service: Services
+}
