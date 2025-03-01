@@ -67,3 +67,8 @@ export interface MeetingService {
   meeting: Meeting
   service: Service
 }
+
+export interface MinistryFriendly {
+  friendly: FriendlyMeeting | null
+  ministry: MinistryMeeting
+}
