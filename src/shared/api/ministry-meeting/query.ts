@@ -19,6 +19,8 @@ export const keys = {
   ) => [{ entity, scope: Scopes.ById, ...params }],
 } as const
 
+export { keys as ministryMeetingKeys }
+
 export function useMinistryMeetingsQuery() {
   return queryOptions({
     queryKey: keys.getMinistryMeetings(),
