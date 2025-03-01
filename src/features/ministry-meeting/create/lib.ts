@@ -1,39 +1,54 @@
-import type { CalendarDate } from '@internationalized/date'
+import {
+  type CalendarDate,
+  getLocalTimeZone,
+  today,
+} from '@internationalized/date'
 import { z } from 'zod'
 
-export const ministryMeetingSchema = z.object({
+const ministrySchema = z.object({
   time: z.string(),
-  date: z
-    .custom<CalendarDate>(value => value != null, {
-      message: 'Дата обязательна',
-    }),
+  date: z.custom<CalendarDate>(value => value !== null, {
+    message: 'Дата обязательна',
+  }),
   leader: z.string().optional(),
   address: z.string().optional(),
   addressUrl: z.string().url('Некорректный URL').optional(),
 })
 
-export type MinistryMeetingValues = z.infer<typeof ministryMeetingSchema>
-
-export const ministryMeetingWithFriendlyMeetingSchema = z.object({
+const friendlySchema = z.object({
   time: z.string(),
-  date: z
-    .custom<CalendarDate>(value => value != null, {
-      message: 'Дата обязательна',
-    }),
-  leader: z.string().optional(),
-  address: z.string().optional(),
-  addressUrl: z.string().url('Некорректный URL').optional(),
-  friendlyTime: z.string(),
-  friendlyDate: z
-    .custom<CalendarDate>(value => value != null, {
-      message: 'Дата обязательна',
-    }),
+  date: z.custom<CalendarDate>(value => value !== null, {
+    message: 'Дата обязательна',
+  }),
   inviting: z.string().min(1, 'Приглашающий обязателен'),
   description: z.string().min(1, 'Описание обязательное'),
-  friendlyAddress: z.string().min(1, 'Адрес обязательный'),
-  friendlyAddressUrl: z.string().url('Некорректный URL'),
+  address: z.string().min(1, 'Адрес обязательный'),
+  addressUrl: z.string().url('Некорректный URL'),
 })
 
-export type MinistryMeetingWithFriendlyMeetingValues = z.infer<
-typeof ministryMeetingWithFriendlyMeetingSchema
->
+export const ministryFriendlySchema = z.object({
+  ministry: ministrySchema,
+  friendly: friendlySchema.optional(),
+})
+
+type MinistryFriendlyValues = z.infer<typeof ministryFriendlySchema>
+
+export function provideDefaultValues(): MinistryFriendlyValues {
+  return {
+    ministry: {
+      date: today(getLocalTimeZone()),
+      time: '09:00',
+      address: '',
+      addressUrl: '',
+      leader: '',
+    },
+    friendly: {
+      address: '',
+      addressUrl: '',
+      date: today(getLocalTimeZone()),
+      description: '',
+      inviting: '',
+      time: '09:00',
+    },
+  }
+}
