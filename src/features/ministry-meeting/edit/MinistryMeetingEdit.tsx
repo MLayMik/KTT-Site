@@ -1,422 +1,302 @@
-import {
-  useCreateFriendlyMeeting,
-  useDeleteFriendlyMeeting,
-  useUpdateFriendlyMeeting,
-} from '@/shared/api/friendly-meeting'
-import {
-  useMinistryMeeting,
-  useUpdateMinistryMeeting,
-} from '@/shared/api/ministry-meeting'
+import type { z } from 'zod'
+import { useUpdateMinistryFriendly } from '@/shared/api/ministry-friendly'
+import { useMinistryMeeting } from '@/shared/api/ministry-meeting'
 import { parseDateSQL } from '@/shared/lib/utils'
 import { KBackHistory } from '@/shared/ui/KBackHistory'
 import { KDataPicker } from '@/shared/ui/KDataPicker'
 import { KInput } from '@/shared/ui/KInput'
 import { zodResolver } from '@hookform/resolvers/zod'
-import {
-  getLocalTimeZone,
-  parseDate,
-  toCalendarDate,
-  today,
-} from '@internationalized/date'
+import { toCalendarDate } from '@internationalized/date'
 import { Checkbox, Flex } from '@radix-ui/themes'
 import { useEffect, useMemo, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
-import {
-  ministryMeetingSchema,
-  type MinistryMeetingValues,
-  ministryMeetingWithFriendlyMeetingSchema,
-  type MinistryMeetingWithFriendlyMeetingValues,
-} from './lib'
+import { ministryFriendlySchema, provideDefaultValues } from './lib'
 
 export function MinistryMeetingEdit() {
   const params = useParams()
+  const navigate = useNavigate()
 
   const { data: meeting } = useMinistryMeeting({ id: +params.id! || 0 })
 
-  const { data: response, mutate: updateMeeting } = useUpdateMinistryMeeting()
-  const { mutate: updateFriendly } = useUpdateFriendlyMeeting()
-  const { mutate: createFriendly } = useCreateFriendlyMeeting()
-  const { mutate: deleteFriendly } = useDeleteFriendlyMeeting()
+  const {
+    mutate: updateMinistryFriendly,
+    data: response,
+  } = useUpdateMinistryFriendly()
 
-  const navigate = useNavigate()
-
-  const [withFriendlyMeeting, setWithFriendlyMeeting] = useState(false)
+  const [withFriendly, setWithFriendly] = useState(false)
 
   const schema = useMemo(
-    () => withFriendlyMeeting
-      ? ministryMeetingWithFriendlyMeetingSchema
-      : ministryMeetingSchema,
-    [withFriendlyMeeting],
+    () => withFriendly
+      ? ministryFriendlySchema
+      : ministryFriendlySchema.omit({ friendly: true }),
+    [withFriendly],
   )
 
-    type ConditionalFormValues = typeof withFriendlyMeeting extends true
-      ? MinistryMeetingValues
-      : MinistryMeetingWithFriendlyMeetingValues
+  type FormValues = z.infer<typeof ministryFriendlySchema>
 
-    const {
-      control,
-      handleSubmit,
-      formState: { errors },
-      setValue,
-    } = useForm<ConditionalFormValues>({
-      defaultValues: {
-        time: '09:00',
-        date: today(getLocalTimeZone()),
-        leader: undefined,
-        address: undefined,
-        addressUrl: undefined,
-        description: '',
-        friendlyAddress: '',
-        friendlyAddressUrl: '',
-        friendlyDate: today(getLocalTimeZone()),
-        friendlyTime: '09:00',
-        inviting: '',
-      },
-      resolver: zodResolver(schema),
-    })
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<FormValues>({
+    resolver: zodResolver(schema),
+  })
 
-    const onSubmit = (values: ConditionalFormValues) => {
-      if (withFriendlyMeeting) {
-        const {
-          description,
-          friendlyAddress,
-          friendlyAddressUrl,
-          friendlyDate,
-          friendlyTime,
-          inviting,
-          date,
-          time,
-          address,
-          addressUrl,
-          leader,
-        } = values
-
-        if (!meeting?.friendlyMeeting) {
-          createFriendly(
-            {
-              address: friendlyAddress,
-              address_url: friendlyAddressUrl,
-              date: parseDateSQL(friendlyTime, friendlyDate),
-              description,
-              inviting,
-            },
-            {
-              onSuccess(r) {
-                updateMeeting({
-                  id: +params.id!,
-                  friendly_meeting_id: r.data?.id,
-                  date: parseDateSQL(time, date),
-                  leader,
-                  address,
-                  address_url: addressUrl,
-                }, { onSuccess() {
-                  navigate('/admin')
-                } })
-              },
-            },
-          )
-        }
-        else {
-          updateFriendly(
-            {
-              id: meeting!.friendlyMeeting!.id,
-              address: friendlyAddress,
-              address_url: friendlyAddressUrl,
-              date: parseDateSQL(friendlyTime, friendlyDate),
-              description,
-              inviting,
-            },
-            {
-              onSuccess(r) {
-                updateMeeting({
-                  id: +params.id!,
-                  friendly_meeting_id: r.data?.id,
-                  date: parseDateSQL(time, date),
-                  leader,
-                  address,
-                  address_url: addressUrl,
-                }, { onSuccess() {
-                  navigate('/admin')
-                } })
-              },
-            },
-          )
-        }
-      }
-      else {
-        const { time, date, leader, address, addressUrl } = values
-        if (meeting?.friendlyMeeting) {
-          deleteFriendly({ id: meeting?.friendlyMeeting.id })
-        }
-
-        updateMeeting({
-          id: +params.id!,
-          date: parseDateSQL(time, date),
-          leader,
-          address,
-          address_url: addressUrl,
-        }, { onSuccess() {
-          navigate('/admin')
-        } })
-      }
+  const onSubmit = (values: FormValues) => {
+    if (meeting) {
+      updateMinistryFriendly({
+        id: meeting.id,
+        with_friendly: withFriendly,
+        ministry: {
+          date: parseDateSQL(values.ministry.time, values.ministry.date),
+          leader: values.ministry.leader,
+          address: values.ministry.address,
+          address_url: values.ministry.addressUrl,
+        },
+        friendly: values.friendly && withFriendly
+          ? {
+              date: parseDateSQL(values.friendly.time, values.friendly.date),
+              inviting: values.friendly.inviting,
+              description: values.friendly.description,
+              address: values.friendly.address,
+              address_url: values.friendly.addressUrl,
+            }
+          : undefined,
+      }, { onSuccess: () => navigate('/admin') })
     }
+  }
 
-    useEffect(() => {
-      if (meeting) {
-        setValue('leader', meeting.leader ?? '')
-        setValue('address', meeting.address ?? '')
-        setValue('addressUrl', meeting.addressUrl ?? '')
-        setValue(
-          'time',
-          meeting.date.toISOString().slice(11, 16),
-        )
-        setValue(
-          'date',
-          parseDate(meeting.date.toISOString().split('T')[0]),
+  useEffect(() => {
+    if (meeting?.friendlyMeeting) {
+      setWithFriendly(true)
+    }
+  }, [meeting])
 
-        )
-        if (meeting.friendlyMeeting) {
-          setValue(
-            'friendlyDate',
-            parseDate(meeting.date.toISOString().split('T')[0]),
-          )
-          setValue(
-            'friendlyTime',
-            meeting.friendlyMeeting.date.toISOString().slice(11, 16),
-          )
-          setValue('inviting', meeting.friendlyMeeting.inviting)
-          setValue('description', meeting.friendlyMeeting.description)
-          setValue('friendlyAddress', meeting.friendlyMeeting.address)
-          setValue('friendlyAddressUrl', meeting.friendlyMeeting.addressUrl)
-        }
-      }
-    }, [meeting])
+  useEffect(() => {
+    if (meeting) {
+      reset(provideDefaultValues(meeting))
+    }
+  }, [meeting])
 
-    useEffect(() => {
-      if (meeting?.friendlyMeeting) {
-        setWithFriendlyMeeting(true)
-      }
-    }, [meeting])
-
-    return (
-      <form onSubmit={handleSubmit(onSubmit)} className="sm:space-y-6">
-        <div className="flex">
-          <KBackHistory />
-          <p className="flex-grow text-center text-xl font-semibold">
-            Редактирование Встречи Для Проповеди
-          </p>
-        </div>
-        <div className="my-2 flex justify-between gap-10">
-          <Controller
-            name="date"
-            control={control}
-            render={({ field }) => (
-              <div>
-                <p className="mb-1">Дата:</p>
-                <KDataPicker
-                  {...field}
-                  onChange={(value) => {
-                    const calendarDate = value
-                      ? toCalendarDate(value)
-                      : undefined
-                    field.onChange(calendarDate)
-                  }}
-                  value={field.value}
-                />
-                {errors.date
-                && <p className="text-red-600">{errors.date.message}</p>}
-              </div>
-            )}
-          />
-          <Controller
-            name="time"
-            control={control}
-            render={({ field }) => (
-              <div className="flex flex-col">
-                <label htmlFor="timeInput">Время:</label>
-                <input
-                  {...field}
-                  id="timeInput"
-                  type="time"
-                  className={`
-                    mt-1 rounded-lg border border-gray-300 p-2 text-sm
-                    font-medium shadow-sm transition-all duration-200
-                    ease-in-out
-
-                    dark:border-gray-600 dark:bg-dark-bg dark:text-gray-200
-                    dark:focus:ring-blue-500
-
-                    focus:border-blue-500 focus:outline-none focus:ring-2
-                    focus:ring-blue-200
-                  `}
-                />
-                {errors.time
-                && <p className="text-red-600">{errors.time.message}</p>}
-              </div>
-            )}
-          />
-        </div>
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className="sm:space-y-6">
+      <div className="flex">
+        <KBackHistory />
+        <p className="flex-grow text-center text-xl font-semibold">
+          Редактирование Встречи Для Проповеди
+        </p>
+      </div>
+      <div className="my-2 flex justify-between gap-10">
         <Controller
-          name="leader"
+          name="ministry.date"
           control={control}
           render={({ field }) => (
-            <KInput
-              {...field}
-              label="Ведущий:"
-              error={errors.leader?.message}
-            />
-          )}
-        />
-        <Controller
-          name="address"
-          control={control}
-          render={({ field }) => (
-            <KInput
-              {...field}
-              label="Адрес:"
-              error={errors.address?.message}
-            />
-          )}
-        />
-        <Controller
-          name="addressUrl"
-          control={control}
-          render={({ field }) => (
-            <KInput
-              {...field}
-              label="Ссылка на адрес:"
-              error={errors.addressUrl?.message}
-            />
-          )}
-        />
-
-        <Flex align="center" className="m-2" gap="2">
-          <Checkbox
-            checked={withFriendlyMeeting}
-            onCheckedChange={e => setWithFriendlyMeeting(e as boolean)}
-          />
-          Дружеская встреча
-        </Flex>
-
-        {withFriendlyMeeting && (
-          <div className="space-y-6">
-            <div className="flex justify-between gap-10">
-              <Controller
-                name="friendlyDate"
-                control={control}
-                render={({ field }) => (
-                  <div>
-                    <p className="mb-1">Дата:</p>
-                    <KDataPicker
-                      {...field}
-                      onChange={(value) => {
-                        const calendarDate = value
-                          ? toCalendarDate(value)
-                          : undefined
-                        field.onChange(calendarDate)
-                      }}
-                      value={field.value}
-                    />
-                    {
-                      errors.friendlyDate && (
-                        <p className="text-red-600">
-                          {errors.friendlyDate.message}
-                        </p>
-                      )
-                    }
-                  </div>
-                )}
+            <div>
+              <p className="mb-1">Дата:</p>
+              <KDataPicker
+                {...field}
+                onChange={(value) => {
+                  const calendarDate = value
+                    ? toCalendarDate(value)
+                    : undefined
+                  field.onChange(calendarDate)
+                }}
+                value={field.value}
               />
-              <Controller
-                name="friendlyTime"
-                control={control}
-                render={({ field }) => (
-                  <div className="flex flex-col">
-                    <label htmlFor="timeInput">Время:</label>
-                    <input
-                      {...field}
-                      id="timeInput"
-                      type="time"
-                      className={`
-                        mt-1 rounded-lg border border-gray-300 p-2 text-sm
-                        font-medium shadow-sm transition-all duration-200
-                        ease-in-out
-
-                        dark:border-gray-600 dark:bg-dark-bg dark:text-gray-200
-                        dark:focus:ring-blue-500
-
-                        focus:border-blue-500 focus:outline-none focus:ring-2
-                        focus:ring-blue-200
-                      `}
-                    />
-                    {errors.friendlyTime && (
-                      <p className="text-red-600">
-                        {errors.friendlyTime.message}
-                      </p>
-                    )}
-                  </div>
-                )}
-              />
+              {errors.ministry?.date
+              && <p className="text-red-600">{errors.ministry.date.message}</p>}
             </div>
+          )}
+        />
+        <Controller
+          name="ministry.time"
+          control={control}
+          render={({ field }) => (
+            <div className="flex flex-col">
+              <label htmlFor="timeInput">Время:</label>
+              <input
+                {...field}
+                id="timeInput"
+                type="time"
+                className={`
+                  mt-1 rounded-lg border border-gray-300 p-2 text-sm font-medium
+                  shadow-sm transition-all duration-200 ease-in-out
+
+                  dark:border-gray-600 dark:bg-dark-bg dark:text-gray-200
+                  dark:focus:ring-blue-500
+
+                  focus:border-blue-500 focus:outline-none focus:ring-2
+                  focus:ring-blue-200
+                `}
+              />
+              {errors.ministry?.time
+              && <p className="text-red-600">{errors.ministry.time.message}</p>}
+            </div>
+          )}
+        />
+      </div>
+      <Controller
+        name="ministry.leader"
+        control={control}
+        render={({ field }) => (
+          <KInput
+            {...field}
+            label="Ведущий:"
+            error={errors.ministry?.leader?.message}
+          />
+        )}
+      />
+      <Controller
+        name="ministry.address"
+        control={control}
+        render={({ field }) => (
+          <KInput
+            {...field}
+            label="Адрес:"
+            error={errors.ministry?.address?.message}
+          />
+        )}
+      />
+      <Controller
+        name="ministry.addressUrl"
+        control={control}
+        render={({ field }) => (
+          <KInput
+            {...field}
+            label="Ссылка на адрес:"
+            error={errors.ministry?.addressUrl?.message}
+          />
+        )}
+      />
+
+      <Flex align="center" className="m-2" gap="2">
+        <Checkbox
+          checked={withFriendly}
+          onCheckedChange={e => setWithFriendly(e as boolean)}
+        />
+        Дружеская встреча
+      </Flex>
+
+      {withFriendly && (
+        <div className="space-y-6">
+          <div className="flex justify-between gap-10">
             <Controller
-              name="inviting"
+              name="friendly.date"
               control={control}
               render={({ field }) => (
-                <KInput
-                  {...field}
-                  label="Приглашающий:"
-                  error={errors.inviting?.message}
-                />
+                <div>
+                  <p className="mb-1">Дата:</p>
+                  <KDataPicker
+                    {...field}
+                    onChange={(value) => {
+                      const calendarDate = value
+                        ? toCalendarDate(value)
+                        : undefined
+                      field.onChange(calendarDate)
+                    }}
+                    value={field.value}
+                  />
+                  {
+                    errors.friendly?.date && (
+                      <p className="text-red-600">
+                        {errors.friendly.date.message}
+                      </p>
+                    )
+                  }
+                </div>
               )}
             />
             <Controller
-              name="description"
+              name="friendly.time"
               control={control}
               render={({ field }) => (
-                <KInput
-                  {...field}
-                  label="Описание:"
-                  error={errors.description?.message}
-                />
-              )}
-            />
-            <Controller
-              name="friendlyAddress"
-              control={control}
-              render={({ field }) => (
-                <KInput
-                  {...field}
-                  label="Адрес:"
-                  error={errors.friendlyAddress?.message}
-                />
-              )}
-            />
-            <Controller
-              name="friendlyAddressUrl"
-              control={control}
-              render={({ field }) => (
-                <KInput
-                  {...field}
-                  label="Ссылка на адрес:"
-                  error={errors.friendlyAddressUrl?.message}
-                />
+                <div className="flex flex-col">
+                  <label htmlFor="timeInput">Время:</label>
+                  <input
+                    {...field}
+                    id="timeInput"
+                    type="time"
+                    className={`
+                      mt-1 rounded-lg border border-gray-300 p-2 text-sm
+                      font-medium shadow-sm transition-all duration-200
+                      ease-in-out
+
+                      dark:border-gray-600 dark:bg-dark-bg dark:text-gray-200
+                      dark:focus:ring-blue-500
+
+                      focus:border-blue-500 focus:outline-none focus:ring-2
+                      focus:ring-blue-200
+                    `}
+                  />
+                  {errors.friendly?.time && (
+                    <p className="text-red-600">
+                      {errors.friendly.time.message}
+                    </p>
+                  )}
+                </div>
               )}
             />
           </div>
-        )}
-        <button
-          type="submit"
-          className={`
-            mt-2 w-full rounded-2xl bg-blue-800 p-2 text-white transition-all
-            duration-300 ease-in-out
+          <Controller
+            name="friendly.inviting"
+            control={control}
+            render={({ field }) => (
+              <KInput
+                {...field}
+                label="Приглашающий:"
+                error={errors.friendly?.inviting?.message}
+              />
+            )}
+          />
+          <Controller
+            name="friendly.description"
+            control={control}
+            render={({ field }) => (
+              <KInput
+                {...field}
+                label="Описание:"
+                error={errors.friendly?.description?.message}
+              />
+            )}
+          />
+          <Controller
+            name="friendly.address"
+            control={control}
+            render={({ field }) => (
+              <KInput
+                {...field}
+                label="Адрес:"
+                error={errors.friendly?.address?.message}
+              />
+            )}
+          />
+          <Controller
+            name="friendly.addressUrl"
+            control={control}
+            render={({ field }) => (
+              <KInput
+                {...field}
+                label="Ссылка на адрес:"
+                error={errors.friendly?.addressUrl?.message}
+              />
+            )}
+          />
+        </div>
+      )}
+      <button
+        type="submit"
+        className={`
+          mt-2 w-full rounded-2xl bg-blue-800 p-2 text-white transition-all
+          duration-300 ease-in-out
 
-            hover:bg-blue-600
-          `}
-        >
-          Изменить
-        </button>
-        {response && <p>{response.message}</p>}
-      </form>
-    )
+          hover:bg-blue-600
+        `}
+      >
+        Изменить
+      </button>
+      {response && <p>{response.message}</p>}
+    </form>
+  )
 }
