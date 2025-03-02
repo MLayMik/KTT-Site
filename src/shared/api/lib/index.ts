@@ -4,7 +4,9 @@ import { setupWorker } from 'msw/browser'
 import { handlers } from '../handlers'
 import { RestClient } from './RestClient'
 
-export const queryClient = new QueryClient({ defaultOptions: { queries: { refetchOnWindowFocus: false } } })
+export const queryClient = new QueryClient(
+  { defaultOptions: { queries: { refetchOnWindowFocus: false } } },
+)
 
 export const client = new RestClient()
 

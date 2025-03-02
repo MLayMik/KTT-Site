@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 export function KLoader() {
   return (
     <div role="status" className="flex justify-center py-4">

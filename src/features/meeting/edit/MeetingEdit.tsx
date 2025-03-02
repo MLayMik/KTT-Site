@@ -1,32 +1,34 @@
 import { AddressCreate } from '@/features/address/create'
 import { useAddresses, useDeleteAddress } from '@/shared/api/address'
-import { useMeetingById, useUpdateMeeting } from '@/shared/api/meetings'
+import { useMeetingById } from '@/shared/api/meeting'
+import { useUpdateMeetingService } from '@/shared/api/meeting-service'
 import { useMinistryMeetings } from '@/shared/api/ministry-meeting'
-import { useUpdateService } from '@/shared/api/service'
 import { cn } from '@/shared/lib/styles'
 import { parseDateSQL } from '@/shared/lib/utils'
 import { KBackHistory } from '@/shared/ui/KBackHistory'
 import { KDataPicker } from '@/shared/ui/KDataPicker'
 import { KInput } from '@/shared/ui/KInput'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { getLocalTimeZone, parseDate, toCalendarDate, today } from '@internationalized/date'
+import { parseDate, toCalendarDate } from '@internationalized/date'
 import { Checkbox, Dialog, Flex, RadioCards, Separator } from '@radix-ui/themes'
 import { Plus, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
 import { meetingStatuses } from '../config'
-import { meetingSchema, type MeetingSchemaValues } from './lib'
+import { defaultValues, meetingSchema, type MeetingSchemaValues } from './lib'
 
 export function MeetingEdit() {
   const params = useParams()
 
   const { data: meeting } = useMeetingById({ id: +params.id! || 0 })
   const { data: addresses } = useAddresses()
-  const { data: ministryMeetings, isLoading: isLoadingMinistry } = useMinistryMeetings()
+  const {
+    data: ministryMeetings,
+    isLoading: isLoadingMinistry,
+  } = useMinistryMeetings()
   const { mutate: deleteAddress } = useDeleteAddress()
-  const { mutate: updateMeeting } = useUpdateMeeting()
-  const { mutate: updateService } = useUpdateService()
+  const { mutate: updateMeetingService } = useUpdateMeetingService()
 
   const [withMinistryMeeting, setWithMinistryMeeting] = useState(false)
   const [isCheckDisabled, setIsCheckDisabled] = useState(true)
@@ -49,85 +51,31 @@ export function MeetingEdit() {
     watch,
     formState: { errors },
   } = useForm<MeetingSchemaValues>({
-    defaultValues: {
-      address_id: 1,
-      administrator: undefined,
-      closing_prayer: undefined,
-      date: today(getLocalTimeZone()),
-      time: '09:00',
-      lead_wt: undefined,
-      leading: '',
-      microphones: undefined,
-      ministry_meeting_id: undefined,
-      reader: undefined,
-      scene: undefined,
-      special_program: undefined,
-      speech_title: undefined,
-      status_id: 1,
-      voiceover_zoom: undefined,
-      speaker: undefined,
-    },
+    defaultValues: { ...defaultValues },
     resolver: zodResolver(meetingSchema),
   })
 
   const onSubmit = (values: MeetingSchemaValues) => {
-    const {
-      date,
-      leading,
-      status_id,
-      time,
-      address_id,
-      administrator,
-      closing_prayer,
-      lead_wt,
-      microphones,
-      ministry_meeting_id,
-      reader,
-      scene,
-      speaker,
-      special_program,
-      speech_title,
-      voiceover_zoom,
-    } = values
+    const { date, time, ministry_meeting_id } = values
 
-    updateService(
-      {
-        id: meeting!.serviceId!,
+    if (meeting) {
+      updateMeetingService({
+        id: meeting.id,
         date: parseDateSQL(time, date),
-        administrator,
-        microphones,
-        scene,
-        voiceover_zoom,
-      },
-      {
-        onSuccess({ data }) {
-          updateMeeting(
-            {
-              id: meeting!.id,
-              date: parseDateSQL(time, date),
-              leading,
-              status_id,
-              address_id,
-              closing_prayer,
-              lead_wt,
-              ministry_meeting_id: withMinistryMeeting
-                ? Number(ministry_meeting_id)
-                : undefined,
-              reader,
-              service_id: data?.id,
-              speaker,
-              special_program,
-              speech_title,
-            },
-            {
-              onSuccess() {
-                navigate('/admin')
-              },
-            },
-          )
+        meeting: {
+          ...values,
+          ministry_meeting_id:
+           (withMinistryMeeting && ministry_meeting_id !== 0)
+             ? Number(ministry_meeting_id)
+             : undefined,
         },
-      },
-    )
+        service: {
+          ...values,
+        },
+      }, { onSuccess() {
+        navigate('/admin')
+      } })
+    }
   }
 
   useEffect(() => {
@@ -178,7 +126,9 @@ export function MeetingEdit() {
     <form onSubmit={handleSubmit(onSubmit)} className="sm:space-y-6">
       <div className="flex">
         <KBackHistory />
-        <p className="flex-grow text-center text-xl font-semibold">Редактирование Встречи</p>
+        <p className="flex-grow text-center text-xl font-semibold">
+          Редактирование Встречи
+        </p>
       </div>
       <div className="my-2 flex justify-between gap-10">
         <Controller
@@ -195,7 +145,8 @@ export function MeetingEdit() {
                 }}
                 value={field.value}
               />
-              {errors.date && <p className="text-red-600">{errors.date.message}</p>}
+              {errors.date
+              && <p className="text-red-600">{errors.date.message}</p>}
             </div>
           )}
         />
@@ -220,7 +171,8 @@ export function MeetingEdit() {
                   focus:ring-blue-200
                 `}
               />
-              {errors.time && <p className="text-red-600">{errors.time.message}</p>}
+              {errors.time
+              && <p className="text-red-600">{errors.time.message}</p>}
             </div>
           )}
         />
@@ -263,7 +215,8 @@ export function MeetingEdit() {
                   <p className="font-bold">{type.title}</p>
                 </button>
               ))}
-              {errors.status_id && <p className="text-red-600">{errors.status_id.message}</p>}
+              {errors.status_id
+              && <p className="text-red-600">{errors.status_id.message}</p>}
             </RadioCards.Root>
           </div>
         )}
@@ -322,7 +275,8 @@ export function MeetingEdit() {
                     </a>
                   </button>
                 ))}
-                {errors.address_id && <p className="text-red-600">{errors.address_id.message}</p>}
+                {errors.address_id
+                && <p className="text-red-600">{errors.address_id.message}</p>}
                 <Dialog.Root>
                   <Dialog.Trigger>
                     <button className={`
@@ -349,7 +303,9 @@ export function MeetingEdit() {
         render={({ field }) => (
           <KInput
             {...field}
-            label={statusId === 4 ? ' В виде строки с представителем филиала или нет?' : 'Председатель встречи:'}
+            label={statusId === 4
+              ? ' В виде строки с представителем филиала или нет?'
+              : 'Председатель встречи:'}
             error={errors.leading?.message}
           />
         )}
@@ -447,7 +403,9 @@ export function MeetingEdit() {
       />
 
       <Separator className="my-2 h-0.5 w-full" />
-      <h1 className="my-2 text-xl font-semibold">Редактирование Обслуживающих</h1>
+      <h1 className="my-2 text-xl font-semibold">
+        Редактирование Обслуживающих
+      </h1>
 
       <Controller
         name="scene"
@@ -513,7 +471,10 @@ export function MeetingEdit() {
           name="ministry_meeting_id"
           control={control}
           render={({ field }) => (
-            <RadioCards.Root className="my-2" columns={{ initial: '2', sm: '4' }}>
+            <RadioCards.Root
+              className="my-2"
+              columns={{ initial: '2', sm: '4' }}
+            >
               {ministryMeetings?.map(meeting => (
                 <button
                   type="button"
@@ -540,10 +501,20 @@ export function MeetingEdit() {
                   key={meeting.id}
                 >
                   <p>{meeting.leader}</p>
-                  <p>{meeting.date.toLocaleString('ru', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                  <p>
+                    {
+                      meeting
+                        .date
+                        .toLocaleString(
+                          'ru',
+                          { day: 'numeric', month: 'long', year: 'numeric' },
+                        )
+                    }
+                  </p>
                 </button>
               ))}
-              {errors.status_id && <p className="text-red-600">{errors.status_id.message}</p>}
+              {errors.status_id
+              && <p className="text-red-600">{errors.status_id.message}</p>}
             </RadioCards.Root>
           )}
         />

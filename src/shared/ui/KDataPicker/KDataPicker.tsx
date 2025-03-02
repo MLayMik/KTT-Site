@@ -1,7 +1,11 @@
 import type { DateValue } from 'react-aria-components'
 import { useCurrentTheme } from '@/shared/lib/utils'
-// import { darkTheme, DatePicker, lightTheme, Provider } from '@adobe/react-spectrum'
-import { darkTheme, DatePicker, lightTheme, Provider } from '@adobe/react-spectrum'
+import {
+  darkTheme,
+  DatePicker,
+  lightTheme,
+  Provider,
+} from '@adobe/react-spectrum'
 
 import { forwardRef } from 'react'
 
@@ -28,7 +32,9 @@ export const KDataPicker = forwardRef<HTMLDivElement, Props>((
         value={value}
         aria-label="Select a date"
         onChange={onChange}
-        UNSAFE_className="bg-white dark:bg-dark-primary text-black dark:text-white "
+        UNSAFE_className="
+        bg-white dark:bg-dark-primary text-black dark:text-white
+        "
       />
     </Provider>
   )

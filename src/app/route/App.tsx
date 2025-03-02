@@ -11,8 +11,14 @@ import { MinistryMeeting } from '../../pages/MinistryMeeting'
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<DefaultLayout />}>
-        <Route index element={<MeetingProgram />} />
+      <Route
+        path="/"
+        element={<DefaultLayout />}
+      >
+        <Route
+          index
+          element={<MeetingProgram />}
+        />
         <Route
           path="admin"
           element={(
@@ -26,18 +32,42 @@ function App() {
           element={(
             <RequireAuth>
               <Routes>
-                <Route path="meeting" element={<AdminMeeting />} />
-                <Route path="meeting/:id" element={<AdminMeeting edit />} />
-                <Route path="ministry-meeting" element={<AdminMinistryMeetings />} />
-                <Route path="ministry-meeting/:id" element={<AdminMinistryMeetings edit />} />
+                <Route
+                  path="meeting"
+                  element={<AdminMeeting />}
+                />
+                <Route
+                  path="meeting/:id"
+                  element={<AdminMeeting edit />}
+                />
+                <Route
+                  path="ministry-meeting"
+                  element={<AdminMinistryMeetings />}
+                />
+                <Route
+                  path="ministry-meeting/:id"
+                  element={<AdminMinistryMeetings edit />}
+                />
               </Routes>
             </RequireAuth>
           )}
         />
-        <Route path="meeting-service" element={<MeetingService />} />
-        <Route path="ministry-meeting" element={<MinistryMeeting />} />
-        <Route path="announcements" element={<Announcements />} />
-        <Route path="areas" element={<Areas />} />
+        <Route
+          path="meeting-service"
+          element={<MeetingService />}
+        />
+        <Route
+          path="ministry-meeting"
+          element={<MinistryMeeting />}
+        />
+        <Route
+          path="announcements"
+          element={<Announcements />}
+        />
+        <Route
+          path="areas"
+          element={<Areas />}
+        />
       </Route>
     </Routes>
   )

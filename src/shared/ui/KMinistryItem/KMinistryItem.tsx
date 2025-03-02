@@ -65,7 +65,13 @@ export function KMinistryItem({
             Время
           </p>
           <p>
-            {`${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}`}
+            {
+              `${
+                date.getHours()
+              }:${
+                date.getMinutes().toString().padStart(2, '0')
+              }`
+            }
           </p>
         </div>
 
@@ -165,7 +171,14 @@ export function KMinistryItem({
                 Время
               </p>
               <p>
-                {`${friendlyMeeting.date.getHours()}:${friendlyMeeting.date.getMinutes().toString().padStart(2, '0')}`}
+                {
+                  `${friendlyMeeting.date.getHours()
+                  }:${friendlyMeeting
+                    .date
+                    .getMinutes()
+                    .toString()
+                    .padStart(2, '0')}`
+                }
               </p>
             </div>
           </div>

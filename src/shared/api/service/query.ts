@@ -19,6 +19,8 @@ const keys = {
   ) => [{ entity, scope: Scopes.ById, ...params }],
 } as const
 
+export { keys as serviceKeys }
+
 export function useServicesQuery() {
   return queryOptions({
     queryKey: keys.getServices(),

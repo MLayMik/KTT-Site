@@ -1,8 +1,14 @@
 import { AnnouncementCreate } from '@/features/announcements/create'
-import { useAnnouncements, useDeleteAnnouncement } from '@/shared/api/announcements'
+import {
+  useAnnouncements,
+  useDeleteAnnouncement,
+} from '@/shared/api/announcement'
 import { useDeleteFriendlyMeeting } from '@/shared/api/friendly-meeting'
-import { useDeleteMeeting, useMeetings } from '@/shared/api/meetings'
-import { useDeleteMinistryMeeting, useMinistryMeetings } from '@/shared/api/ministry-meeting'
+import { useDeleteMeeting, useMeetings } from '@/shared/api/meeting'
+import {
+  useDeleteMinistryMeeting,
+  useMinistryMeetings,
+} from '@/shared/api/ministry-meeting'
 import { useDeleteService } from '@/shared/api/service'
 import { cn } from '@/shared/lib/styles'
 import { KLoader } from '@/shared/ui/KLoader'
@@ -12,8 +18,14 @@ import { useNavigate } from 'react-router-dom'
 
 export function AdminPanel() {
   const { data: meetingData, isLoading: loadingMeeting } = useMeetings()
-  const { data: ministryData, isLoading: loadingMinistry } = useMinistryMeetings()
-  const { data: announcementData, isLoading: loadingAnnouncement } = useAnnouncements()
+  const {
+    data: ministryData,
+    isLoading: loadingMinistry,
+  } = useMinistryMeetings()
+  const {
+    data: announcementData,
+    isLoading: loadingAnnouncement,
+  } = useAnnouncements()
   const { mutate: deleteMeeting } = useDeleteMeeting()
   const { mutate: deleteService } = useDeleteService()
   const { mutate: deleteMinistryMeeting } = useDeleteMinistryMeeting()
@@ -66,9 +78,19 @@ export function AdminPanel() {
             >
               <X className="size-3" />
             </button>
-            <p className={meeting.status!.title !== 'Собрание' ? 'font-bold' : undefined}>{meeting.status!.title}</p>
+            <p className={meeting.status!.title !== 'Собрание'
+              ? 'font-bold'
+              : undefined}
+            >
+              {meeting.status!.title}
+            </p>
             <p className="text-xs">
-              {meeting.date.toLocaleString('ru', { day: 'numeric', month: 'long', year: 'numeric' })}
+              {meeting
+                .date
+                .toLocaleString(
+                  'ru',
+                  { day: 'numeric', month: 'long', year: 'numeric' },
+                )}
             </p>
           </button>
         ))}
@@ -123,7 +145,12 @@ export function AdminPanel() {
               <X className="size-3" />
             </div>
             <p>
-              {meeting.date.toLocaleString('ru', { day: 'numeric', month: 'long', year: 'numeric' })}
+              {meeting
+                .date
+                .toLocaleString(
+                  'ru',
+                  { day: 'numeric', month: 'long', year: 'numeric' },
+                )}
             </p>
             <p className="text-xs">
               {meeting.leader}

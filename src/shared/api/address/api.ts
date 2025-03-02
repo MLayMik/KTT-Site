@@ -46,7 +46,9 @@ export interface CreateAddressParams {
   address_url: string
 }
 
-export async function createAddress({ address, address_url }: CreateAddressParams) {
+export async function createAddress(
+  { address, address_url }: CreateAddressParams,
+) {
   const { url, method, schema } = endpoints.create
   const data = await client[method](url, { address, address_url }, schema)
   return normalizeAddress(data)

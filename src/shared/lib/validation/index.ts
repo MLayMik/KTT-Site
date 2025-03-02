@@ -22,6 +22,8 @@ export function normalizeResponse<T, R>(
 
   return {
     message: parsedResponse.message,
-    data: parsedResponse.data ? normalizeFunction(parsedResponse.data) : undefined,
+    data: parsedResponse.data
+      ? normalizeFunction(parsedResponse.data)
+      : undefined,
   }
 }

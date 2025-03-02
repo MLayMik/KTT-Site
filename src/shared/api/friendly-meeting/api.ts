@@ -21,12 +21,16 @@ const endpoints = {
     schema: responseValidation(friendlyMeetingSchema),
   },
   updateFriendlyMeeting: {
-    url: ({ id }: UpdateFriendlyMeetingParams) => `/api/friendly-meetings/${id}`,
+    url: (
+      { id }: UpdateFriendlyMeetingParams,
+    ) => `/api/friendly-meetings/${id}`,
     method: 'patch',
     schema: responseValidation(friendlyMeetingSchema),
   },
   deleteFriendlyMeeting: {
-    url: ({ id }: DeleteFriendlyMeetingParams) => `/api/friendly-meetings/${id}`,
+    url: (
+      { id }: DeleteFriendlyMeetingParams,
+    ) => `/api/friendly-meetings/${id}`,
     method: 'delete',
     schema: responseValidation(friendlyMeetingSchema),
   },
@@ -102,7 +106,9 @@ export async function updateFriendlyMeeting({
 }
 
 export interface DeleteFriendlyMeetingParams { id: number }
-export async function deleteFriendlyMeeting({ id }: DeleteFriendlyMeetingParams) {
+export async function deleteFriendlyMeeting(
+  { id }: DeleteFriendlyMeetingParams,
+) {
   const { url, method, schema } = endpoints.deleteFriendlyMeeting
 
   const data = await client[method](url({ id }), {}, schema)

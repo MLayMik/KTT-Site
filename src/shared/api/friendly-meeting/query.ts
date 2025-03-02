@@ -12,12 +12,14 @@ import {
 const entity = 'friendly-meeting'
 const Scopes = { All: 'all', ById: 'by-id' } as const
 
-export const keys = {
+const keys = {
   getFriendlyMeetings: () => [{ entity, scope: Scopes.All }],
   getFriendlyMeeting: (
     params: GetFriendlyMeetingParams,
   ) => [{ entity, scope: Scopes.ById, ...params }],
 } as const
+
+export { keys as friendlyMeetingKeys }
 
 export function useFriendlyMeetingsQuery() {
   return queryOptions({

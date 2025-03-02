@@ -1,4 +1,4 @@
-import { keys, useCreateAnnouncement } from '@/shared/api/announcements'
+import { keys, useCreateAnnouncement } from '@/shared/api/announcement'
 import { queryClient } from '@/shared/api/lib'
 import { Button, Dialog, Flex, Text, TextField } from '@radix-ui/themes'
 import { useState } from 'react'
