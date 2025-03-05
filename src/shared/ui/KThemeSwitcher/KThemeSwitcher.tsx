@@ -36,7 +36,6 @@ export function KThemeSwitcher() {
       >
         <span
           className={cn(
-            enabled ? 'translate-x-0' : 'translate-x-5',
             `
               pointer-events-none relative inline-block h-5 w-5 transform
               rounded-full bg-white shadow ring-0 transition duration-200
@@ -44,17 +43,18 @@ export function KThemeSwitcher() {
 
               dark:bg-slate-700
             `,
+            enabled ? 'translate-x-0' : 'translate-x-5',
           )}
         >
           <span
             className={cn(
-              enabled
-                ? 'duration-200 ease-in'
-                : 'duration-100 ease-out',
               `
                 absolute inset-0 flex h-full w-full items-center justify-center
                 transition-opacity
               `,
+              enabled
+                ? 'duration-200 ease-in'
+                : 'duration-100 ease-out',
             )}
             aria-hidden="true"
           >
