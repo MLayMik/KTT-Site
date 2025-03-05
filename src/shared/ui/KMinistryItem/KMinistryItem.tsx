@@ -1,4 +1,5 @@
 import type { FriendlyMeeting } from '@/shared/types'
+import { formatDate, formatTime } from '@/shared/lib/utils'
 import { KEditLink } from '../KEditLink'
 
 interface MinistryMeetingProps {
@@ -46,12 +47,7 @@ export function KMinistryItem({
             Дата
           </p>
           <p>
-            {
-              date.toLocaleString(
-                'ru',
-                { day: 'numeric', month: 'numeric', year: 'numeric' },
-              )
-            }
+            {formatDate(date, { numericMonth: true, showYear: true })}
           </p>
         </div>
 
@@ -65,7 +61,7 @@ export function KMinistryItem({
             Время
           </p>
           <p>
-            {`${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}`}
+            {formatTime(date)}
           </p>
         </div>
 

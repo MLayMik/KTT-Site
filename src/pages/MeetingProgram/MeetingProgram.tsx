@@ -1,4 +1,5 @@
 import { useMeetings } from '@/shared/api/meetings/query'
+import { formatDate, formatTime } from '@/shared/lib/utils'
 import { KEditLink } from '@/shared/ui/KEditLink'
 import { KLoader } from '@/shared/ui/KLoader'
 import { Separator } from '@radix-ui/themes'
@@ -83,14 +84,9 @@ export function MeetingProgram() {
           </button>
 
           <p className="text-center">
-            {currentProgram.date.toLocaleString('ru', { day: 'numeric', month: 'long' })}
-            {' '}
-            в
-            {' '}
-            {`${currentProgram.date.getHours()}:${currentProgram.date
-              .getMinutes()
-              .toString()
-              .padStart(2, '0')}`}
+            {formatDate(currentProgram.date)}
+            {' в '}
+            {formatTime(currentProgram.date)}
             {' '}
             {(currentProgram.status?.id === 1 || currentProgram.status?.id === 3) && (
               <a
