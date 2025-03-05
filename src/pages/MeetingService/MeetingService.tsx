@@ -80,7 +80,7 @@ export function MeetingService() {
             `}
             />
           </button>
-          <KEditLink idProgram={currentService.id} />
+          <KEditLink typeLink="service" idProgram={currentService.id} />
         </div>
       </div>
 
