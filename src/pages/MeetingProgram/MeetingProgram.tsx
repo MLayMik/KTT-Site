@@ -1,3 +1,4 @@
+import { MeetingStatuses } from '@/features/meeting/config'
 import { useMeetings } from '@/shared/api/meetings/query'
 import { formatDate, formatTime } from '@/shared/lib/utils'
 import { KEditLink } from '@/shared/ui/KEditLink'
@@ -119,13 +120,13 @@ export function MeetingProgram() {
         </div>
       </div>
 
-      {currentProgram.status?.id === 1 && <RegularMeeting currentProgram={currentProgram} />}
+      {currentProgram.status?.title === MeetingStatuses.MEETING && <RegularMeeting currentProgram={currentProgram} />}
 
-      {currentProgram.status?.id === 2 && <Memorial currentProgram={currentProgram} />}
+      {currentProgram.status?.title === MeetingStatuses.MEMORIAL && <Memorial currentProgram={currentProgram} />}
 
-      {currentProgram.status?.id === 3 && <SpecialProgram currentProgram={currentProgram} />}
+      {currentProgram.status?.title === MeetingStatuses.SPECIAL_PROGRAM && <SpecialProgram currentProgram={currentProgram} />}
 
-      {currentProgram.status?.id === 4 && <Congress currentProgram={currentProgram} />}
+      {currentProgram.status?.title === MeetingStatuses.CONGRESS && <Congress currentProgram={currentProgram} />}
 
       {currentProgram.ministryMeeting && (
         <div
