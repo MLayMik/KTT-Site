@@ -1,9 +1,12 @@
-interface optionsProps {
-  showYear?: boolean
-  numericMonth?: boolean
+interface Params {
+  date: Date
+  options?: {
+    showYear?: boolean
+    numericMonth?: boolean
+  }
 }
 
-export function formatDate(date: Date, options?: optionsProps) {
+export function formatDate({ date, options }: Params): string {
   return date.toLocaleString(
     'ru',
     {
