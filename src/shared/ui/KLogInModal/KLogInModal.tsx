@@ -28,6 +28,7 @@ export function KLogInModal() {
     <Dialog.Portal>
       <Dialog.Overlay className="fixed inset-0 bg-black/50" />
       <Dialog.Content
+        aria-describedby={undefined}
         onCloseAutoFocus={(event) => {
           // Возвращаем фокус на DropdownMenu.Trigger для доступности
           dropdownTriggerRef.current?.focus()
@@ -69,9 +70,7 @@ export function KLogInModal() {
 
         <Flex className="mt-3 justify-end gap-3">
           <Dialog.Close>
-            <Button
-              variant="soft"
-              color="gray"
+            <div
               className={`
                 rounded-md bg-slate-200 px-4 py-2 text-slate-900
                 transition-colors duration-200 ease-in-out
@@ -82,7 +81,7 @@ export function KLogInModal() {
               `}
             >
               Отменить
-            </Button>
+            </div>
           </Dialog.Close>
           <Button
             onClick={handleLogIn}
