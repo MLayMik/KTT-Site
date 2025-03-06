@@ -1,5 +1,5 @@
 import { keys, useCreateAddress } from '@/shared/api/address'
-import { Button, Dialog, Flex, Text, TextField } from '@radix-ui/themes'
+import { Button, Dialog, TextField } from '@radix-ui/themes'
 import { useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 
@@ -21,14 +21,15 @@ export function AddressCreate() {
   }
 
   return (
-    <Dialog.Content maxWidth="450px" aria-describedby="">
+    <Dialog.Content className="max-w-[450px]" aria-describedby="">
       <Dialog.Title>Добавить адресс</Dialog.Title>
 
-      <Flex direction="column" gap="3">
+      <div className="flex flex-col gap-3">
         <label>
-          <Text as="div" size="2" mb="1" weight="bold">
+          <div className="mb-1 text-sm font-bold">
             Место или город
-          </Text>
+          </div>
+
           <TextField.Root
             value={newAddress}
             onChange={e => setNewAddress(e.target.value)}
@@ -36,18 +37,18 @@ export function AddressCreate() {
           />
         </label>
         <label>
-          <Text as="div" size="2" mb="1" weight="bold">
+          <div className="mb-1 text-sm font-bold">
             Ссылка
-          </Text>
+          </div>
           <TextField.Root
             value={newAddressUrl}
             onChange={e => setNewAddressUrl(e.target.value)}
             placeholder="Вставь ссылку с карты"
           />
         </label>
-      </Flex>
+      </div>
 
-      <Flex gap="3" mt="4" justify="end">
+      <div className="mt-4 flex justify-end gap-3">
         <Dialog.Close>
           <Button variant="soft" color="gray">
             Отменить
@@ -58,7 +59,7 @@ export function AddressCreate() {
             Создать
           </Button>
         </Dialog.Close>
-      </Flex>
+      </div>
     </Dialog.Content>
   )
 }
