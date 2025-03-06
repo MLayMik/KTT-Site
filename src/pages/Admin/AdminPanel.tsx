@@ -69,7 +69,7 @@ export function AdminPanel() {
             </button>
             <p className={meeting.status!.title !== 'Собрание' ? 'font-bold' : undefined}>{meeting.status!.title}</p>
             <p className="text-xs">
-              {formatDate(meeting.date, { showYear: true })}
+              {formatDate({ date: meeting.date, options: { showYear: true } })}
             </p>
           </button>
         ))}
@@ -124,7 +124,7 @@ export function AdminPanel() {
               <X className="size-3" />
             </div>
             <p>
-              {formatDate(meeting.date, { showYear: true })}
+              {formatDate({ date: meeting.date, options: { showYear: true } })}
             </p>
             <p className="text-xs">
               {meeting.leader}

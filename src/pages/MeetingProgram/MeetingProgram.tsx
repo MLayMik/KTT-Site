@@ -84,7 +84,7 @@ export function MeetingProgram() {
           </button>
 
           <p className="text-center">
-            {formatDate(currentProgram.date)}
+            {formatDate({ date: currentProgram.date })}
             {' в '}
             {formatTime(currentProgram.date)}
             {' '}

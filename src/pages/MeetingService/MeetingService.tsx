@@ -64,7 +64,7 @@ export function MeetingService() {
             />
           </button>
           <p className="px-4">
-            {formatDate(currentService.date, { numericMonth: true, showYear: true })}
+            {formatDate({ date: currentService.date, options: { numericMonth: true, showYear: true } })}
           </p>
           <button
             disabled={index === data!.length - 1}
