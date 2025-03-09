@@ -16,7 +16,7 @@ import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { meetingStatuses } from '../config'
-import { meetingSchema, type MeetingSchemaValues } from './lib'
+import { meetingSchema, type MeetingSchemaValues } from '../lib'
 
 export function MeetingCreate() {
   const { data: addresses } = useAddresses()
