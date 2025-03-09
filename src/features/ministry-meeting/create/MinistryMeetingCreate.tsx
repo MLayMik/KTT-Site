@@ -15,7 +15,7 @@ import {
   type MinistryMeetingValues,
   ministryMeetingWithFriendlyMeetingSchema,
   type MinistryMeetingWithFriendlyMeetingValues,
-} from './lib'
+} from '../lib'
 
 export function MinistryMeetingCreate() {
   const { data: response, mutate: createMeeting } = useCreateMinistryMeeting()
