@@ -1,13 +1,17 @@
 import { keys, useCreateAddress } from '@/shared/api/address'
+import { KInput } from '@/shared/ui/KInput'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Dialog, TextField } from '@radix-ui/themes'
 import { useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
+import { addressSchema, type AddressSchemaValues } from '../lib'
 
 export function AddressCreate() {
   const [newAddress, setNewAddress] = useState('')
   const [newAddressUrl, setNewAddressUrl] = useState('')
 
-  const { mutate } = useCreateAddress()
+  const { mutate: createAddress } = useCreateAddress()
   const queryClient = useQueryClient()
 
   const handleCreateAddress = () => {
@@ -20,46 +24,78 @@ export function AddressCreate() {
     } })
   }
 
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<AddressSchemaValues>({
+    defaultValues: {
+      address: '',
+      address_url: '',
+    },
+    resolver: zodResolver(addressSchema),
+  })
+
+  const onSubmit = (values: AddressSchemaValues) => {
+    const {
+      address,
+      address_url,
+    } = values
+
+    createAddress(
+      {
+        onSuccess({data}) {
+          
+        }
+      }
+    )
+  }
+
   return (
-    <Dialog.Content className="max-w-[450px]" aria-describedby="">
-      <Dialog.Title>Добавить адресс</Dialog.Title>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Dialog.Content className="max-w-[450px]" aria-describedby="">
+        <Dialog.Title>Добавить адресс</Dialog.Title>
 
-      <div className="flex flex-col gap-3">
-        <label>
-          <div className="mb-1 text-sm font-bold">
-            Место или город
-          </div>
-
-          <TextField.Root
-            value={newAddress}
-            onChange={e => setNewAddress(e.target.value)}
-            placeholder="Название места, города"
+        <div className="flex flex-col gap-3">
+          <Controller
+            name="address"
+            control={control}
+            render={({ field }) => (
+              <KInput
+                {...field}
+                label="Место или город"
+                placeholder="Название места, города"
+                error={errors.address?.message}
+              />
+            )}
           />
-        </label>
-        <label>
-          <div className="mb-1 text-sm font-bold">
-            Ссылка
-          </div>
-          <TextField.Root
-            value={newAddressUrl}
-            onChange={e => setNewAddressUrl(e.target.value)}
-            placeholder="Вставь ссылку с карты"
+          <Controller
+            name="address_url"
+            control={control}
+            render={({ field }) => (
+              <KInput
+                {...field}
+                label="Ссылка"
+                placeholder="Вставь ссылку с карты"
+                error={errors.address_url?.message}
+              />
+            )}
           />
-        </label>
-      </div>
+        </div>
 
-      <div className="mt-4 flex justify-end gap-3">
-        <Dialog.Close>
-          <Button variant="soft" color="gray">
-            Отменить
-          </Button>
-        </Dialog.Close>
-        <Dialog.Close>
-          <Button onClick={handleCreateAddress}>
-            Создать
-          </Button>
-        </Dialog.Close>
-      </div>
-    </Dialog.Content>
+        <div className="mt-4 flex justify-end gap-3">
+          <Dialog.Close>
+            <Button variant="soft" color="gray">
+              Отменить
+            </Button>
+          </Dialog.Close>
+          <Dialog.Close>
+            <Button onClick={handleCreateAddress}>
+              Создать
+            </Button>
+          </Dialog.Close>
+        </div>
+      </Dialog.Content>
+    </form>
   )
 }
