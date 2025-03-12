@@ -1,33 +1,22 @@
-import { keys, useCreateAddress } from '@/shared/api/address'
+import { useCreateAddress } from '@/shared/api/address'
 import { KInput } from '@/shared/ui/KInput'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Dialog, TextField } from '@radix-ui/themes'
-import { useQueryClient } from '@tanstack/react-query'
+import { Button, Dialog } from '@radix-ui/themes'
+import { Plus } from 'lucide-react'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { addressSchema, type AddressSchemaValues } from '../lib'
 
 export function AddressCreate() {
-  const [newAddress, setNewAddress] = useState('')
-  const [newAddressUrl, setNewAddressUrl] = useState('')
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const { mutate: createAddress } = useCreateAddress()
-  const queryClient = useQueryClient()
-
-  const handleCreateAddress = () => {
-    mutate({
-      address: newAddress,
-      address_url: newAddressUrl,
-
-    }, { onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: keys.getAddresses() })
-    } })
-  }
 
   const {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<AddressSchemaValues>({
     defaultValues: {
       address: '',
@@ -37,25 +26,33 @@ export function AddressCreate() {
   })
 
   const onSubmit = (values: AddressSchemaValues) => {
-    const {
-      address,
-      address_url,
-    } = values
-
     createAddress(
       {
-        onSuccess({data}) {
-          
-        }
-      }
+        ...values,
+      },
+      {
+        onSuccess: () => {
+          setIsModalOpen(false)
+          reset()
+        },
+      },
     )
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <Dialog.Root open={isModalOpen} onOpenChange={setIsModalOpen}>
+      <Dialog.Trigger>
+        <button className={`
+          flex size-full items-center justify-center rounded-md border py-4
+
+          dark:border-gray-600
+        `}
+        >
+          <Plus />
+        </button>
+      </Dialog.Trigger>
       <Dialog.Content className="max-w-[450px]" aria-describedby="">
         <Dialog.Title>Добавить адресс</Dialog.Title>
-
         <div className="flex flex-col gap-3">
           <Controller
             name="address"
@@ -82,20 +79,17 @@ export function AddressCreate() {
             )}
           />
         </div>
-
         <div className="mt-4 flex justify-end gap-3">
           <Dialog.Close>
             <Button variant="soft" color="gray">
               Отменить
             </Button>
           </Dialog.Close>
-          <Dialog.Close>
-            <Button onClick={handleCreateAddress}>
-              Создать
-            </Button>
-          </Dialog.Close>
+          <Button onClick={handleSubmit(onSubmit)}>
+            Создать
+          </Button>
         </div>
       </Dialog.Content>
-    </form>
+    </Dialog.Root>
   )
 }

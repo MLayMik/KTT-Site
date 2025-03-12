@@ -10,8 +10,8 @@ import { KDataPicker } from '@/shared/ui/KDataPicker'
 import { KInput } from '@/shared/ui/KInput'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { getLocalTimeZone, toCalendarDate, today } from '@internationalized/date'
-import { Checkbox, Dialog, Flex, RadioCards, Separator } from '@radix-ui/themes'
-import { Plus, X } from 'lucide-react'
+import { Checkbox, Flex, RadioCards, Separator } from '@radix-ui/themes'
+import { X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
@@ -268,20 +268,7 @@ export function MeetingCreate() {
                   </button>
                 ))}
                 {errors.address_id && <p className="text-red-600">{errors.address_id.message}</p>}
-                <Dialog.Root>
-                  <Dialog.Trigger>
-                    <button className={`
-                      flex size-full items-center justify-center rounded-md
-                      border py-4
-
-                      dark:border-gray-600
-                    `}
-                    >
-                      <Plus />
-                    </button>
-                  </Dialog.Trigger>
-                  <AddressCreate />
-                </Dialog.Root>
+                <AddressCreate />
               </RadioCards.Root>
             </div>
           )}
