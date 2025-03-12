@@ -1,4 +1,6 @@
-import { useMeetings } from '@/shared/api/meeting'
+import { MeetingStatuses } from '@/features/meeting/config'
+import { useMeetings } from '@/shared/api/meeting/query'
+import { formatDate, formatTime } from '@/shared/lib/utils'
 import { KEditLink } from '@/shared/ui/KEditLink'
 import { KLoader } from '@/shared/ui/KLoader'
 import { Separator } from '@radix-ui/themes'
@@ -88,16 +90,9 @@ export function MeetingProgram() {
           </button>
 
           <p className="text-center">
-            {currentProgram
-              .date
-              .toLocaleString('ru', { day: 'numeric', month: 'long' })}
-            {' '}
-            в
-            {' '}
-            {`${currentProgram.date.getHours()}:${currentProgram.date
-              .getMinutes()
-              .toString()
-              .padStart(2, '0')}`}
+            {formatDate({ date: currentProgram.date })}
+            {' в '}
+            {formatTime(currentProgram.date)}
             {' '}
             {(currentProgram.status?.id === 1
               || currentProgram.status?.id === 3) && (
@@ -131,17 +126,13 @@ export function MeetingProgram() {
         </div>
       </div>
 
-      {currentProgram.status?.id === 1
-      && <RegularMeeting currentProgram={currentProgram} />}
+      {currentProgram.status?.title === MeetingStatuses.MEETING && <RegularMeeting currentProgram={currentProgram} />}
 
-      {currentProgram.status?.id === 2
-      && <Memorial currentProgram={currentProgram} />}
+      {currentProgram.status?.title === MeetingStatuses.MEMORIAL && <Memorial currentProgram={currentProgram} />}
 
-      {currentProgram.status?.id === 3
-      && <SpecialProgram currentProgram={currentProgram} />}
+      {currentProgram.status?.title === MeetingStatuses.SPECIAL_PROGRAM && <SpecialProgram currentProgram={currentProgram} />}
 
-      {currentProgram.status?.id === 4
-      && <Congress currentProgram={currentProgram} />}
+      {currentProgram.status?.title === MeetingStatuses.CONGRESS && <Congress currentProgram={currentProgram} />}
 
       {currentProgram.ministryMeeting && (
         <div

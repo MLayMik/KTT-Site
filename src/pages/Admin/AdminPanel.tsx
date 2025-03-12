@@ -11,6 +11,7 @@ import {
 } from '@/shared/api/ministry-meeting'
 import { useDeleteService } from '@/shared/api/service'
 import { cn } from '@/shared/lib/styles'
+import { formatDate } from '@/shared/lib/utils'
 import { KLoader } from '@/shared/ui/KLoader'
 import { Dialog, RadioCards, Separator } from '@radix-ui/themes'
 import { Plus, X } from 'lucide-react'
@@ -85,12 +86,7 @@ export function AdminPanel() {
               {meeting.status!.title}
             </p>
             <p className="text-xs">
-              {meeting
-                .date
-                .toLocaleString(
-                  'ru',
-                  { day: 'numeric', month: 'long', year: 'numeric' },
-                )}
+              {formatDate({ date: meeting.date, options: { showYear: true } })}
             </p>
           </button>
         ))}
@@ -145,12 +141,7 @@ export function AdminPanel() {
               <X className="size-3" />
             </div>
             <p>
-              {meeting
-                .date
-                .toLocaleString(
-                  'ru',
-                  { day: 'numeric', month: 'long', year: 'numeric' },
-                )}
+              {formatDate({ date: meeting.date, options: { showYear: true } })}
             </p>
             <p className="text-xs">
               {meeting.leader}

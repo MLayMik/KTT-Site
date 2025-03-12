@@ -67,7 +67,7 @@ export function KDropdown() {
                   `}
                   />
                   <DropdownMenu.Item className="focus:outline-none">
-                    <button
+                    <div
                       onClick={(e) => {
                         e.preventDefault()
                         handleLogOff()
@@ -85,7 +85,7 @@ export function KDropdown() {
                       `}
                     >
                       Выйти
-                    </button>
+                    </div>
                   </DropdownMenu.Item>
                 </Dialog.Trigger>
               )

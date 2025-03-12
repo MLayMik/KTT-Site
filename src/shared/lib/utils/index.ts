@@ -1,6 +1,8 @@
 import type { CalendarDate } from '@internationalized/date'
 
 export type AnyObject = Record<string, unknown>
+export { formatDate } from './formatDate'
+export { formatTime } from './formatTime'
 export { useCurrentTheme } from './useCurrentTheme'
 
 export function parseDateSQL(time: string, date: CalendarDate) {

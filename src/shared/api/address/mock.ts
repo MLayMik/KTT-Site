@@ -13,7 +13,7 @@ let curId = 0
 export function makeAddressesSchemaMock(): z.infer<typeof addressSchema> {
   return {
     id: curId++,
-    address: f.address.city(),
+    address: f.location.city(),
     address_url: f.internet.url(),
   }
 }

@@ -1,6 +1,8 @@
+import { formatTime } from '@/shared/lib/utils'
+
 interface CongressProps {
   currentProgram: {
-    date?: Date | undefined
+    date: Date | undefined
     leading?: string | undefined
     specialProgram?: string | null
     address?: {
@@ -54,14 +56,7 @@ export function Congress({ currentProgram }: CongressProps) {
           <p>
             Начало:
             {' '}
-            {currentProgram.date
-              ? `${
-                new Date(currentProgram.date).getHours()
-              }:${new Date(currentProgram.date)
-                .getMinutes()
-                .toString()
-                .padStart(2, '0')}`
-              : 'N/A'}
+            {currentProgram.date && formatTime(currentProgram.date)}
           </p>
         </div>
       </div>

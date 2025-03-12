@@ -1,3 +1,5 @@
+import { formatTime } from '@/shared/lib/utils'
+
 interface MemorialProps {
   currentProgram: {
     date?: Date | undefined
@@ -52,14 +54,7 @@ export function Memorial({ currentProgram }: MemorialProps) {
           <p>
             Начало:
             {' '}
-            {currentProgram.date
-              ? `${
-                new Date(currentProgram.date).getHours()
-              }:${new Date(currentProgram.date)
-                .getMinutes()
-                .toString()
-                .padStart(2, '0')}`
-              : 'N/A'}
+            {currentProgram.date && formatTime(currentProgram.date)}
           </p>
         </div>
       </div>

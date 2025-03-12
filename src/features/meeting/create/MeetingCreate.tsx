@@ -15,7 +15,7 @@ import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { meetingStatuses } from '../config'
-import { defaultValues, meetingSchema, type MeetingSchemaValues } from './lib'
+import { defaultValues, meetingSchema, type MeetingSchemaValues } from '../lib'
 
 export function MeetingCreate() {
   const { data: addresses } = useAddresses()
@@ -119,26 +119,12 @@ export function MeetingCreate() {
           name="time"
           control={control}
           render={({ field }) => (
-            <div className="flex flex-col">
-              <label htmlFor="timeInput">Время:</label>
-              <input
-                {...field}
-                id="timeInput"
-                type="time"
-                className={`
-                  mt-1 rounded-lg border border-gray-300 p-2 text-sm font-medium
-                  shadow-sm transition-all duration-200 ease-in-out
-
-                  dark:border-gray-600 dark:bg-dark-bg dark:text-gray-200
-                  dark:focus:ring-blue-500
-
-                  focus:border-blue-500 focus:outline-none focus:ring-2
-                  focus:ring-blue-200
-                `}
-              />
-              {errors.time
-              && <p className="text-red-600">{errors.time.message}</p>}
-            </div>
+            <KInput
+              label="Время:"
+              {...field}
+              type="time"
+              error={errors.time?.message}
+            />
           )}
         />
       </div>
@@ -241,22 +227,8 @@ export function MeetingCreate() {
                     </a>
                   </button>
                 ))}
-                {errors.address_id
-                && <p className="text-red-600">{errors.address_id.message}</p>}
-                <Dialog.Root>
-                  <Dialog.Trigger>
-                    <button className={`
-                      flex size-full items-center justify-center rounded-md
-                      border py-4
-
-                      dark:border-gray-600
-                    `}
-                    >
-                      <Plus />
-                    </button>
-                  </Dialog.Trigger>
-                  <AddressCreate />
-                </Dialog.Root>
+                {errors.address_id && <p className="text-red-600">{errors.address_id.message}</p>}
+                <AddressCreate />
               </RadioCards.Root>
             </div>
           )}

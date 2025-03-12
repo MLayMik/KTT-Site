@@ -1,6 +1,7 @@
 import { useMeetings } from '@/shared/api/meeting'
 import { cn } from '@/shared/lib/styles'
 import { FilePenLine } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 interface TypeLinkProps {
@@ -11,21 +12,25 @@ interface TypeLinkProps {
 export function KEditLink({ typeLink = 'meeting', idProgram }: TypeLinkProps) {
   const { data: meetings } = useMeetings()
 
-  if (typeLink === 'service') {
-    meetings?.find((meet) => {
-      if (meet.service && meet.service.id === idProgram) {
-        idProgram = meet.id
-        typeLink = 'meeting'
+  const [finalTypeLink, setFinalTypeLink] = useState(typeLink)
+  const [finalIdProgram, setFinalIdProgram] = useState(idProgram)
+
+  useEffect(() => {
+    if (finalTypeLink === 'service' && meetings) {
+      const foundMeeting = meetings.find(meet => meet.service && meet.service.id === finalIdProgram)
+
+      if (foundMeeting) {
+        setFinalTypeLink('meeting')
+        setFinalIdProgram(foundMeeting.id)
       }
-      return null
-    })
-  }
+    }
+  })
 
   const isAuth = localStorage.getItem('isAuth') === 'true'
 
   return (
     <Link
-      to={`/admin/${typeLink}/${idProgram}`}
+      to={`/admin/${finalTypeLink}/${finalIdProgram}`}
       className={cn(
         isAuth ? 'block' : 'hidden',
         typeLink === 'ministry-meeting'

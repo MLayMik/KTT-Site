@@ -1,4 +1,5 @@
 import { useServices } from '@/shared/api/service'
+import { formatDate } from '@/shared/lib/utils'
 import { KEditLink } from '@/shared/ui/KEditLink'
 import { KLoader } from '@/shared/ui/KLoader'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
@@ -63,13 +64,7 @@ export function MeetingService() {
             />
           </button>
           <p className="px-4">
-            {currentService
-              ?.date
-              ?.toLocaleString('ru', {
-                day: 'numeric',
-                month: 'numeric',
-                year: 'numeric',
-              })}
+            {formatDate({ date: currentService.date, options: { numericMonth: true, showYear: true } })}
           </p>
           <button
             disabled={index === data!.length - 1}
@@ -85,7 +80,7 @@ export function MeetingService() {
             `}
             />
           </button>
-          <KEditLink idProgram={currentService.id} />
+          <KEditLink typeLink="service" idProgram={currentService.id} />
         </div>
       </div>
 
