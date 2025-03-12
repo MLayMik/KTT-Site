@@ -9,8 +9,8 @@ import { KDataPicker } from '@/shared/ui/KDataPicker'
 import { KInput } from '@/shared/ui/KInput'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toCalendarDate } from '@internationalized/date'
-import { Checkbox, Dialog, Flex, RadioCards, Separator } from '@radix-ui/themes'
-import { Plus, X } from 'lucide-react'
+import { Checkbox, Flex, RadioCards, Separator } from '@radix-ui/themes'
+import { X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
@@ -227,7 +227,11 @@ export function MeetingCreate() {
                     </a>
                   </button>
                 ))}
-                {errors.address_id && <p className="text-red-600">{errors.address_id.message}</p>}
+                {errors.address_id && (
+                  <p className="text-red-600">
+                    {errors.address_id.message}
+                  </p>
+                )}
                 <AddressCreate />
               </RadioCards.Root>
             </div>

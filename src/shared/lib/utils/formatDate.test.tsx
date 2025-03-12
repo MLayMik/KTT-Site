@@ -8,7 +8,10 @@ it('returns formatted date', () => {
 })
 
 it('returns formatted date with year', () => {
-  expect(formatDate({ date, options: { showYear: true } })).toBe('1 января 2025 г.')
+  expect(formatDate({
+    date,
+    options: { showYear: true },
+  })).toBe('1 января 2025 г.')
 })
 
 it('returns formatted date with numeric month', () => {

@@ -17,7 +17,8 @@ export function KEditLink({ typeLink = 'meeting', idProgram }: TypeLinkProps) {
 
   useEffect(() => {
     if (finalTypeLink === 'service' && meetings) {
-      const foundMeeting = meetings.find(meet => meet.service && meet.service.id === finalIdProgram)
+      const foundMeeting = meetings
+        .find(meet => meet.service && meet.service.id === finalIdProgram)
 
       if (foundMeeting) {
         setFinalTypeLink('meeting')

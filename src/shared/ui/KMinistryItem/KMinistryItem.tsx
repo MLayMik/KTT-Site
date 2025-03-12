@@ -47,7 +47,10 @@ export function KMinistryItem({
             Дата
           </p>
           <p>
-            {formatDate({ date, options: { numericMonth: true, showYear: true } })}
+            {formatDate({
+              date,
+              options: { numericMonth: true, showYear: true },
+            })}
           </p>
         </div>
 

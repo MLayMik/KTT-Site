@@ -126,13 +126,17 @@ export function MeetingProgram() {
         </div>
       </div>
 
-      {currentProgram.status?.title === MeetingStatuses.MEETING && <RegularMeeting currentProgram={currentProgram} />}
+      {currentProgram.status?.title === MeetingStatuses.MEETING
+      && <RegularMeeting currentProgram={currentProgram} />}
 
-      {currentProgram.status?.title === MeetingStatuses.MEMORIAL && <Memorial currentProgram={currentProgram} />}
+      {currentProgram.status?.title === MeetingStatuses.MEMORIAL
+      && <Memorial currentProgram={currentProgram} />}
 
-      {currentProgram.status?.title === MeetingStatuses.SPECIAL_PROGRAM && <SpecialProgram currentProgram={currentProgram} />}
+      {currentProgram.status?.title === MeetingStatuses.SPECIAL_PROGRAM
+      && <SpecialProgram currentProgram={currentProgram} />}
 
-      {currentProgram.status?.title === MeetingStatuses.CONGRESS && <Congress currentProgram={currentProgram} />}
+      {currentProgram.status?.title === MeetingStatuses.CONGRESS
+      && <Congress currentProgram={currentProgram} />}
 
       {currentProgram.ministryMeeting && (
         <div

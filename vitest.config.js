@@ -10,12 +10,12 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './src/setupTests.ts',
     define: {
-      API_URL: JSON.stringify('https://ktt-api.onrender.com'), // Замените на нужный тестовый URL
+      API_URL: JSON.stringify('https://ktt-api.onrender.com'),
     },
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'), // Убедитесь, что алиас настроен для Vitest
+      '@': path.resolve(__dirname, 'src'),
     },
   },
 })

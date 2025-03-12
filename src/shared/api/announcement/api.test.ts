@@ -1,4 +1,5 @@
-import { createQueryProviderWrapper } from '@/shared/lib/utils/createQueryProviderWrapper'
+import { createQueryProviderWrapper }
+  from '@/shared/lib/utils/createQueryProviderWrapper'
 import { renderHook, waitFor } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import { useAnnouncements, useAnnouncementsById } from './query'
@@ -38,14 +39,22 @@ describe('announcements api', () => {
       announcement_url: 'https://github.com/pnpm/pnpm/issues/5134',
     }
 
-    const { result: announcementResult } = renderHook(() => useAnnouncements(), { wrapper: createQueryProviderWrapper() })
+    const { result: announcementResult }
+    = renderHook(() =>
+      useAnnouncements(), { wrapper: createQueryProviderWrapper() })
 
     await waitFor(() => expect(announcementResult).toHaveLength(3))
 
-    const createdAnnouncement = announcementResult.current.data?.find(ann => ann.title === newAnnouncement.title)
+    const createdAnnouncement
+    = announcementResult
+      .current
+      .data
+      ?.find(ann => ann.title === newAnnouncement.title)
 
     expect(createdAnnouncement).toBeDefined()
     expect(createdAnnouncement?.title).toBe(newAnnouncement.title)
-    expect(createdAnnouncement?.announcementUrl).toBe(newAnnouncement.announcement_url)
+    expect(createdAnnouncement
+      ?.announcementUrl)
+      .toBe(newAnnouncement.announcement_url)
   })
 })
