@@ -4,15 +4,17 @@ import { Switch } from 'radix-ui'
 import { useEffect, useState } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
 
+type Theme = 'light' | 'dark'
+
 export function KThemeSwitcher() {
-  const [theme, setTheme] = useLocalStorage('theme', 'light')
+  const [theme, setTheme] = useLocalStorage<Theme>('theme', 'light')
 
   useEffect(() => {
     document.documentElement.classList.remove('light', 'dark')
     document.documentElement.classList.add(theme)
   }, [theme])
 
-  const [enabled, setEnabled] = useState(theme === 'light')
+  const [enabled, setEnabled] = useState<boolean>(theme === 'light')
 
   const handleThemeChange = (enabled: boolean) => {
     setTheme(enabled ? 'light' : 'dark')
